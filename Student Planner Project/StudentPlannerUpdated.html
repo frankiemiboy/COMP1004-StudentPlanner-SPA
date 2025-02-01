@@ -49,6 +49,25 @@
                 display: none;
             }
 
+            .taskDescription {
+                margin-bottom:5px; margin-left: 0;
+            }
+
+            .subTaskTitle {
+                margin-bottom: 10px; margin-left: 0;
+            }
+
+            .subTaskDescription {
+                margin-bottom: 10px; margin-left: 0;
+            }
+
+            .individualTaskProperties {
+                list-style-type: circle; 
+                padding-left: 0; 
+                margin-left: 0;
+            }
+
+
         </style>
     </head>
     
@@ -75,62 +94,68 @@
                     <h2>Tasks</h2>
                     <br>
                     <ul id="tasksList">
-                        <li>
+                        <li class="taskTitle">
                             Task 1
-                            <dd style="margin-bottom:5px; margin-left: 0;">Task 1 Description</dd>
-                            <ul style="list-style-type: circle; padding-left: 0; margin-left: 0;">
-                                <li>
+                            <dd class="taskDescription" >Task 1 Description</dd>
+                            <ul class="individualTaskProperties">
+                                <li class="subTaskTitle">
                                   Subtask 1
-                                  <dd style="margin-bottom: 10px; margin-left: 0;">Subtask 1 Description</dd>
+                                  <dd class="subTaskDescription">Subtask 1 Description</dd>
                                 </li>
-                                <li>
+                                <li class="subTaskTitle">
                                   Subtask 2
-                                  <dd style="margin-bottom: 10px; margin-left: 0;">Subtask 2 Description</dd>
+                                  <dd class="subTaskDescription">Subtask 2 Description</dd>
                                 </li>
-                                <li>
+                                <li class="subTaskTitle">
                                   Subtask 3
-                                  <dd style="margin-bottom: 10px; margin-left: 0;">Subtask 3 Description</dd>
+                                  <dd class="subTaskDescription">Subtask 3 Description</dd>
                                 </li>
                             </ul>
                         </li>
                         
                         <hr>
 
-                        <li>Task 2</li>
-                        <dd style="margin-bottom:5px; margin-left: 0;">Task 1 Description</dd>
-                        <ul style="list-style-type: circle; padding-left: 0; margin-left: 0;">
-                            <li>
-                              Subtask 1
-                              <dd style="margin-bottom: 10px; margin-left: 0;">Subtask 1 Description</dd>
-                            </li>
-                            <li>
-                              Subtask 2
-                              <dd style="margin-bottom: 10px; margin-left: 0;">Subtask 2 Description</dd>
-                            </li>
-                            <li>
-                              Subtask 3
-                              <dd style="margin-bottom: 10px; margin-left: 0;">Subtask 3 Description</dd>
-                            </li>
-                        </ul>
-
+                        <li class="taskTitle">
+                            Task 2
+                            <dd class="taskDescription">Task 1 Description</dd>
+                            <ul class="individualTaskProperties">
+                                <li class="subTaskTitle">
+                                    Subtask 1
+                                    <dd class="subTaskDescription">Subtask 1 Description</dd>
+                                </li>
+                                <li class="subTaskTitle">
+                                    Subtask 2
+                                    <dd class="subTaskDescription">Subtask 2 Description</dd>
+                                </li>
+                                <li class="subTaskTitle">
+                                    Subtask 3
+                                    <dd class="subTaskDescription">Subtask 3 Description</dd>
+                                </li>
+                            </ul>
+                        </li>
                         <hr>
                         
-                        <li>Task 3</li>
-                        <dd style="margin-bottom:5px; margin-left: 0;">Task 1 Description</dd>
-                        <ul style="list-style-type: circle; padding-left: 0; margin-left: 0;">
-                            <li>
-                              Subtask 1
-                              <dd style="margin-bottom: 10px; margin-left: 0;">Subtask 1 Description</dd>
-                            </li>
-                            <li>
-                              Subtask 2
-                              <dd style="margin-bottom: 10px; margin-left: 0;">Subtask 2 Description</dd>
-                            </li>
-                            <li>
-                              Subtask 3
-                              <dd style="margin-bottom: 10px; margin-left: 0;">Subtask 3 Description</dd>
-                            </li>
-                        </ul>
+                        <li class="taskTitle">
+                            Task 3
+                            <dd class="taskDescription">Task 1 Description</dd>
+                            <ul class="individualTaskProperties">
+                                <li class="subTaskTitle">
+                                    Subtask 1
+                                    <dd class="subTaskDescription">Subtask 1 Description</dd>
+                                </li>
+                                <li class="subTaskTitle">
+                                    Subtask 2
+                                    <dd class="subTaskDescription">Subtask 2 Description</dd>
+                                </li>
+                                <li class="subTaskTitle">
+                                    Subtask 3
+                                    <dd class="subTaskDescription">Subtask 3 Description</dd>
+                                </li>
+                            </ul>
+                        </li>
+                        <hr>
+
+                        <!-- <button onclick="taskManager1.createTask()">Add Task</button> -->
                     </ul>
                 </div>
 
@@ -164,29 +189,6 @@
 
         </div>
 
-        <script>
-          
-            /* 
-            Show page based on button click.
-            The function will remove the desired page from the hidden class, meaning that it is displayed
-            But the other pages that were previously displayed are added to the hidden class, therefore no longer displayed.
-            */
-            function showPage(pageId) {
-                document.querySelectorAll('.section').forEach(section => {
-                    section.classList.toggle('hidden', section.id !== pageId);
-                });
-            }
-
-          
-            /* 
-            Attach event listeners to navigation buttons
-            The clicked button is used as a parameter for the the showPage() function  
-            */
-            document.querySelectorAll('.navigationButtons').forEach(button => {
-                button.addEventListener('click', () => {
-                    showPage(button.dataset.page);
-                });
-            });
-        </script>
+        <script src="StudentPlannerScript.js"></script>
     </body>
 </html>

@@ -40,3 +40,11 @@ Methods/Functions:
 Object Creation:
 
 
+// How The Tasks will be Handled
+
+- Create two classes in the HTML file: Completed and Incomplete.
+- All tasks start in the Incomplete Class.
+- When completed or checked out, remove the task from the 'Incomplete' Class, and add it to the 'Complete' Class.
+- If the user decides to unchech a task, remove it from the 'Complete' Class and add it back to the 'Incomplete' Class.
+
+- Need to create a Task Manager for that will handle the mechanics of these tasks

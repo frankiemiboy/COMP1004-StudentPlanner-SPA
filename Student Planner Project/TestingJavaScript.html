@@ -6,21 +6,53 @@
 
         <p id="demo">
             Click the button to create the task.
-            <button onclick="displayTask()">Display Task</button>
+            <button onclick="taskManager1.createTask(`Race the hot wheels cars... Title`, `Lightning McQueen must win at all costs, no matter what, followed by matter... Description`);">Create Task</button>
         </p>
 
         <script>
+            const iDentification = document.getElementById("demo");
+
             class Task {
                 constructor(title, description, date) {
                     this.taskTitle = title;
                     this.taskDescription = description;
-                    this.taskDueDate = date;
-                    
+                    // this.taskDueDate = date;
                 }
                 
             }
-            let i = 1;
+            
+            class taskManager {
+                constructor() {
+                    this.taskMap = {}; // Object to store tasks as key-value pairs
+                    this.taskID = 0; // ID to assign to tasks
+                }
 
+                createTask(title, description) {
+                    this.taskID++;
+                    const taskID = `Task${this.taskID}`; // Dynamically create task ID that will change every time a new task is created
+                    this.taskMap[this.taskID] = new Task(title, description);
+                    console.log(`Task created with ID: ${taskID}`);
+
+                    let li = document.createElement("li");
+                    li.innerHTML = `${title}\n` + `${description}`;
+                    iDentification.appendChild(li);
+                }
+
+                listTasks() {
+                    for (const [key, task] of Object.entries(this.taskMap)) {
+                        console.log(`Task ID: ${key}\n` + `Task Title: ${task.taskTitle}\n` + `Task Description: ${task.taskDescription}`);
+                    }
+                }
+
+            }
+
+            const taskManager1 = new taskManager();
+            taskManager1.createTask("Race the hot wheels cars... Title", "Lightning McQueen must win at all costs, no matter what, followed by matter... Description");
+            taskManager1.listTasks();
+            taskManager1.taskMap[1] = `Hadouken`, `nemusis`;
+            
+
+            /*
             function formTask(){
                 Task1 = new Task(`Task ${i}`, `Task ${i} Description`, `Task ${i} Due Date`);
             }
@@ -36,7 +68,7 @@
                     this.subTaskDescription = description;
                 }
             }
-
+            */
             </script>
     </body>
 </html>
