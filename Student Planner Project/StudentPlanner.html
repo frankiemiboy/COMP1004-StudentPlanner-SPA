@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Student Planner</title>
+        <link rel="icon" type="image/png" href="Images/StudentFavicon_Original.png">
+
+        <style>
+
+
+            * {
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                margin-left: 0.5%; margin-right: 0.5%;
+            }
+
+            #page-container {
+                position: relative;
+                min-height: 100vh;
+            }
+
+            #content-wrap {
+                padding-bottom: 3.5rem;    /* Footer height */
+            }
+
+            #footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                height: 1.5rem;            /* Footer height */
+                padding-bottom: 2%;
+                margin-top: 5%;
+            }
+
+            .navigationButtons {
+                background-color: white; 
+                border: none; 
+                border-radius: 4px; 
+                padding: 5px; 
+                text-align: center; 
+                cursor: pointer;
+
+                font-size: 1.1em;
+            }
+
+            #tasksList {
+                margin-left: 5%; margin-right: 5%; 
+                border: 2px solid; border-radius: 8px; 
+                padding-right: 10px ; padding-top: 10px; padding-bottom: 10px;
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            }
+
+        </style>
+    </head>
+    
+    <body>
+        <div id="page-container"> <!--This is the container for the whole page-->
+        
+            <div>
+                <header>
+                    <h1>Student Planner - Your Dashboard</h1>
+
+                    <!--
+                    <a href="">Dashboard</a>
+                    <a href="">Tasks</a>
+                    <a href="">Assignments</a>
+                    <a href="">Modules</a>
+                    -->
+
+                    <!--Buttons for navigation-->
+                    <button onclick="goToDashboardPage()" class = "navigationButtons">Dashboard</button>
+                    <button onclick="goToTasksPage()" class = "navigationButtons">Tasks</button> 
+                    <button onclick="goToAssignmentsPage()" class = "navigationButtons" >Assignments</button>
+                    <button onclick="goToModulesPage()" class = "navigationButtons" >Modules</button>
+
+                    <hr>
+                </header>
+                
+                <br>
+
+                <!--The dashboard will be displayed on this page-->
+                <div id="dashboardPage">
+                    <h2>Dashboard</h2>
+                    <br>
+                    
+
+                </div>
+
+
+                <div id="tasksPage">
+                    <h2>Tasks</h2>
+                    <br>
+
+                    <!--Mixing both description and unordered lists-->
+                
+                    <ul id="tasksList" >
+                        <li>
+                            Task 1
+                            <dd style="margin-bottom:5px; margin-left: 0;">Task 1 Description</dd>
+                            <ul style="list-style-type: circle; padding-left: 0; margin-left: 0;">
+                                <li>
+                                    Subtask 1
+                                    <dd style="margin-bottom:10px; margin-left: 0;">Subtask 1 Description</dd>
+                                </li>
+                                <li>
+                                    Subtask 2
+                                    <dd style="margin-bottom:10px; margin-left: 0;">Subtask 2 Description</dd>
+                                </li>
+                                <li>
+                                    Subtask 3
+                                    <dd style="margin-bottom:10px; margin-left: 0;">Subtask 3 Description</dd>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <hr>
+
+                        <li>Task 2</li>
+
+                        <hr>
+
+                        <li>Task 3</li>
+
+                    </ul>
+
+                </div>
+
+
+                <!--This section handles the Assignments HERE: -->
+                <div id="assignmentsPage">
+                    <h2>Assignments</h2>
+                    <br>
+
+                </div>
+
+
+                <!--The section that handles the modules HERE: -->
+                <div id = "modulesPage">
+                    <h2>Modules</h2>
+                    <br>
+
+                    <p style="border: 5px solid; display: inline-block; max-width: 400px; padding: 50px; margin: 3%;" >
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                    Quia officiis nobis voluptates ipsum! Qui accusantium eos eius eum dolorum dolor nemo laborum? 
+                    Optio unde consequuntur nam alias magnam voluptatum facilis?
+                    </p>
+
+                    <p style="border: 5px solid; display: inline-block; max-width: 400px; padding: 50px; margin: 3%" >
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                        Quia officiis nobis voluptates ipsum! Qui accusantium eos eius eum dolorum dolor nemo laborum? 
+                        Optio unde consequuntur nam alias magnam voluptatum facilis?
+                    </p>
+
+                </div>
+
+                
+                <footer id="footer">
+                    <hr>
+                    If you would like to give some feedback, please use the email below:
+                    <br>
+                    <a href="mailto: example@plymouth.ac.uk">Creator Email</a>
+                </footer>
+                
+
+            </div>
+
+            
+
+        </div>
+
+        <script>
+            // JavaScript code goes here
+            var isDashboardPage = true;
+            var isTasksPage = false;
+            var isAssignmentsPage = false;
+            var isModulesPage = false;
+            
+
+            function goToDashboardPage() {
+                if(!isDashboardPage) {
+                    document.getElementById("modulesPage").style.display = "none";
+                    document.getElementById("tasksPage").style.display = "none";
+                    document.getElementById("assignmentsPage").style.display = "none";
+                    document.getElementById("dashboardPage").style.display = "";
+                    isDashboardPage = true;
+                    isTasksPage = false;
+                    isAssignmentsPage = false;
+                    isModulesPage = false;
+                    
+                }
+            }
+
+            function goToTasksPage() {
+                if(!isTasksPage) {
+                    document.getElementById("dashboardPage").style.display = "none";
+                    document.getElementById("assignmentsPage").style.display = "none";
+                    document.getElementById("modulesPage").style.display = "none";
+                    document.getElementById("tasksPage").style.display = "";
+                    isTasksPage = true;
+                    isDashboardPage = false;
+                    isAssignmentsPage = false;
+                    isModulesPage = false;
+                }
+            }
+
+            function goToAssignmentsPage() {
+                if(!isAssignmentsPage) {
+                    document.getElementById("dashboardPage").style.display = "none";
+                    document.getElementById("tasksPage").style.display = "none";
+                    document.getElementById("modulesPage").style.display = "none";
+                    document.getElementById("assignmentsPage").style.display = "";
+                    isAssignmentsPage = true;
+                    isTasksPage = false;
+                    isDashboardPage = false;
+                    isModulesPage = false;
+                }
+            }
+
+
+            function goToModulesPage() {
+                if(!isModulesPage) {
+                    document.getElementById("dashboardPage").style.display = "none";
+                    document.getElementById("tasksPage").style.display = "none";
+                    document.getElementById("assignmentsPage").style.display = "none";
+                    document.getElementById("modulesPage").style.display = "";
+                    isModulesPage = true;
+                    isDashboardPage = false;
+                    isTasksPage = false;
+                    isAssignmentsPage = false;
+                    
+                }
+            }
+
+            
+            
+        </script>
+    </body>
+</html>

@@ -1,0 +1,42 @@
+// Task Class
+Class Name = Tasks
+
+Attributes:
+1) Title (text)
+2) Description (text)
+3) Subtask (object - with text attributes)
+4) Due date (date)
+
+Methods/Functions:
+1) createTask()
+2) editTask()
+3) deleteTask()
+4) editDueDate()
+
+------------------------------------------------
+
+// Subtask Class
+Class Name = subTasks
+
+Attributes:
+1) Title
+2) Description
+
+Methods/Functions:
+1) createSubTask()
+2) editSubTask()
+3) editDueDate()
+4) deleteTask()
+
+------------------------------------------------
+
+// How Input of Task Details will work
+- Clicking the add button will create an overlay, that will allow you to input some details for your task
+- Input boxes pop up in the assigned places on the overlay, a submit button or add button will call the createTask() function
+- There will be a button at the bottom that will include the option to add a subtask
+- More input boxes will pop under the main task section, with a smaller font, that will allow you to enter the details of the subtask.
+
+
+Object Creation:
+
+

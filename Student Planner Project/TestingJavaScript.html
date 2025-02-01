@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>JavaScript Class Learning</h1>
+        <br>
+
+        <p id="demo">
+            Click the button to create the task.
+            <button onclick="displayTask()">Display Task</button>
+        </p>
+
+        <script>
+            class Task {
+                constructor(title, description, date) {
+                    this.taskTitle = title;
+                    this.taskDescription = description;
+                    this.taskDueDate = date;
+                    
+                }
+                
+            }
+            let i = 1;
+
+            function formTask(){
+                Task1 = new Task(`Task ${i}`, `Task ${i} Description`, `Task ${i} Due Date`);
+            }
+
+            function displayTask(){
+                formTask();
+                document.getElementById("demo").innerHTML = Task1.taskTitle + "<br>" + Task1.taskDescription + "<br>" + Task1.taskDueDate;
+            }
+
+            class subTask {
+                constructor(title, description) {
+                    this.subTaskTitle = title;
+                    this.subTaskDescription = description;
+                }
+            }
+
+            </script>
+    </body>
+</html>

@@ -1,0 +1,33 @@
+//Pseudocode for Navigation Bar
+
+var current_page;
+
+// Will need to create some logic to determine which page the user is currently on
+// Assume that we are on the home (Dashboard) page
+
+current_page = "Home";
+
+// Let's assume that the navigation is some buttons arranged in a rectangle grid such: HOME... TASKS... MODULES
+
+<button onclick="navigationFucntion(current_page, HOME)"> HOME </button>	// This will be done when user wants to visit HOME page
+<button onclick="navigationFucntion(current_page, TASKS)"> TASKS </button>	// This will be done when user wants to visit the TASKS page
+<button onclick="navigationFucntion(current_page, MODULES)"> MODULES </button>	// This will be done when user wants to visit the MODULES page
+
+
+
+<script>
+function navigationFunction(string current_page, string target_page) {
+	// First hide all the other pages (that is, div's)
+	- change display property of the HOME page [for class = Home {display: none}]
+	- change display property of the TASKS page [for class = Tasks {display: none}]
+	- change display property of the MODULES page [for class = Modules {display: none}]
+
+	// Unhide the desired page
+	- change the display property of the HOME page [for class = Home {display: }]
+}
+</script>
+
+
+
+//***************THOUGHTS:**************//
+- Perhaps I will need to change the HTML in the style tags
