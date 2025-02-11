@@ -3,72 +3,7 @@
     <head>
         <title>Student Planner</title>
         <link rel="icon" type="image/png" href="Images/StudentFavicon_Original.png">
-
-        <style>
-            * {
-                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-                margin-left: 0.5%; margin-right: 0.5%;
-            }
-
-            #page-container {
-                position: relative;
-                min-height: 100vh;
-            }
-
-            #content-wrap {
-                padding-bottom: 3.5rem;    /* Footer height */
-            }
-
-            #footer {
-                position: relative;
-                bottom: 0;
-                width: 100%;
-                height: 1.5rem;            /* Footer height */
-                padding: 10px;
-                /*margin-top: 5%;-*/
-            }
-
-            .navigationButtons {
-                background-color: white; 
-                border: none; 
-                border-radius: 4px; 
-                padding: 5px; 
-                text-align: center; 
-                cursor: pointer;
-                font-size: 1.1em;
-            }
-
-            #tasksList {
-                margin-left: 5%; margin-right: 5%; margin-bottom: 10%;
-                border: 2px solid; border-radius: 8px; 
-                padding-right: 10px ; padding-top: 10px; padding-bottom: 10px;
-                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            }
-
-            .hidden {
-                display: none;
-            }
-
-            .taskDescription {
-                margin-bottom:5px; margin-left: 0;
-            }
-
-            .subTaskTitle {
-                margin-bottom: 10px; margin-left: 0;
-            }
-
-            .subTaskDescription {
-                margin-bottom: 10px; margin-left: 0;
-            }
-
-            .individualTaskProperties {
-                list-style-type: circle; 
-                padding-left: 0; 
-                margin-left: 0;
-            }
-
-
-        </style>
+        <link rel="stylesheet" href="StudentPlannerStyle.css">
     </head>
     
     <body>
@@ -91,72 +26,108 @@
                 </div>
 
                 <div id="tasksPage" class="section ">
-                    <h2>Tasks</h2>
+                    <h2 id="tasksPageID">Tasks</h2>
                     <br>
-                    <ul id="tasksList">
-                        <li class="taskTitle">
-                            Task 1
-                            <dd class="taskDescription" >Task 1 Description</dd>
-                            <ul class="individualTaskProperties">
-                                <li class="subTaskTitle">
-                                  Subtask 1
-                                  <dd class="subTaskDescription">Subtask 1 Description</dd>
-                                </li>
-                                <li class="subTaskTitle">
-                                  Subtask 2
-                                  <dd class="subTaskDescription">Subtask 2 Description</dd>
-                                </li>
-                                <li class="subTaskTitle">
-                                  Subtask 3
-                                  <dd class="subTaskDescription">Subtask 3 Description</dd>
-                                </li>
-                            </ul>
-                        </li>
-                        
-                        <hr>
+                    
+                    <div class="taskListWrapper">
+                        <ul id="tasksList">
+                            <p style="opacity: 0.5; text-align: center;" >You currently have no tasks</p>
+                            <!--
+                                <li class="taskTitleContainer">
+                                    <input type="checkbox" id="Task_1">
+                                    <label class="customCheckbox" for="Task_1">
+                                        <svg fill="transparent" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
+                                    </label>
+                                    <label for="Task_1" class="taskTitle">Task 1</label>
+                                    <button class="deleteTaskButton" style="display: inline-flex">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
+                                    </button>
 
-                        <li class="taskTitle">
-                            Task 2
-                            <dd class="taskDescription">Task 1 Description</dd>
-                            <ul class="individualTaskProperties">
-                                <li class="subTaskTitle">
-                                    Subtask 1
-                                    <dd class="subTaskDescription">Subtask 1 Description</dd>
-                                </li>
-                                <li class="subTaskTitle">
-                                    Subtask 2
-                                    <dd class="subTaskDescription">Subtask 2 Description</dd>
-                                </li>
-                                <li class="subTaskTitle">
-                                    Subtask 3
-                                    <dd class="subTaskDescription">Subtask 3 Description</dd>
-                                </li>
-                            </ul>
-                        </li>
-                        <hr>
-                        
-                        <li class="taskTitle">
-                            Task 3
-                            <dd class="taskDescription">Task 1 Description</dd>
-                            <ul class="individualTaskProperties">
-                                <li class="subTaskTitle">
-                                    Subtask 1
-                                    <dd class="subTaskDescription">Subtask 1 Description</dd>
-                                </li>
-                                <li class="subTaskTitle">
-                                    Subtask 2
-                                    <dd class="subTaskDescription">Subtask 2 Description</dd>
-                                </li>
-                                <li class="subTaskTitle">
-                                    Subtask 3
-                                    <dd class="subTaskDescription">Subtask 3 Description</dd>
-                                </li>
-                            </ul>
-                        </li>
-                        <hr>
+                                    <<dd class="taskDescription" >Task 1 Description</dd>-->
+                                    
+                                    <!-- ***** I WILL NEED THIS LATER WHEN CREATING THE LAYOVER WHEN THE TASKS ARE EXPANDED *****
+                                        <ul id="Task_1_subTasksList" class="individualTaskProperties">
+                                            <li class="subTaskTitle">
+                                                <input type="checkbox" id="Task_1_Subtask_1">
+                                                <label class="customCheckbox" for="Task_1_Subtask_1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#000000"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
+                                                </label>
+                                                <label for="Task_1_Subtask_1">Subtask 1</label>
+                                            </li>
+                                            <li class="subTaskTitle">
+                                                <input type="checkbox" id="Task_1_Subtask_2">
+                                                <label class="customCheckbox" for="Task_1_Subtask_2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#000000"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
+                                                </label>
+                                                <label for="Task_1_Subtask_2">Subtask 2</label>
+                                            </li>
+                                            <li class="subTaskTitle">
+                                                <input type="checkbox" id="Task_1_Subtask_3">
+                                                <label class="customCheckbox" for="Task_1_Subtask_3">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#000000"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
+                                                </label>
+                                                <label for="Task_1_Subtask_3">Subtask 3</label>
+                                            </li>
+                                        </ul>
+                                    
 
-                        <!-- <button onclick="taskManager1.createTask()">Add Task</button> -->
-                    </ul>
+                                </li>
+                                
+                                <hr>
+
+                                <li class="taskTitleContainer">
+                                    <input type="checkbox" id="Task_2">
+                                    <label class="customCheckbox" for="Task_2">
+                                        <svg fill="transparent" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
+                                    </label>
+                                    <label for="Task_2" class="taskTitle">Task 2</label>
+                                    <button class="deleteTaskButton" style="display: inline-flex"> 
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
+                                    </button>
+                                    <!--<dd class="taskDescription" >Task 1 Description</dd>-->
+
+                                    <!--
+                                        <ul id="Task_2_subTasksList" class="individualTaskProperties">
+                                            <li class="subTaskTitle">
+                                                <input type="checkbox" id="Task_2_Subtask_1">
+                                                <label class="customCheckbox" for="Task_2_Subtask_1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#000000"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
+                                                </label>
+                                                <label for="Task_2_Subtask_1">Subtask 1</label>
+                                            </li>
+                                            <li class="subTaskTitle">
+                                                <input type="checkbox" id="Task_2_Subtask_2">
+                                                <label class="customCheckbox" for="Task_2_Subtask_2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#000000"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
+                                                </label>
+                                                <label for="Task_2_Subtask_2">Subtask 2</label>
+                                            </li>
+                                            <li class="subTaskTitle">
+                                                <input type="checkbox" id="Task_2_Subtask_3">
+                                                <label class="customCheckbox" for="Task_2_Subtask_3">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#000000"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
+                                                </label>
+                                                <label for="Task_2_Subtask_3">Subtask 3</label>
+                                            </li>
+                                        </ul>
+                                    
+
+                                </li>
+                                <hr>
+                            -->
+                            
+
+                            <!-- <button onclick="taskManager1.createTask()">Add Task</button> -->
+                        </ul>
+                        
+                        <form id="taskInputForm">
+                            <input type="text" id="taskInputTitle" placeholder="Enter task">
+                            <button type="submit" id="addTaskButton">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
+                            </button>
+                        </form>
+                    </div>
+
                 </div>
 
                 <div id="assignmentsPage" class="section hidden">
@@ -180,15 +151,16 @@
                 
             </div>
 
+            
             <footer id="footer">
                 <hr>
                 If you would like to give some feedback, please use the email below:
                 <br>
                 <a href="mailto: example@plymouth.ac.uk">Creator Email</a>
             </footer>
-
+            
         </div>
 
-        <script src="StudentPlannerScript.js"></script>
+        <script src="TaskInputProcessing.js"></script>
     </body>
 </html>

@@ -27,6 +27,7 @@ document.querySelectorAll('.navigationButtons').forEach(button => {
 
 /*------------------------------------Task Manager------------------------------------*/
 
+// This is the class for the main task object
 class Task {
     constructor(title, description, date) {
         this.taskTitle = title;
@@ -36,13 +37,30 @@ class Task {
     
 }
 
+// This is the class for the subtask object
+class SubTask {
+    constructor(title, description) {
+        this.subTaskTitle = title;
+        this.subTaskDescription = description;
+    }
+}
+
+
+
+// These are the elements that will be created for each subtask
+let newSubTaskList = document.createElement("ul");
+let newSubTaskTitle = document.createElement("li");
+let newSubTaskDescription = document.createElement("dd");
+
+
+// This is the class for the task manager object, responsible for creating tasks
 class taskManager {
     constructor() {
         this.taskMap = {}; // Object to store tasks as key-value pairs
         this.taskID = 0; // ID to assign to tasks
     }
 
-        createTask(title, description) {
+    createTask(title, description) {
         if (!title) {
             console.error("Title is required to create a task.");
             return;
@@ -57,16 +75,20 @@ class taskManager {
     }
     
     addTaskToDOM(title, description) {
+        // These are the elements that will be created for each task
         let newTaskTitle = document.createElement("li");
         let newTaskDescription = document.createElement("dd");
+        let newHorizontalRule = document.createElement("hr");
+        document.getElementById("tasksList").appendChild(newHorizontalRule);
         newTaskDescription.innerHTML = `${description}`;
         newTaskDescription.classList.add("taskDescription");
         newTaskTitle.innerHTML = `${title}\n`;
         newTaskTitle.classList.add("taskTitle");
         newTaskTitle.appendChild(newTaskDescription);
         document.getElementById("tasksList").appendChild(newTaskTitle);
+        
     }
-
+    
     listTasks() {
         for (const [key, task] of Object.entries(this.taskMap)) {
             console.log(`Task ID: ${key}\n` + `Task Title: ${task.taskTitle}\n` + `Task Description: ${task.taskDescription}`);
@@ -75,9 +97,47 @@ class taskManager {
 
 }
 
-const taskManager1 = new taskManager();
-taskManager1.createTask("Race the hot wheels cars... Title", "Lightning McQueen must win at all costs, no matter what, followed by matter... Description");
-taskManager1.listTasks();
+// This is the class for the subtask manager object, responsible for creating subtasks
+class subTaskManager {
+    constructor() {
+        this.subTaskMap = {};
+        this.subTaskID = 0;
+    }
+
+    createSubTask(title, description) {
+        this.subTaskID++;
+        const subTaskID = `SubTask${this.subTaskID}`;
+        this.subTaskMap[this.subTaskID] = new SubTask(title, description);
+        console.log(`Subtask created with ID: ${subTaskID}`);
+    
+        this.addSubTaskToDOM(title, description);
+    }
+
+    addSubTaskToDOM(title, description, newTaskTitle) {
+        newSubTaskList.classList.add("individualTaskProperties");
+        newSubTaskTitle.classList.add("subTaskTitle");
+        newSubTaskTitle.innerHTML = `${title}\n`;
+        newSubTaskDescription.classList.add("subTaskDescription");
+        newSubTaskDescription.innerHTML = `${description}`;
+        newSubTaskTitle.appendChild(newSubTaskDescription);
+        newSubTaskList.appendChild(newSubTaskTitle);
+        newTaskTitle.appendChild(newSubTaskList);        
+    }
+
+    listSubTasks() {
+        for (const [key, subTask] of Object.entries(this.subTaskMap)) {
+            console.log(`SubTask ID: ${key}\n` + `SubTask Title: ${subTask.subTaskTitle}\n` + `SubTask Description: ${subTask.subTaskDescription}`);
+        }
+    }
+
+}
+
+const taskManager_ = new taskManager();
+taskManager_.createTask("Race the hot wheels cars... Title", "Lightning McQueen must win at all costs, no matter what, followed by matter... Description");
+taskManager_.createTask("Race the hot wheels cars... Title", "Lightning McQueen must win at all costs, no matter what, followed by matter... Description");
+const subTaskManager_ = new subTaskManager();
+subTaskManager_.createSubTask("Subtask 1", "Subtask 1 Description");
+// taskManager1.listTasks();
 
 
 

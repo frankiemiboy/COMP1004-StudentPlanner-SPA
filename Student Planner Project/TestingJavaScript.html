@@ -1,74 +1,198 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <title>Student Planner</title>
+        <link rel="icon" type="image/png" href="Images/StudentFavicon_Original.png">
+
+        <style>
+            * {
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                margin-left: 0.5%; margin-right: 0.5%;
+            }
+
+            #page-container {
+                position: relative;
+                min-height: 100vh;
+            }
+
+            #content-wrap {
+                padding-bottom: 3.5rem;    /* Footer height */
+            }
+
+            #footer {
+                position: relative;
+                bottom: 0;
+                width: 100%;
+                height: 1.5rem;            /* Footer height */
+                padding: 10px;
+                /*margin-top: 5%;-*/
+            }
+
+            .navigationButtons {
+                background-color: white; 
+                border: none; 
+                border-radius: 4px; 
+                padding: 5px; 
+                text-align: center; 
+                cursor: pointer;
+                font-size: 1.1em;
+            }
+
+            #addTaskButton {
+                border: 1px solid;
+                border-radius: 5%;
+                cursor: pointer; 
+                background-color: white;
+                transition-duration: 0.4s;
+            }
+
+            #addTaskButton:hover {
+                background-color: lightgrey;
+            }
+
+            #tasksList {
+                margin-left: 5%; margin-right: 5%; margin-bottom: 10%;
+                border: 2px solid; border-radius: 8px; 
+                padding-right: 10px ; padding-top: 10px; padding-bottom: 10px;
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            }
+
+            .hidden {
+                display: none;
+            }
+
+            .taskDescription {
+                margin-bottom:5px; margin-left: 0;
+            }
+
+            .subTaskTitle {
+                margin-bottom: 10px; margin-left: 0;
+            }
+
+            .subTaskLists {
+            list-style-type: circle; 
+            padding-left: 0; 
+                margin-left: 0;
+            }
+
+
+        </style>
+    </head>
+    
     <body>
-        <h1>JavaScript Class Learning</h1>
-        <br>
+        <div id="page-container"> <!--This is the container for the whole page-->
+            <div>
+                <header>
+                    <h1>Student Planner</h1>
+                    <!--Buttons for navigation-->
+                    <button class="navigationButtons" data-page="dashboardPage">Dashboard</button>
+                    <button class="navigationButtons" data-page="tasksPage">Tasks</button> 
+                    <button class="navigationButtons" data-page="assignmentsPage">Assignments</button>
+                    <button class="navigationButtons" data-page="modulesPage">Modules</button>
+                    <hr>
+                </header>
+                <br>
 
-        <p id="demo">
-            Click the button to create the task.
-            <button onclick="taskManager1.createTask(`Race the hot wheels cars... Title`, `Lightning McQueen must win at all costs, no matter what, followed by matter... Description`);">Create Task</button>
-        </p>
+                <!-- Sections for each page -->
+                <div id="dashboardPage" class="section hidden"> 
+                    <h2>Dashboard</h2> 
+                </div>
 
-        <script>
-            const iDentification = document.getElementById("demo");
+                <div id="tasksPage" class="section ">
 
-            class Task {
-                constructor(title, description, date) {
-                    this.taskTitle = title;
-                    this.taskDescription = description;
-                    // this.taskDueDate = date;
-                }
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h2 style="margin: 0;">Tasks</h2>
+                        <button id="addTaskButton" onclick=""> <h3 style="margin: 0;">Add Task</h3> </button>
+                    </div>
+                    <br>
+
+                    <ul id="tasksList">
+                        <li class="taskTitle">
+                            Task 1
+                            <dd class="taskDescription" >Task 1 Description</dd>
+                            <ul class="subTaskLists">
+                                <li class="subTaskTitle">
+                                  Subtask 1
+                                </li>
+                                <li class="subTaskTitle">
+                                  Subtask 2
+                                </li>
+                                <li class="subTaskTitle">
+                                  Subtask 3
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <hr>
+
+                        <li class="taskTitle">
+                            Task 2
+                            <dd class="taskDescription">Task 1 Description</dd>
+                            <ul class="subTaskLists">
+                                <li class="subTaskTitle">
+                                    Subtask 1
+                                </li>
+                                <li class="subTaskTitle">
+                                    Subtask 2
+                                </li>
+                                <li class="subTaskTitle">
+                                    Subtask 3
+                                </li>
+                            </ul>
+                        </li>
+                        <hr>
+                        
+                        <li class="taskTitle">
+                            Task 3
+                            <dd class="taskDescription">Task 1 Description</dd>
+                            <ul class="subTaskLists">
+                                <li class="subTaskTitle">
+                                    Subtask 1
+                                </li>
+                                <li class="subTaskTitle">
+                                    Subtask 2
+                                </li>
+                                <li class="subTaskTitle">
+                                    Subtask 3
+                                </li>
+                            </ul>
+                        </li>
+                        
+
+                        <!-- <button onclick="taskManager1.createTask()">Add Task</button> -->
+                    </ul>
+                </div>
+
+                <div id="assignmentsPage" class="section hidden">
+                    <h2>Assignments</h2>
+                </div>
+
+                <div id="modulesPage" class="section hidden">
+                    <h2>Modules</h2>
+                    <p style="border: 5px solid; display: inline-block; max-width: 400px; padding: 50px; margin: 3%;">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Quia officiis nobis voluptates ipsum! Qui accusantium eos eius eum dolorum dolor nemo laborum? 
+                        Optio unde consequuntur nam alias magnam voluptatum facilis?
+                    </p>
+                    <p style="border: 5px solid; display: inline-block; max-width: 400px; padding: 50px; margin: 3%;">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Quia officiis nobis voluptates ipsum! Qui accusantium eos eius eum dolorum dolor nemo laborum? 
+                        Optio unde consequuntur nam alias magnam voluptatum facilis?
+                    </p>
+                </div>
+
                 
-            }
-            
-            class taskManager {
-                constructor() {
-                    this.taskMap = {}; // Object to store tasks as key-value pairs
-                    this.taskID = 0; // ID to assign to tasks
-                }
+            </div>
 
-                createTask(title, description) {
-                    this.taskID++;
-                    const taskID = `Task${this.taskID}`; // Dynamically create task ID that will change every time a new task is created
-                    this.taskMap[this.taskID] = new Task(title, description);
-                    console.log(`Task created with ID: ${taskID}`);
+            <footer id="footer">
+                <hr>
+                If you would like to give some feedback, please use the email below:
+                <br>
+                <a href="mailto: example@plymouth.ac.uk">Creator Email</a>
+            </footer>
 
-                    let li = document.createElement("li");
-                    li.innerHTML = `${title}\n` + `${description}`;
-                    iDentification.appendChild(li);
-                }
+        </div>
 
-                listTasks() {
-                    for (const [key, task] of Object.entries(this.taskMap)) {
-                        console.log(`Task ID: ${key}\n` + `Task Title: ${task.taskTitle}\n` + `Task Description: ${task.taskDescription}`);
-                    }
-                }
-
-            }
-
-            const taskManager1 = new taskManager();
-            taskManager1.createTask("Race the hot wheels cars... Title", "Lightning McQueen must win at all costs, no matter what, followed by matter... Description");
-            taskManager1.listTasks();
-            taskManager1.taskMap[1] = `Hadouken`, `nemusis`;
-            
-
-            /*
-            function formTask(){
-                Task1 = new Task(`Task ${i}`, `Task ${i} Description`, `Task ${i} Due Date`);
-            }
-
-            function displayTask(){
-                formTask();
-                document.getElementById("demo").innerHTML = Task1.taskTitle + "<br>" + Task1.taskDescription + "<br>" + Task1.taskDueDate;
-            }
-
-            class subTask {
-                constructor(title, description) {
-                    this.subTaskTitle = title;
-                    this.subTaskDescription = description;
-                }
-            }
-            */
-            </script>
+        <script src="StudentPlannerScript.js"></script>
     </body>
 </html>
