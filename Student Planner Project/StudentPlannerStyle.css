@@ -81,12 +81,13 @@
     margin-left: 25px;
     padding: 40px;
     max-height: 300px;
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 
 /*Hide scrollbar for aesthetic purposes */
 #tasksList::-webkit-scrollbar {
-  width: 8px;  
+  width: 8px;
+  display: none;  /*Hides the scrollbar but maintains the functionality*/
 }
 #tasksList::-webkit-scrollbar-thumb {
   background: #888;

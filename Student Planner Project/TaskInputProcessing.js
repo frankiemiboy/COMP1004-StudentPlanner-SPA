@@ -65,6 +65,8 @@ class TaskManager {
 
             this.createTask(taskTitle, this.taskID);
             taskForm.reset(); // Clear the form after submission
+            console.log(this.tasks);
+            console.log(this.tasks.length);
         });
     }
 
@@ -92,8 +94,33 @@ class TaskManager {
             
         `;
         const newHorizontalRule = document.createElement('hr');
-        document.getElementById('tasksList').appendChild(newtaskTitle);
-        document.getElementById('tasksList').appendChild(newHorizontalRule);
+        const taskList = document.getElementById('tasksList');
+        if (taskList.children.length > 0) {
+            taskList.insertBefore(newHorizontalRule, taskList.children[0]);
+            taskList.insertBefore(newtaskTitle, taskList.children[0]);
+        }
+        else{
+            document.getElementById('tasksList').appendChild(newtaskTitle);
+            document.getElementById('tasksList').appendChild(newHorizontalRule);
+        }
+
+        // Add event listener to delete button
+        const deleteButton = newtaskTitle.querySelector('.deleteTaskButton');
+        deleteButton.addEventListener('click', () => {
+            this.deleteTask(task.taskID);
+            newtaskTitle.remove();
+            newHorizontalRule.remove();
+        });
+    }
+
+    deleteTask(taskID) {
+        const taskIndex = this.tasks.findIndex(task => task.taskID === taskID);
+        if (taskIndex === -1) {
+            return;
+        }
+        const removed = this.tasks.splice(taskIndex, 1);
+        console.log(this.tasks);
+        console.log(removed);
     }
 }
 
