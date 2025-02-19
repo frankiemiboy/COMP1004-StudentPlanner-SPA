@@ -45,8 +45,6 @@
     border-radius: 15px;
     font: inherit;
     margin-left: 10px; margin-right: 10px;
-    
-    
 }
 
 #tasksPageID {
@@ -179,6 +177,90 @@ input[type="checkbox"]:checked ~ .taskTitle {
     max-height: 100px;
     align-content: center;
     
+}
+
+#modulesPage_Header {
+    margin-bottom: 20px;
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    padding-right: 50px;
+}
+
+#addModuleButton {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+#addModuleButton:hover {
+    background-color: rgb(236, 234, 234);
+}
+
+#moduleAddOverlay {
+    display: flex;
+    /*display: none;*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    align-items: center;
+    justify-content: center;
+}
+
+
+.overlay_Content {
+    background: white;
+    border-radius: 10px;
+    padding: 50px;
+    text-align: left;
+    width: 50%;
+    max-height: 60%;
+    overflow-y: scroll;
+}
+
+.overlay_Content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.overlay_Content::-webkit-scrollbar-thumb {
+  background: rgb(75, 75, 75);
+  border-radius: 4px;
+}
+
+.moduleInformation_Input {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.moduleOverlayButtons {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+#addModuleSubmitButton {
+    background: black;
+    color: white;
+    text-align: center;
+}
+
+#cancelModuleSubmitButton {
+    background: #f44336;
+    color: white;
+    text-align: center;
 }
 
 /*----------------------------------------End of Module Page Specific----------------------------------------*/

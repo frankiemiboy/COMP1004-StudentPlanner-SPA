@@ -23,8 +23,7 @@ document.querySelectorAll('.navigationButtons').forEach(button => {
 
 
 
-
-
+/*------------------------------------Task Management------------------------------------*/
 
 // Task and Subtask classes
 class Task {
@@ -135,3 +134,5 @@ const TaskManager_ = new TaskManager();
     TaskManager_.createTask(taskTitle, TaskManager_.taskID);
     console.log(TaskManager_.tasks);
 }*/
+
+/*------------------------------------Task Management------------------------------------*/

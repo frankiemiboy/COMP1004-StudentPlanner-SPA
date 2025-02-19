@@ -43,9 +43,9 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                                     </button>
 
-                                    <<dd class="taskDescription" >Task 1 Description</dd>-->
+                                    <--<dd class="taskDescription" >Task 1 Description</dd>-->
                                     
-                                    <!-- ***** I WILL NEED THIS LATER WHEN CREATING THE LAYOVER WHEN THE TASKS ARE EXPANDED *****
+                                    <!-- ***** I WILL NEED THIS LATER WHEN CREATING THE OVERLAY WHEN THE TASKS ARE EXPANDED *****
                                         <ul id="Task_1_subTasksList" class="individualTaskProperties">
                                             <li class="subTaskTitle">
                                                 <input type="checkbox" id="Task_1_Subtask_1">
@@ -135,8 +135,12 @@
                 </div>
 
                 <div id="modulesPage" class="section">
-                    <h2>Modules</h2>
-
+                    <div id="modulesPage_Header">
+                        <h2 class="modulesPage_Heading">Modules</h2>
+                        <button id="addModuleButton" onclick="openModuleInputForm()">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
+                        </button>
+                    </div>
                     <div id="moduleList">
 
                         <div class="moduleCard" id="COMP1000">
@@ -292,6 +296,42 @@
                             </div>
                         </div>
 
+                    </div>
+
+                </div>
+
+                <!--Overlay for adding a module-->
+                <div id="moduleAddOverlay" class="overlay">
+                    <div class="overlay_Content">
+                        <h2 id="moduleOverlayHeader">Add Module</h2>
+                        <form id="moduleInputForm">
+                            <label for="moduleCode">Module Code:</label>
+                            <input type="text" id="moduleCode" class="moduleInformation_Input" name="moduleCode" placeholder="Enter Module Code">
+                            <label for="moduleName">Module Name:</label>
+                            <input type="text" id="moduleName" class="moduleInformation_Input" name="moduleName" placeholder="Enter Module Name">
+                            <label for="moduleLecturer">Module Leader:</label>
+                            <input type="text" id="moduleLecturer" class="moduleInformation_Input" name="moduleLecturer" placeholder="Enter Lecturer's Name">
+                            <label for="moduleLectureDays">Lecture Days:</label>
+                            <input type="text" id="moduleLectureDays" class="moduleInformation_Input" name="moduleLectureDays" placeholder="Enter Lecture Days">
+                            <label for="moduleAssignments">Assignments:</label>
+                            <input type="text" id="moduleAssignments" class="moduleInformation_Input" name="moduleAssignments" placeholder="Enter Module Assignments">
+                            <ul id="addedAssignmentsList">
+                                <li>Microbiology Report</li>
+                                <li>Maths Assignment</li>
+                                <li>Physics Assignment</li>
+                            </ul>
+                            <label for="moduleExams">Exams:</label>
+                            <input type="text" id="moduleExams" class="moduleInformation_Input" name="moduleExams" placeholder="Enter Module Exams">
+                            <ul id="addedExamsList">
+                                <li>Microbiology Exam</li>
+                                <li>Maths Exam</li>
+                                <li>Physics Exam</li>
+                            </ul>
+                            
+                            <!--Buttons for submitting or cancelling the form-->
+                            <button type="submit" id="addModuleSubmitButton" class="moduleOverlayButtons">Save</button>
+                            <button type="button" id="cancelModuleSubmitButton" class="moduleOverlayButtons" onclick="closeModuleInputForm()">Cancel</button>
+                        </form>
                     </div>
 
                 </div>
