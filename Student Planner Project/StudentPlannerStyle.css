@@ -3,23 +3,7 @@
     margin-left: 0.5%; margin-right: 0.5%;
 }
 
-#page-container {
-    position: relative;
-    min-height: 100vh;
-}
 
-#content-wrap {
-    padding-bottom: 3.5rem;    /* Footer height */
-}
-
-#footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    height: 1.5rem;            /* Footer height */
-    padding: 10px;
-    /*margin-top: 5%;-*/
-}
 
 .navigationButtons {
     background-color: white; 
@@ -31,16 +15,19 @@
     font-size: 1.1em;
 }
 
+
+.hidden {
+    display: none !important;
+}
+
+
+/*--------------------------------------Tasks Page Specific--------------------------------------------*/
 #tasksPage{
     min-height: 100vh;
     padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.hidden {
-    display: none !important;
 }
 
 .individualTaskProperties {
@@ -165,4 +152,101 @@ input[type="checkbox"]:checked ~ .taskTitle {
     text-decoration: line-through;
     font-style: italic;
 }
+/*--------------------------------------End of Tasks Page Specific--------------------------------------------*/
 
+
+/*----------------------------------------Module Page Specific----------------------------------------*/
+
+#moduleList {
+    /*border: 2px solid;*/
+    display: grid;
+    grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 2em));
+    gap: 30px;
+    padding: 0px;
+    justify-content: space-evenly;
+    
+}
+
+.moduleCard {
+    border: 2px solid;
+    border-radius: 10px;
+    padding: 10px;     
+}
+
+.moduleCard_Header {
+    min-height: 80px;
+    max-height: 100px;
+    align-content: center;
+    
+}
+
+/*----------------------------------------End of Module Page Specific----------------------------------------*/
+
+/* Media Queries for Responsiveness */
+
+/*
+@media (max-width: 768px) {
+    .navigationButtons {
+        font-size: 1em;
+        padding: 10px;
+    }
+
+    #tasksPage {
+        padding: 5px;
+    }
+
+    .taskListWrapper {
+        width: 100%;
+    }
+
+    #tasksList {
+        padding: 20px;
+    }
+
+    #taskInputTitle {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .taskTitleContainer {
+        padding: 0px 8px;
+    }
+
+    .moduleCard {
+        padding: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navigationButtons {
+        font-size: 0.9em;
+        padding: 8px;
+    }
+
+    #tasksPage {
+        padding: 2px;
+    }
+
+    .taskListWrapper {
+        width: 100%;
+    }
+
+    #tasksList {
+        padding: 10px;
+    }
+
+    #taskInputTitle {
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+
+    .taskTitleContainer {
+        padding: 0px 4px;
+    }
+
+    .moduleCard {
+        padding: 2px;
+    }
+}
+    */
