@@ -211,90 +211,6 @@
                             </div>
                         </div>
 
-                        <div class="moduleCard" id="COMP1004">
-                            <header class="moduleCard_Header">
-                                <h3>COMP1004 - Computing Practice</h3>
-                            </header>
-                            <hr>
-                            <div class="moduleCard_Content">
-                                <h4 style="margin: 0;">Lecturer/Module Leader: </h4>
-                                <p style="margin-top: 0">Dr. John Doe</p>
-                                <h4 style="margin: 0;">Lecture Days:</h4>
-                                <p style="margin-top: 0">Mondays 10:00 - 12:00</p>
-                                <h4 style="margin: 0;">Assignments:</h4>
-                                <p style="margin-top: 0">5 assignment(s); 2 complete; 3 left</p>
-                                <h4 style="margin: 0;">Exams:</h4>
-                                <p style="margin-top: 0">2 exam(s); 1 left</p>
-                            </div>
-                        </div>
-
-                        <div class="moduleCard" id="COMP1005">
-                            <header class="moduleCard_Header">
-                                <h3>COMP1005 - Computing Practice</h3>
-                            </header>
-                            <hr>
-                            <div class="moduleCard_Content">
-                                <h4 style="margin: 0;">Lecturer/Module Leader: </h4>
-                                <p style="margin-top: 0">Dr. John Doe</p>
-                                <h4 style="margin: 0;">Lecture Days:</h4>
-                                <p style="margin-top: 0">Mondays 10:00 - 12:00</p>
-                                <h4 style="margin: 0;">Assignments:</h4>
-                                <p style="margin-top: 0">5 assignment(s); 2 complete; 3 left</p>
-                                <h4 style="margin: 0;">Exams:</h4>
-                                <p style="margin-top: 0">2 exam(s); 1 left</p>
-                            </div>
-                        </div>
-
-                        <div class="moduleCard" id="COMP1006">
-                            <header class="moduleCard_Header">
-                                <h3>COMP1006 - Computing Practice</h3>
-                            </header>
-                            <hr>
-                            <div class="moduleCard_Content">
-                                <h4 style="margin: 0;">Lecturer/Module Leader: </h4>
-                                <p style="margin-top: 0">Dr. John Doe</p>
-                                <h4 style="margin: 0;">Lecture Days:</h4>
-                                <p style="margin-top: 0">Mondays 10:00 - 12:00</p>
-                                <h4 style="margin: 0;">Assignments:</h4>
-                                <p style="margin-top: 0">5 assignment(s); 2 complete; 3 left</p>
-                                <h4 style="margin: 0;">Exams:</h4>
-                                <p style="margin-top: 0">2 exam(s); 1 left</p>
-                            </div>
-                        </div>
-
-                        <div class="moduleCard" id="COMP1007">
-                            <header class="moduleCard_Header">
-                                <h3>COMP1007 - Computing Practice</h3>
-                            </header>
-                            <hr>
-                            <div class="moduleCard_Content">
-                                <h4 style="margin: 0;">Lecturer/Module Leader: </h4>
-                                <p style="margin-top: 0">Dr. John Doe</p>
-                                <h4 style="margin: 0;">Lecture Days:</h4>
-                                <p style="margin-top: 0">Mondays 10:00 - 12:00</p>
-                                <h4 style="margin: 0;">Assignments:</h4>
-                                <p style="margin-top: 0">5 assignment(s); 2 complete; 3 left</p>
-                                <h4 style="margin: 0;">Exams:</h4>
-                                <p style="margin-top: 0">2 exam(s); 1 left</p>
-                            </div>
-                        </div>
-
-                        <div class="moduleCard" id="COMP1008">
-                            <header class="moduleCard_Header">
-                                <h3>COMP1008 - Computing Practice</h3>
-                            </header>
-                            <hr>
-                            <div class="moduleCard_Content">
-                                <h4 style="margin: 0;">Lecturer/Module Leader: </h4>
-                                <p style="margin-top: 0">Dr. John Doe</p>
-                                <h4 style="margin: 0;">Lecture Days:</h4>
-                                <p style="margin-top: 0">Mondays 10:00 - 12:00</p>
-                                <h4 style="margin: 0;">Assignments:</h4>
-                                <p style="margin-top: 0">5 assignment(s); 2 complete; 3 left</p>
-                                <h4 style="margin: 0;">Exams:</h4>
-                                <p style="margin-top: 0">2 exam(s); 1 left</p>
-                            </div>
-                        </div>
 
                     </div>
 
@@ -309,31 +225,97 @@
                             <input type="text" id="moduleCode" class="moduleInformation_Input" name="moduleCode" placeholder="Enter Module Code">
                             <label for="moduleName">Module Name:</label>
                             <input type="text" id="moduleName" class="moduleInformation_Input" name="moduleName" placeholder="Enter Module Name">
-                            <label for="moduleLecturer">Module Leader:</label>
+                            <label for="moduleLecturer">Lecturer / Module Leader:</label>
                             <input type="text" id="moduleLecturer" class="moduleInformation_Input" name="moduleLecturer" placeholder="Enter Lecturer's Name">
-                            <label for="moduleLectureDays">Lecture Days:</label>
-                            <input type="text" id="moduleLectureDays" class="moduleInformation_Input" name="moduleLectureDays" placeholder="Enter Lecture Days">
-                            <label for="moduleAssignments">Assignments:</label>
-                            <input type="text" id="moduleAssignments" class="moduleInformation_Input" name="moduleAssignments" placeholder="Enter Module Assignments">
-                            <ul id="addedAssignmentsList">
+                            
+                            <div id="moduleAssessmentListContainer">
+                            <ul id="addedAssignmentsList" class="addModuleAssementLists" style="max-width: 50%;">
+                                <u><b>Assignments:</b></u>
                                 <li>Microbiology Report</li>
+                                <dd>Due date: </dd>
                                 <li>Maths Assignment</li>
+                                <dd>Due date: </dd>
                                 <li>Physics Assignment</li>
+                                <dd>Due date: </dd>
                             </ul>
-                            <label for="moduleExams">Exams:</label>
-                            <input type="text" id="moduleExams" class="moduleInformation_Input" name="moduleExams" placeholder="Enter Module Exams">
-                            <ul id="addedExamsList">
+                            <ul id="addedExamsList" class="addModuleAssementLists">
+                                <u><b>Exams:</b></u>
                                 <li>Microbiology Exam</li>
+                                <dd>22/08/2025</dd>
                                 <li>Maths Exam</li>
+                                <dd>22/08/2025</dd>
                                 <li>Physics Exam</li>
+                                <dd>22/08/2025</dd>
                             </ul>
+                            </div>
+
+                            <div style="display: flex; gap: 10px;">
+                            <!--Buttons for adding assignments and exams to the module-->
+                            <button type="button" id="addModuleAssignmentButton" class="moduleOverlayButtons" onclick="openAssignmentInputForm()">Add Assignments</button>
+                            <button type="button" id="addModuleExamButton" class="moduleOverlayButtons" onclick="openExamInputForm()">Add Exams</button>
                             
                             <!--Buttons for submitting or cancelling the form-->
                             <button type="submit" id="addModuleSubmitButton" class="moduleOverlayButtons">Save</button>
                             <button type="button" id="cancelModuleSubmitButton" class="moduleOverlayButtons" onclick="closeModuleInputForm()">Cancel</button>
+                            </div>
                         </form>
+                        
                     </div>
 
+                    
+
+                </div>
+
+                <div id="assignmentOverlay" class="overlay assessmentOverlay hidden">
+                    <div class="overlay_Content">
+                        <h2 id="assignmentOverlayHeader">Add Assignment</h2>
+                        <form id="assignmentInputForm" >
+                            <label for="assignmentName">Assignment Name:</label>
+                            <input type="text" id="assignmentName" class="moduleInformation_Input" name="assignmentName" placeholder="Enter Assignment Name">
+                            <label for="assignmentDueDate">Due Date:</label>
+                            <input type="date" id="assignmentDueDate" class="moduleInformation_Input" name="assignmentDueDate">
+                            <button type="submit" id="addAssignmentSubmitButton" class="moduleOverlayButtons">Add</button>
+                            <button type="button" id="saveAssignmentButton" class="moduleOverlayButtons saveAssessmentButton">Save</button>
+                            <button type="button" id="cancelAssignmentsButton" class="moduleOverlayButtons cancelAssessmentButton" onclick="closeAssignmentInputForm()">Cancel</button>
+                        </form>
+                        <br>
+                        <ul>
+                            <li>Microbiology Report</li>
+                            <dd>Due date: </dd>
+                            <hr>
+                            <li>Maths Assignment</li>
+                            <dd>Due date:</dd>
+                            <hr>
+                            <li>Physics Assignment</li>
+                            <dd>Due date:</dd>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="examOverlay" class="overlay assessmentOverlay hidden">
+                    <div class="overlay_Content">
+                        <h2 id="examOverlayHeader">Add Exam</h2>
+                        <form id="examInputForm" >
+                            <label for="examName">Exam Title:</label>
+                            <input type="text" id="examName" class="moduleInformation_Input" name="examName" placeholder="Enter Exam Title">
+                            <label for="examDueDate">Date:</label>
+                            <input type="date" id="examDueDate" class="moduleInformation_Input" name="examDueDate">
+                            <button type="submit" id="addexamSubmitButton" class="moduleOverlayButtons">Add</button>
+                            <button type="button" id="saveexamButton" class="moduleOverlayButtons saveAssessmentButton">Save</button>
+                            <button type="button" id="cancelexamsButton" class="moduleOverlayButtons cancelAssessmentButton" onclick="closeexamInputForm()">Cancel</button>
+                        </form>
+                        <br>
+                        <ul>
+                            <li>Microbiology Exam</li>
+                            <dd>Due date: </dd>
+                            <hr>
+                            <li>Maths exam</li>
+                            <dd>Due date:</dd>
+                            <hr>
+                            <li>Physics exam</li>
+                            <dd>Due date:</dd>
+                        </ul>
+                    </div>
                 </div>
 
 
