@@ -22,7 +22,7 @@
 }
 
 
-/*--------------------------------------Tasks Page Specific--------------------------------------------*/
+/*--------------------------------------TASKS PAGE SPECIFIC--------------------------------------------*/
 #tasksPage{
     min-height: 100vh;
     padding: 10px;
@@ -151,10 +151,10 @@ input[type="checkbox"]:checked ~ .taskTitle {
     text-decoration: line-through;
     font-style: italic;
 }
-/*--------------------------------------End of Tasks Page Specific--------------------------------------------*/
+/*--------------------------------------END OF TASKS PAGE SPECIFIC--------------------------------------------*/
 
 
-/*----------------------------------------Module Page Specific----------------------------------------*/
+/*----------------------------------------MODULE PAGE SPECIFIC----------------------------------------*/
 
 #moduleList {
     /*border: 2px solid;*/
@@ -279,6 +279,11 @@ input[type="checkbox"]:checked ~ .taskTitle {
     justify-content: center;
 }
 
+/*--------------Handle the designs of the temporary assessment items before they are saved permanently----------*/
+.temporaryAssessmentList{
+    padding: 0;
+}
+
 .temporaryAssessmentItemContainer {
     display: flex;
     flex-direction: row;
@@ -288,6 +293,19 @@ input[type="checkbox"]:checked ~ .taskTitle {
 
 .temporaryAssessmentItemDetails {
     flex-grow: 1;
+}
+
+.edit-input-continaer{
+    display: flex;
+    flex-direction: column;
+}
+
+.detailsEditButton {
+    background: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 5px;
 }
 
 .saveAssessmentButton {
@@ -320,7 +338,7 @@ input[type="checkbox"]:checked ~ .taskTitle {
     text-align: center;
 }
 
-/*----------------------------------------End of Module Page Specific----------------------------------------*/
+/*----------------------------------------END OF MODULE PAGE SPECIFIC----------------------------------------*/
 
 /* Media Queries for Responsiveness */
 

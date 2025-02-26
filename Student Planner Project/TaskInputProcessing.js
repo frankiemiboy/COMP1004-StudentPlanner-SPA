@@ -145,45 +145,73 @@ function editTemporaryAssessmentDetails(assessmentItem) {
     if (assessmentItem.classList.contains("editing")) return; // Prevent multiple edits
     assessmentItem.classList.add("editing");
 
-    let assessmentName = assessmentItem.innerText;
-    let dueDateElement = assessmentItem.nextElementSibling.querySelector("span");
-    let dueDate = dueDateElement.innerText;
+    const currentAssessmentName = assessmentItem.innerText;
+    const currentDueDateElement = assessmentItem.nextElementSibling.querySelector("span");
+    const currentDueDate = currentDueDateElement.innerText;
 
     // Create input fields
     let nameInput = document.createElement("input");
     nameInput.type = "text";
-    nameInput.value = assessmentName;
+    nameInput.value = currentAssessmentName;
 
     let dateInput = document.createElement("input");
     dateInput.type = "date";
-    dateInput.value = dueDate;
+    dateInput.value = currentDueDate;
 
+    // Create buttons to accept or cancel changes
+    const buttonContainer = document.createElement("div");
     let saveButton = document.createElement("button");
-    saveButton.innerText = "Save";
+    let cancelButton = document.createElement("button");
+    saveButton.classList.add("detailsEditButton");
+    saveButton.type = "submit";
+    cancelButton.classList.add("detailsEditButton");
+    cancelButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="18px" fill="#000000"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>`;
+    saveButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="18px" fill="#000000"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>`;
+    cancelButton.onclick = function() {
+        saveAssessmentDetailsChanges(assessmentItem, currentAssessmentName, currentDueDate);
+    }
+    
     saveButton.onclick = function () {
-        saveAssessmentDetailsChanges(assessmentItem, dueDateElement, nameInput.value, dateInput.value, editContainer);
-
+        saveAssessmentDetailsChanges(assessmentItem, nameInput.value, dateInput.value);
     };
+    buttonContainer.appendChild(saveButton);
+    buttonContainer.appendChild(cancelButton);
+
+    // Or click enter to save
+    nameInput.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            saveAssessmentDetailsChanges(assessmentItem, nameInput.value, dateInput.value);
+        }
+    });
+    dateInput.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            saveAssessmentDetailsChanges(assessmentItem, nameInput.value, dateInput.value);
+        }
+    });
 
     // Clear and add inputs
     assessmentItem.innerHTML = "";
-    let editContainer = document.createElement("div");
+    assessmentItem.nextElementSibling.innerHTML = "";
+    const editContainer = document.createElement("div");
     editContainer.classList.add("edit-container");
-    editContainer.appendChild(nameInput);
-    editContainer.appendChild(dateInput);
-    editContainer.appendChild(saveButton);
+    const inputContainer = document.createElement("div");
+    inputContainer.classList.add("edit-input-continaer");
+    inputContainer.appendChild(nameInput);
+    inputContainer.appendChild(dateInput);
+    editContainer.appendChild(inputContainer);
+    editContainer.appendChild(buttonContainer);
     assessmentItem.appendChild(editContainer);
 }
 
-function saveAssessmentDetailsChanges(assessmentItem, dueDateElement, newAssessmentName, newDueDate, editContainer) {
-    while (editContainer.hasChildNodes()) {
-        editContainer.removeChild(editContainer.firstChild);
-    }
-    editContainer.remove();
-    assessmentItem.innerHTML = newAssessmentName;
-    dueDateElement.innerText = newDueDate;
+function saveAssessmentDetailsChanges(assessmentItem, newAssessmentName, newDueDate) {
+    assessmentItem.parentElement.innerHTML = `
+        <li onclick="editTemporaryAssessmentDetails(this)">${newAssessmentName}</li>
+        <dd><b>Due date:</b> <span>${newDueDate}</span></dd>
+        `;
     assessmentItem.classList.remove("editing");
 }
+
+
 
 
 /*------------------------------------End of Module Management------------------------------------*/
