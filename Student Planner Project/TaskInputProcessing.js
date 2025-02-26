@@ -87,7 +87,7 @@ class TaskManager {
                 <svg fill="transparent" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
             </label>
             <label for="${taskId}" class="taskTitle">${task.title}</label>
-            <button class="deleteTaskButton" style="display: inline-flex">
+            <button class="deleteButton" style="display: inline-flex">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
             </button>
             
@@ -104,7 +104,7 @@ class TaskManager {
         }
 
         // Add event listener to delete button
-        const deleteButton = newtaskTitle.querySelector('.deleteTaskButton');
+        const deleteButton = newtaskTitle.querySelector('.deleteButton');
         deleteButton.addEventListener('click', () => {
             this.deleteTask(task.taskID);
             newtaskTitle.remove();
@@ -135,4 +135,55 @@ const TaskManager_ = new TaskManager();
     console.log(TaskManager_.tasks);
 }*/
 
-/*------------------------------------Task Management------------------------------------*/
+/*------------------------------------End of Task Management------------------------------------*/
+
+
+/*------------------------------------Module Management------------------------------------*/
+
+// Temporary Assessment Items Editor
+function editTemporaryAssessmentDetails(assessmentItem) {
+    if (assessmentItem.classList.contains("editing")) return; // Prevent multiple edits
+    assessmentItem.classList.add("editing");
+
+    let assessmentName = assessmentItem.innerText;
+    let dueDateElement = assessmentItem.nextElementSibling.querySelector("span");
+    let dueDate = dueDateElement.innerText;
+
+    // Create input fields
+    let nameInput = document.createElement("input");
+    nameInput.type = "text";
+    nameInput.value = assessmentName;
+
+    let dateInput = document.createElement("input");
+    dateInput.type = "date";
+    dateInput.value = dueDate;
+
+    let saveButton = document.createElement("button");
+    saveButton.innerText = "Save";
+    saveButton.onclick = function () {
+        saveAssessmentDetailsChanges(assessmentItem, dueDateElement, nameInput.value, dateInput.value, editContainer);
+
+    };
+
+    // Clear and add inputs
+    assessmentItem.innerHTML = "";
+    let editContainer = document.createElement("div");
+    editContainer.classList.add("edit-container");
+    editContainer.appendChild(nameInput);
+    editContainer.appendChild(dateInput);
+    editContainer.appendChild(saveButton);
+    assessmentItem.appendChild(editContainer);
+}
+
+function saveAssessmentDetailsChanges(assessmentItem, dueDateElement, newAssessmentName, newDueDate, editContainer) {
+    while (editContainer.hasChildNodes()) {
+        editContainer.removeChild(editContainer.firstChild);
+    }
+    editContainer.remove();
+    assessmentItem.innerHTML = newAssessmentName;
+    dueDateElement.innerText = newDueDate;
+    assessmentItem.classList.remove("editing");
+}
+
+
+/*------------------------------------End of Module Management------------------------------------*/
