@@ -4,6 +4,7 @@
 <h3>Project Vision: What is it?</h3>
 The student planner can simply be described as a To-Do list with additional features. These additional features include a Module page where you can list down your module information. As the name and features suggest, the target audience for this app is students.
 
+
 The student planner has a To-Do list design that is simple, a must for most applications. No one really wants a complicated application, otherwise, there is no need for it. Students are able to add their tasks for the day, or any other tasks, and they will be listed on the tasks page. Everytime that a student completes a task, they can click it off the list and then it is stored in the completed tasks list at the very top of the task list. Should the user decide that they didn't really complete the task, they are able to add it back to the pending tasks list by simply unchecking it.
 
 In addition to the To-Do list, there is a module page where students can keep track of the key information on their modules. At the University of Plymouth, students use the Moodle services, or simple DLE. Here, students can review everything they need to know about their module. The difference with this application and the DLE, is that the module page is directly a part of the application. So there is less movement between different windows to make the changes or note down the information that you need when adding your tasks to the page. 
