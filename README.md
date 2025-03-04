@@ -30,5 +30,11 @@ This being my first time using the above tools, meant that I first had to deal w
 
 It should be noted that I also had assistance from many of my colleagues at the University at the PALs session and the Sprint Review Meetings that we had every 2 weeks. However, this was only for guidance and ensuring that I stay within the limits of the project and don't go overboard by using features that are outside the scope of my level.
 
+For any successful project, there is need for good planning. I made use of the Agile Software Development Methodology. This concept was given to us by the University, and was the methodology outlined by the University in our Coursework Description. Within 2 weeks, the developers are meant to push part of the product that is functioning, and then moving on to the next part. However, before all this, there is need for requirements analysis, where the developers were to identify what are the main requirements for this project. This was so that we don't get lost in the development process, and instead, make sure that meet the requirements for that part of the development phase. If I decided to add any other features to the application, this would be done after I am confident that I have met all other prior requirements.
 
+
+<h3><ins>What were the requirements of the project?</ins></h3>
+I will keep it short...
+
+1. 
 
