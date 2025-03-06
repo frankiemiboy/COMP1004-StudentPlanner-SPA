@@ -1,5 +1,5 @@
 <h1> STUDENT PLANNER - COMP1004 Project (UoP) </h1>
-<h2>Overview</h2>
+<h1>Overview</h1>
 
 <h2>Project Vision: What is it?</h2>
 
