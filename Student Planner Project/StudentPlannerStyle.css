@@ -21,6 +21,19 @@
     display: none !important;
 }
 
+/*-------Common Button Styling--------*/
+.overlay-saveButton {
+    background: black;
+    color: white;
+    text-align: center;
+}
+
+.overlay-cancelButton {
+    background: #f44336;
+    color: white;
+    text-align: center;
+}
+
 
 /*--------------------------------------TASKS PAGE SPECIFIC--------------------------------------------*/
 #tasksPage{
@@ -126,6 +139,21 @@
     background-color: rgb(236, 234, 234);
 }
 
+.editButton {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.editButton:hover {
+    background-color: rgb(236, 234, 234);
+}
+
 .customCheckbox {
     border: 2px solid black;
     border-radius: 50%;
@@ -167,6 +195,7 @@ input[type="checkbox"]:checked ~ .taskTitle {
     
 }
 
+/*--------------Module Card Designs---------------------------*/
 .moduleCard {
     border: 2px solid;
     border-radius: 10px;
@@ -177,8 +206,24 @@ input[type="checkbox"]:checked ~ .taskTitle {
     min-height: 80px;
     max-height: 100px;
     align-content: center;
-    
 }
+
+.expandModuleButton {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.expandModuleButton:hover {
+    background-color: rgb(236, 234, 234);
+}
+
+/*-----------------End of Module Card Designs------------------*/
 
 #modulesPage_Header {
     margin-bottom: 20px;
@@ -189,20 +234,22 @@ input[type="checkbox"]:checked ~ .taskTitle {
 }
 
 #addModuleButton {
-    background-color: white;
+    background-color: rgb(61, 60, 60);
+    color: white;
     display: flex;
     justify-content: center;
     align-self: center;
     border: none;
     cursor: pointer;
-    border-radius: 50%;
-    padding: 5px;
+    border-radius: 50px;
+    padding: 8px;
 }
 
 #addModuleButton:hover {
     background-color: rgb(236, 234, 234);
 }
 
+/*----------------------Module Overlay Styling-------------------*/
 #moduleAddOverlay {
     display: flex;
     position: fixed;
@@ -221,8 +268,8 @@ input[type="checkbox"]:checked ~ .taskTitle {
     border-radius: 10px;
     padding: 50px;
     text-align: left;
-    width: 50%;
-    max-height: 60%;
+    width: 60%;
+    max-height: 70%;
     overflow-y: scroll;
 }
 
@@ -235,7 +282,7 @@ input[type="checkbox"]:checked ~ .taskTitle {
   border-radius: 4px;
 }
 
-.moduleInformation_Input {
+.overlay_Input {
     width: 100%;
     padding: 8px;
     margin: 5px 0;
@@ -243,16 +290,25 @@ input[type="checkbox"]:checked ~ .taskTitle {
     border-radius: 5px;
 }
 
-#moduleAssessmentListContainer {
+#moduleLectureDaysInput {
+    display:flex;
+    flex-wrap: wrap;
+    height: 100px
+}
+
+
+#moduleOverlay-assessmentListContainer {
     display: flex;
-    justify-content:stretch;
+    flex-direction: row;
 }
 
-.addModuleAssementLists {
+.moduleOverlay-addedAssessmentsLists {
     padding-left: 0; padding-right: 0;
+    max-width: 50%;
+    min-width: 50%;
 }
 
-.moduleOverlayButtons {
+.overlayActionButtons {
     margin-top: 10px;
     padding: 8px 12px;
     border: none;
@@ -260,12 +316,57 @@ input[type="checkbox"]:checked ~ .taskTitle {
     cursor: pointer;
 }
 
-#addModuleAssignmentButton {
-    background: rgb(207, 206, 206);
+#moduleOverlay-addLecturerDetailsButton {
+    background: rgb(223, 221, 221);
     color: black;
     text-align: center;
 }
 
+#moduleOverlay-addAssignmentButton {
+    background: rgb(223, 221, 221);
+    color: black;
+    text-align: center;
+}
+
+#moduleOverlay-addExamButton {
+    background: rgb(223, 221, 221);
+    color: black;
+    text-align: center;
+}
+
+/*----------------------End of Module Overlay Design Style---------------*/
+
+
+
+/*----------------------Lecturer Details Overlay Styling-----------------------*/
+
+#moduleLecturerDetailsOverlay {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    align-items: center;
+    justify-content: center;
+}
+
+#moduleLecturerDetailsOverlay_Content {
+    background: white;
+    border-radius: 10px;
+    padding: 50px;
+    text-align: left;
+    width: 35%;
+    max-height: 70%;
+    overflow-y: scroll;
+}
+
+/*----------------------Lecturer Details Overlay Styling-----------------------*/
+
+
+
+/*----------------------Assessment Overlay Styling-----------------------*/
 .assessmentOverlay {
     display: flex;
     /*display: none;*/
@@ -279,20 +380,55 @@ input[type="checkbox"]:checked ~ .taskTitle {
     justify-content: center;
 }
 
-/*--------------Handle the designs of the temporary assessment items before they are saved permanently----------*/
-.temporaryAssessmentList{
+.assessmentDetailsInput-Container {
+    display: flex;
+    flex-direction: column;
+}
+
+#assessmentDueDate_Input {
+    width: 40%;
+}
+
+#assessmentContribution_Input {
+    width: 40%;
+}
+
+#assessmentOverlay-addedAssessmentsList {
     padding: 0;
 }
 
-.temporaryAssessmentItemContainer {
+.assessmentOverlay-AssessmentsList-Container {
     display: flex;
     flex-direction: row;
     flex-grow: 1;
     /*justify-content: stretch;*/
 }
 
-.temporaryAssessmentItemDetails {
+.assessmentOverlay-AssessmentItemContainer {
     flex-grow: 1;
+}
+
+.assessmentOverlay-AssessmentItem-ActionButtons-Container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+
+}
+
+.assessmentOverlay-AssessmentItem-ActionButtons {
+    background: white;
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0px;
+}
+
+.assessmentOverlay-AssessmentItem-ActionButtons:hover {
+    background: rgb(236, 234, 234);
 }
 
 .edit-input-continaer{
@@ -308,35 +444,9 @@ input[type="checkbox"]:checked ~ .taskTitle {
     padding: 5px;
 }
 
-.saveAssessmentButton {
-    background: black;
-    color: white;
-    text-align: center;
-}
 
-.cancelAssessmentButton {
-    background: #f44336;
-    color: white;
-    text-align: center;
-}
+/*--------------End of Assessment Overlay Design Style----------*/
 
-#addModuleExamButton {
-    background: rgb(207, 206, 206);
-    color: black;
-    text-align: center;
-}
-
-#addModuleSubmitButton {
-    background: black;
-    color: white;
-    text-align: center;
-}
-
-#cancelModuleSubmitButton {
-    background: #f44336;
-    color: white;
-    text-align: center;
-}
 
 /*----------------------------------------END OF MODULE PAGE SPECIFIC----------------------------------------*/
 

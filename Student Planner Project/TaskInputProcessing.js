@@ -214,4 +214,6 @@ function saveAssessmentDetailsChanges(assessmentItem, newAssessmentName, newDueD
 
 
 
+
+
 /*------------------------------------End of Module Management------------------------------------*/

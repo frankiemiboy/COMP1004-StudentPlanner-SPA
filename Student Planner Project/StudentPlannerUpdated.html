@@ -138,7 +138,7 @@
                     <div id="modulesPage_Header">
                         <h2 class="modulesPage_Heading">Modules</h2>
                         <button id="addModuleButton" onclick="openModuleInputForm()">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
+                            Add Module
                         </button>
                     </div>
                     <div id="moduleList">
@@ -158,6 +158,10 @@
                                 <h4 style="margin: 0;">Exams:</h4>
                                 <p style="margin-top: 0">2 exam(s); 1 left</p>
                             </div>
+                            <hr>
+                            <div>
+                                <button class="expandModuleButton" onclick="expandModuleInformation()">View More</button>
+                            </div>
                         </div>
 
                         <div class="moduleCard" id="COMP1001">
@@ -174,6 +178,10 @@
                                 <p style="margin-top: 0">5 assignment(s); 2 complete; 3 left</p>
                                 <h4 style="margin: 0;">Exams:</h4>
                                 <p style="margin-top: 0">2 exam(s); 1 left</p>
+                            </div>
+                            <hr>
+                            <div>
+                                <button class="expandModuleButton" onclick="expandModuleInformation()">View More</button>
                             </div>
                         </div>
 
@@ -192,6 +200,10 @@
                                 <h4 style="margin: 0;">Exams:</h4>
                                 <p style="margin-top: 0">2 exam(s); 1 left</p>
                             </div>
+                            <hr>
+                            <div>
+                                <button class="expandModuleButton" onclick="expandModuleInformation()">View More</button>
+                            </div>
                         </div>
 
                         <div class="moduleCard" id="COMP1003">
@@ -209,6 +221,10 @@
                                 <h4 style="margin: 0;">Exams:</h4>
                                 <p style="margin-top: 0">2 exam(s); 1 left</p>
                             </div>
+                            <hr>
+                            <div>
+                                <button class="expandModuleButton" onclick="expandModuleInformation()">View More</button>
+                            </div>
                         </div>
 
 
@@ -217,124 +233,161 @@
                 </div>
 
                 <!--Overlay for adding a module-->
-                <div id="moduleAddOverlay" class="overlay hidden">
+                <div id="moduleAddOverlay" class="overlay ">
                     <div class="overlay_Content">
                         <h2 id="moduleOverlayHeader">Add Module</h2>
                         <form id="moduleInputForm">
-                            <label for="moduleCode">Module Code:</label>
-                            <input type="text" id="moduleCode" class="moduleInformation_Input" name="moduleCode" placeholder="Enter Module Code">
-                            <label for="moduleName">Module Name:</label>
-                            <input type="text" id="moduleName" class="moduleInformation_Input" name="moduleName" placeholder="Enter Module Name">
-                            <label for="moduleLecturer">Lecturer / Module Leader:</label>
-                            <input type="text" id="moduleLecturer" class="moduleInformation_Input" name="moduleLecturer" placeholder="Enter Lecturer's Name">
-                            
-                            <div id="moduleAssessmentListContainer">
-                                <ul id="addedAssignmentsList" class="addModuleAssementLists" style="max-width: 50%;">
-                                    <u><b>Assignments:</b></u>
-                                    <li>Microbiology Report</li>
-                                    <dd>Due date: </dd>
-                                    <li>Maths Assignment</li>
-                                    <dd>Due date: </dd>
-                                    <li>Physics Assignment</li>
-                                    <dd>Due date: </dd>
-                                </ul>
-                                <ul id="addedExamsList" class="addModuleAssementLists">
-                                    <u><b>Exams:</b></u>
-                                    <li>Microbiology Exam</li>
-                                    <dd>22/08/2025</dd>
-                                    <li>Maths Exam</li>
-                                    <dd>22/08/2025</dd>
-                                    <li>Physics Exam</li>
-                                    <dd>22/08/2025</dd>
-                                </ul>
+                            <div class="moduleDetails_Input-Container">
+                                <label for="moduleCode">Module Code:</label>
+                                <input type="text" id="moduleCode_Input" class="overlay_Input" name="moduleCode" placeholder="Enter Module Code">
+                                <label for="moduleName">Module Name:</label>
+                                <input type="text" id="moduleName_Input" class="overlay_Input" name="moduleName" placeholder="Enter Module Name">
+                                <label for="moduleLecturer">Lecturer / Module Leader:</label>
+                                <input type="text" id="moduleLecturer_Input" class="overlay_Input" name="moduleLecturer" placeholder="Enter Lecturer's Name">
+                                <label for="moduleCode">Lecture Days:</label>
+                                <input type="text" id="moduleLectureDays_Input" class="overlay_Input" name="moduleLectureDays" placeholder="Enter Days on which Lectures are held">
                             </div>
 
                             <div style="display: flex; gap: 10px;">
-                            <!--Buttons for adding assignments and exams to the module-->
-                            <button type="button" id="addModuleAssignmentButton" class="moduleOverlayButtons" onclick="openAssignmentInputForm()">Add Assignments</button>
-                            <button type="button" id="addModuleExamButton" class="moduleOverlayButtons" onclick="openExamInputForm()">Add Exams</button>
-                            
-                            <!--Buttons for submitting or cancelling the form-->
-                            <button type="submit" id="addModuleSubmitButton" class="moduleOverlayButtons">Save</button>
-                            <button type="button" id="cancelModuleSubmitButton" class="moduleOverlayButtons" onclick="closeModuleInputForm()">Cancel</button>
+                                <!--Buttons for submitting or cancelling the form-->
+                                <button type="submit" id="moduleOverlay-saveModuleButton" class="overlayActionButtons overlay-saveButton">Save</button> <!--Remember to add the function to save/submit the module-->
+                                <button type="button" id="moduleOverlay-cancelSaveModuleButton" class="overlayActionButtons overlay-cancelButton" onclick="closeModuleInputForm()">Cancel</button>
+                                
+                                <!--Button to add more lecturer information-->
+                                <button type="button" id="moduleOverlay-addLecturerDetailsButton" class="overlayActionButtons">Addtional Lecturer Details</button>
+
+                                <!--Buttons for adding assignments and exams to the module-->
+                                <button type="button" id="moduleOverlay-addAssignmentButton" class="overlayActionButtons" onclick="openAssignmentInputForm()">Add Assignments</button>
+                                <button type="button" id="moduleOverlay-addExamButton" class="overlayActionButtons" onclick="openExamInputForm()">Add Exams</button>
                             </div>
+
+                            <p>Any assessments that you add will be listed below:</p>
+                            <div id="moduleOverlay-assessmentListContainer">
+                                <ul id="moduleOverlay-addedAssignmentsList" class="moduleOverlay-addedAssessmentsLists">
+                                    <u><b>Assignments:</b></u>
+                                    <li>Microbiology Report</li>
+                                    <dd>Due date: 27/09/2020</dd>
+                                    <dd>Contribution: 30%</dd>
+                                    <br>
+                                    <li>Maths Assignment</li>
+                                    <dd>Due date: 27/09/2020</dd>
+                                    <dd>Contribution: 30%</dd>
+                                    <br>
+                                    <li>Physics Assignment</li>
+                                    <dd>Due date: 27/09/2020</dd>
+                                    <dd>Contribution: 40%</dd>
+                                </ul>
+                                <ul id="moduleOverlay-addedExamsList" class="moduleOverlay-addedAssessmentsLists">
+                                    <u><b>Exams:</b></u>
+                                    <li>Microbiology Exam</li>
+                                    <dd>Due Date: 22/08/2025</dd>
+                                    <dd>Contribution: 30%</dd>
+                                    <br>
+                                    <li>Maths Exam</li>
+                                    <dd>Due Date: 22/08/2025</dd>
+                                    <dd>Contribution: 30%</dd>
+                                    <br>
+                                    <li>Physics Exam</li>
+                                    <dd>Due Date: 22/08/2025</dd>
+                                    <dd>Contribution: 40%</dd>
+                                    <br>
+                                </ul>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+
+                <!--Overlay for addition lecture details-->
+                <div id="moduleLecturerDetailsOverlay" class="overlay hidden">
+                    <div id="moduleLecturerDetailsOverlay_Content" class="overlay_Content">
+                        <h3>Addtional Lecturer Details</h3>
+                        <form id="moduleLecturerDetailsForm">
+                            <div class="moduleDetails_Input-Container">
+                                <label for="moduleLecturerEmail">Lecturer Email:</label>
+                                <input type="email" id="moduleLecturerEmail_Input" class="overlay_Input" name="moduleLecturerEmail" placeholder="e.g. name@example.com">
+                                <label for="moduleLecturerOffice">Lecturer Office:</label>
+                                <input type="text" id="moduleLecturerOffice_Input" class="overlay_Input" name="moduleLecturerOffice" placeholder="e.g. Room 100, Mary Newman Building">
+                                <label for="moduleLecturerOfficeHours">Lecturer Office Hours:</label>
+                                <input type="text" id="moduleLecturerOfficeHours_Input" class="overlay_Input" name="moduleLecturerOfficeHours" placeholder="e.g. Mondays, 14:00 - 16:00">
+                            </div>
+                            <div style="display: flex; gap: 10px;">
+                                <button type="submit" id="moduleLecturerDetails-saveButton" class="overlayActionButtons overlay-saveButton">Save</button>
+                                <button type="button" id="moduleLecturerDetails-cancelButton" class="overlayActionButtons overlay-cancelButton" onclick="closeLecturerDetailsOverlay()">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!--Overlay for adding an assessment item-->
+                <div id="createAssessmentOverlay" class="overlay assessmentOverlay hidden">
+                    <div class="overlay_Content">
+                        <h2 id="assessmentOverlayHeader">Add Exam (Module Code)</h2>
+                        <form id="assessmentInputForm" >
+                            <div class="assessmentDetailsInput-Container">                                
+                                <label for="assessmentName_Input">Exam Title:</label>
+                                <input type="text" id="assessmentName_Input" class="overlay_Input" name="assessmentName" placeholder="Enter Exam Title"> <!--Make this a variable-->
+                                <label for="assessmentDueDate_Input">Date:</label>
+                                <input type="date" id="assessmentDueDate_Input" class="overlay_Input" name="assessmentDueDate">
+                                <label for="assessmentContribution_Input">Contribution:</label>
+                                <span>
+                                    <input type="number" id="assessmentContribution_Input" class="overlay_Input" name="assessmentContribution" placeholder="Contribution to Final Grade (e.g. 30)">
+                                    <label for="assessmentContribution_Input">%</label>
+                                </span>
+                            </div>
+                            <button type="submit" id="assessmentOverlay-addAssessmentButton" class="overlayActionButtons">Add</button>
+                            <button type="button" id="assessmentOverlay-saveAssessmentsButton" class="overlayActionButtons overlay-saveButton">Save</button>
+                            <button type="button" id="assessmentOverlay-cancelAssessmentsButton" class="overlayActionButtons overlay-cancelButton" onclick="closeAssessmentInputForm()">Cancel</button>
                         </form>
                         
-                    </div>
-
-                </div>
-
-                <div id="assignmentOverlay" class="overlay assessmentOverlay hidden">
-                    <div class="overlay_Content">
-                        <h2 id="assignmentOverlayHeader">Add Assignment</h2>
-                        <form id="assignmentInputForm" >
-                            <label for="assignmentName">Assignment Name:</label>
-                            <input type="text" id="assignmentName" class="moduleInformation_Input" name="assignmentName" placeholder="Enter Assignment Name">
-                            <label for="assignmentDueDate">Due Date:</label>
-                            <input type="date" id="assignmentDueDate" class="moduleInformation_Input" name="assignmentDueDate">
-                            <button type="submit" id="addAssignmentSubmitButton" class="moduleOverlayButtons">Add</button>
-                            <button type="button" id="saveAssignmentButton" class="moduleOverlayButtons saveAssessmentButton">Save</button>
-                            <button type="button" id="cancelAssignmentsButton" class="moduleOverlayButtons cancelAssessmentButton" onclick="closeAssignmentInputForm()">Cancel</button>
-                        </form>
-                        <br>
-                        <ul>
-                            <li>Microbiology Report</li>
-                            <dd>Due date: </dd>
-                            <hr>
-                            <li>Maths Assignment</li>
-                            <dd>Due date:</dd>
-                            <hr>
-                            <li>Physics Assignment</li>
-                            <dd>Due date:</dd>
-                        </ul>
-                    </div>
-                </div>
-
-                <div id="examOverlay" class="overlay assessmentOverlay">
-                    <div class="overlay_Content">
-                        <h2 id="examOverlayHeader">Add Exam</h2>
-                        <form id="examInputForm" >
-                            <label for="examName">Exam Title:</label>
-                            <input type="text" id="examName" class="moduleInformation_Input" name="examName" placeholder="Enter Exam Title">
-                            <label for="examDueDate">Date:</label>
-                            <input type="date" id="examDueDate" class="moduleInformation_Input" name="examDueDate">
-                            <button type="submit" id="addExamSubmitButton" class="moduleOverlayButtons">Add</button>
-                            <button type="button" id="savEexamButton" class="moduleOverlayButtons saveAssessmentButton">Save</button>
-                            <button type="button" id="cancelExamsButton" class="moduleOverlayButtons cancelAssessmentButton" onclick="closeExamInputForm()">Cancel</button>
-                        </form>
-                        <br>
-                        <ul id="temporaryExamList" class="temporaryAssessmentList">
-                            <div class="temporaryAssessmentItemContainer">
-                                <div class="temporaryAssessmentItemDetails">
+                        <p>Any assessments you add will appear below:</p>
+                        <ul id="assessmentOverlay-addedAssessmentsList">
+                            <div class="assessmentOverlay-AssessmentsList-Container">
+                                <div class="assessmentOverlay-AssessmentItemContainer">
                                     <li onclick="editTemporaryAssessmentDetails(this)">Microbiology Exam</li>
-                                    <dd><b>Due date:</b> <span>03/03/2025</span></dd>
+                                    <dd><b>Date:</b> <span>03/03/2025</span></dd>
+                                    <dd><b>Contribution:</b> <span>30</span>%</dd>
                                 </div>
-                                <div>
-                                    <button class="deleteButton" onclick="deleteTemporaryAssessment(this)">
+                                <div class="assessmentOverlay-AssessmentItem-ActionButtons-Container">
+                                    <button class="assessmentOverlay-AssessmentItem-ActionButtons" onclick="editTemporaryAssessmentDetails(this)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
+
+                                    </button>
+                                    <button class="assessmentOverlay-AssessmentItem-ActionButtons" onclick="deleteTemporaryAssessment(this)">
                                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                                     </button>
                                 </div>
                             </div>
                             <hr>
-                            <div class="temporaryAssessmentItemContainer">
-                                <div class="temporaryAssessmentItemDetails">
+                            <div class="assessmentOverlay-AssessmentsList-Container">
+                                <div class="assessmentOverlay-AssessmentItemContainer">
                                     <li onclick="editTemporaryAssessmentDetails(this)">Math Exam</li>
-                                    <dd><b>Due date:</b> <span>03/03/2025</span></dd>
+                                    <dd><b>Date:</b> <span>03/03/2025</span></dd>
+                                    <dd><b>Contribution:</b> <span>30</span>%</dd>
                                 </div>
-                                <div>
-                                    <button class="deleteButton" onclick="deleteTemporaryAssessment(this)">
+                                <div class="assessmentOverlay-AssessmentItem-ActionButtons-Container">
+                                    <button class="assessmentOverlay-AssessmentItem-ActionButtons" onclick="editTemporaryAssessmentDetails(this)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
+
+                                    </button>
+                                    <button class="assessmentOverlay-AssessmentItem-ActionButtons" onclick="deleteTemporaryAssessment(this)">
                                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                                     </button>
                                 </div>
                             </div>
                             <hr>
-                            <div class="temporaryAssessmentItemContainer">
-                                <div class="temporaryAssessmentItemDetails">
+                            <div class="assessmentOverlay-AssessmentsList-Container">
+                                <div class="assessmentOverlay-AssessmentItemContainer">
                                     <li onclick="editTemporaryAssessmentDetails(this)">Physics Exam</li>
-                                    <dd><b>Due date:</b> <span>03/03/2025</span></dd>
+                                    <dd><b>Date:</b> <span>03/03/2025</span></dd>
+                                    <dd><b>Contribution:</b> <span>40</span>%</dd>
                                 </div>
-                                <div>
-                                    <button class="deleteButton" onclick="deleteTemporaryAssessment(this)">
+                                <div class="assessmentOverlay-AssessmentItem-ActionButtons-Container">
+                                    <button class="assessmentOverlay-AssessmentItem-ActionButtons" onclick="editTemporaryAssessmentDetails(this)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
+
+                                    </button>
+                                    <button class="assessmentOverlay-AssessmentItem-ActionButtons" onclick="deleteTemporaryAssessment(this)">
                                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                                     </button>
                                 </div>
