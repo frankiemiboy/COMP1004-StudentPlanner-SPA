@@ -34,6 +34,11 @@
     text-align: center;
 }
 
+.plainButtons {
+    background-color: white;
+    text-align: center;
+}
+
 
 /*--------------------------------------TASKS PAGE SPECIFIC--------------------------------------------*/
 #tasksPage{
@@ -247,10 +252,53 @@ input[type="checkbox"]:checked ~ .taskTitle {
 
 #addModuleButton:hover {
     background-color: rgb(236, 234, 234);
+    color: black;
 }
 
-/*----------------------Module Overlay Styling-------------------*/
-#moduleAddOverlay {
+
+/*----------------------Expanded Module Information Overlay Styling-------------------*/
+.moduleInformationOverlay-divContainers {
+    display: flex;
+}
+
+#moduleInformationOverlay-Header {
+    flex-grow: 1;
+}
+
+#moduleInformationOverlay-lecturerInformation-Container {
+    width: 50%;
+    border-right: 1px solid grey;
+}
+
+#moduleInformationOverlay-lectureDays-Container { 
+    width: 50%; 
+    padding-left: 15px;
+}
+
+#moduleInformationOverlay-lectureDaysList {
+    list-style-type: none;
+    padding: 0;
+}
+
+.moduleInformationOverlay-assessmentItem {
+    display:flex; 
+    flex-direction: column; 
+    flex-grow: 1;
+}
+
+#moduleInformationOverlay-deleteButton-Container {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+/*----------------------Expanded Module Information Overlay Styling-------------------*/
+
+
+
+
+/*----------------------Module Add Overlay Styling-------------------*/
+.overlay {
     display: flex;
     position: fixed;
     top: 0;
@@ -334,23 +382,11 @@ input[type="checkbox"]:checked ~ .taskTitle {
     text-align: center;
 }
 
-/*----------------------End of Module Overlay Design Style---------------*/
+/*----------------------End of Module Overlay Add Design Style---------------*/
 
 
 
 /*----------------------Lecturer Details Overlay Styling-----------------------*/
-
-#moduleLecturerDetailsOverlay {
-    display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    align-items: center;
-    justify-content: center;
-}
 
 #moduleLecturerDetailsOverlay_Content {
     background: white;
@@ -366,20 +402,7 @@ input[type="checkbox"]:checked ~ .taskTitle {
 
 
 
-/*----------------------Assessment Overlay Styling-----------------------*/
-.assessmentOverlay {
-    display: flex;
-    /*display: none;*/
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    align-items: center;
-    justify-content: center;
-}
-
+/*----------------------Assessment Overlay Styling-----------------------------*/
 .assessmentDetailsInput-Container {
     display: flex;
     flex-direction: column;
@@ -444,8 +467,8 @@ input[type="checkbox"]:checked ~ .taskTitle {
     padding: 5px;
 }
 
-
 /*--------------End of Assessment Overlay Design Style----------*/
+
 
 
 /*----------------------------------------END OF MODULE PAGE SPECIFIC----------------------------------------*/
