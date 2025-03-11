@@ -213,7 +213,103 @@ function saveAssessmentDetailsChanges(assessmentItem, newAssessmentName, newDueD
 
 
 
+/*-------------Overlay Functionality---------------*/ 
 
+/*function displayOverlay(overlay) {
+    document.querySelectorAll('.overlay').forEach(o => {
+        o.classList.add('hidden');
+    });
+    overlay.classList.remove('hidden');
+}
+*/
+
+// Control the display of the overlays
+function displayOverlay(overlayID) {
+    document.querySelectorAll('.overlay').forEach(overlay => {
+        overlay.classList.toggle('hidden', overlay.id !== overlayID);
+    });
+}
+
+// Expand the module 
+function expandModule(moduleID) {
+    let moduleCard = document.getElementById(moduleID);
+    const moduleInformationOverlay = document.createElement('div');
+    moduleInformationOverlay.id = "moduleInformationOverlay";
+    moduleInformationOverlay.classList.add("overlay", "hidden");
+    moduleInformationOverlay.innerHTML = `
+                    <div id="moduleInformationOverlay_Content" class="overlay_Content">
+                        <div id="moduleInformationOverlay_Content-Header-Container" class="moduleInformationOverlay-divContainers">
+                            <h2 id="moduleInformationOverlay-Header">${moduleID} - Software Engineering 1</h2>
+                            <button class="overlayActionButtons plainButtons" onclick="editModuleInformation()">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
+                            </button>
+                            <button class="overlayActionButtons plainButtons" onclick="closeModuleInformationOverlay()">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+                            </button>
+                        </div>
+                        <hr>
+                        <div class="moduleInformationOverlay-Container">
+                            <div id="moduleInformationOverlay-lectureInformation-Container" class="moduleInformationOverlay-divContainers">
+                                <div id="moduleInformationOverlay-lecturerInformation-Container">
+                                    <h3>Lecturer Information:</h3>
+                                    <div id="moduleInformationOverlay-lecturerInformation">
+                                        <p><b>Name:</b> Dr. Jacqueline Who</p>
+                                        <p><b>Email:</b> <a href="mailto:jacquelinewho@example.com">jacquelinewho@example.com</a></p>
+                                        <p><b>Office:</b> Room 100, Mary Newman Building</p>
+                                        <p><b>Office Hours:</b> Mondays 14:00 - 16:00</p>
+                                    </div>
+                                </div>
+                                <div id="moduleInformationOverlay-lectureDays-Container">
+                                    <h3>Lecture Days:</h3>
+                                    <ul id="moduleInformationOverlay-lectureDaysList">
+                                        <li><b>Mondays</b>, 10:00 - 12:00</li>
+                                        <li><b>Thursdays</b>, 14:00 - 16:00</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <br>
+                            <h3>Assignments:</h3>
+                            <ul style="">
+                                <div class="moduleInformationOverlay-divContainers">
+                                    <div class="moduleInformationOverlay-assessmentItem">
+                                        <li>Microbiology Report</li>
+                                        <dd>Due date: 27/09/2020</dd>
+                                    </div>
+                                    <dd>Contribution: 30%</dd>
+                                </div>
+                                <hr>
+                            </ul>
+                            <br>
+                            <h3>Exams:</h3>
+                            <ul>
+                                <div class="moduleInformationOverlay-divContainers">
+                                    <div class="moduleInformationOverlay-assessmentItem">
+                                        <li>Microbiology Exam</li>
+                                        <dd>Due date: 27/09/2020</dd>
+                                    </div>
+                                    <dd>Contribution: 70%</dd>
+                                </div>
+                                <hr>
+                            </ul>
+                        </div>
+                        <br>
+                        <div id="moduleInformationOverlay-deleteButton-Container" >
+                            <button class="overlayActionButtons overlay-cancelButton" onclick=deleteModule()>Delete Module</button>
+                        </div>
+                    </div>`
+
+    moduleCard.insertAdjacentElement('afterend', moduleInformationOverlay);
+    displayOverlay('moduleInformationOverlay');
+}
+
+// Close the module information overlay
+function closeModuleInformationOverlay() {
+    document.getElementById("moduleInformationOverlay").remove();
+}
+
+function openModuleInputForm() {
+    document.getElementById("moduleInputForm").style.display = "block";
+}
 
 
 /*------------------------------------End of Module Management------------------------------------*/

@@ -137,7 +137,7 @@
                 <div id="modulesPage" class="section">
                     <div id="modulesPage_Header">
                         <h2 class="modulesPage_Heading">Modules</h2>
-                        <button id="addModuleButton" onclick="openModuleInputForm()">
+                        <button id="addModuleButton" onclick="displayOverlay('moduleAddOverlay')">
                             Add Module
                         </button>
                     </div>
@@ -160,7 +160,7 @@
                             </div>
                             <hr>
                             <div>
-                                <button class="expandModuleButton" onclick="expandModuleInformation()">View More</button>
+                                <button id="expandModuleButton-COMP1000" class="expandModuleButton" onclick="expandModule('COMP1000')">View More</button>
                             </div>
                         </div>
 
@@ -181,7 +181,7 @@
                             </div>
                             <hr>
                             <div>
-                                <button class="expandModuleButton" onclick="expandModuleInformation()">View More</button>
+                                <button id="expandModuleButton-COMP1001" class="expandModuleButton" onclick="expandModule('COMP1001')">View More</button>
                             </div>
                         </div>
 
@@ -202,7 +202,7 @@
                             </div>
                             <hr>
                             <div>
-                                <button class="expandModuleButton" onclick="expandModuleInformation()">View More</button>
+                                <button id="expandModuleButton-COMP1002" class="expandModuleButton" onclick="expandModule('COMP1002')">View More</button>
                             </div>
                         </div>
 
@@ -223,7 +223,7 @@
                             </div>
                             <hr>
                             <div>
-                                <button class="expandModuleButton" onclick="expandModuleInformation()">View More</button>
+                                <button id="expandModuleButton-COMP1003" class="expandModuleButton" onclick="expandModule('COMP1003')">View More</button>
                             </div>
                         </div>
 
@@ -231,7 +231,8 @@
                 </div>
 
                 <!--Overlay for Expanded Module Information-->
-                <div id="moduleInformationOverlay" class="overlay ">
+                <!--
+                <div id="moduleInformationOverlay" class="overlay hidden">
                     <div id="moduleInformationOverlay_Content" class="overlay_Content">
                         <div id="moduleInformationOverlay_Content-Header-Container" class="moduleInformationOverlay-divContainers">
                             <h2 id="moduleInformationOverlay-Header">COMP1000 - Software Engineering 1</h2>
@@ -293,7 +294,7 @@
                         </div>
                     </div>
                 </div>
-
+                -->
 
 
                 <!--Overlay for adding a module-->
@@ -302,13 +303,13 @@
                         <h2 id="moduleOverlayHeader">Add Module</h2>
                         <form id="moduleInputForm">
                             <div class="moduleDetails_Input-Container">
-                                <label for="moduleCode">Module Code:</label>
+                                <label for="moduleCode_Input">Module Code:</label>
                                 <input type="text" id="moduleCode_Input" class="overlay_Input" name="moduleCode" placeholder="Enter Module Code">
-                                <label for="moduleName">Module Name:</label>
+                                <label for="moduleName_Input">Module Name:</label>
                                 <input type="text" id="moduleName_Input" class="overlay_Input" name="moduleName" placeholder="Enter Module Name">
-                                <label for="moduleLecturer">Lecturer / Module Leader:</label>
+                                <label for="moduleLecturer_Input">Lecturer / Module Leader:</label>
                                 <input type="text" id="moduleLecturer_Input" class="overlay_Input" name="moduleLecturer" placeholder="Enter Lecturer's Name">
-                                <label for="moduleCode">Lecture Days:</label>
+                                <label for="moduleLectureDays_Input">Lecture Days:</label>
                                 <input type="text" id="moduleLectureDays_Input" class="overlay_Input" name="moduleLectureDays" placeholder="Enter Days on which Lectures are held">
                             </div>
 
@@ -362,17 +363,17 @@
                     </div>
                 </div>
 
-                <!--Overlay for addition lecture details-->
+                <!--Overlay for additional lecture details-->
                 <div id="moduleLecturerDetailsOverlay" class="overlay hidden">
                     <div id="moduleLecturerDetailsOverlay_Content" class="overlay_Content">
                         <h3>Addtional Lecturer Details</h3>
                         <form id="moduleLecturerDetailsForm">
                             <div class="moduleDetails_Input-Container">
-                                <label for="moduleLecturerEmail">Lecturer Email:</label>
+                                <label for="moduleLecturerEmail_Input">Lecturer Email:</label>
                                 <input type="email" id="moduleLecturerEmail_Input" class="overlay_Input" name="moduleLecturerEmail" placeholder="e.g. name@example.com">
-                                <label for="moduleLecturerOffice">Lecturer Office:</label>
+                                <label for="moduleLecturerOffice_Input">Lecturer Office:</label>
                                 <input type="text" id="moduleLecturerOffice_Input" class="overlay_Input" name="moduleLecturerOffice" placeholder="e.g. Room 100, Mary Newman Building">
-                                <label for="moduleLecturerOfficeHours">Lecturer Office Hours:</label>
+                                <label for="moduleLecturerOfficeHours_Input">Lecturer Office Hours:</label>
                                 <input type="text" id="moduleLecturerOfficeHours_Input" class="overlay_Input" name="moduleLecturerOfficeHours" placeholder="e.g. Mondays, 14:00 - 16:00">
                             </div>
                             <div style="display: flex; gap: 10px;">
