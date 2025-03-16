@@ -213,6 +213,14 @@ input[type="checkbox"]:checked ~ .taskTitle {
     align-content: center;
 }
 
+.moduleCard_Content-itemHeader {
+    margin: 0;
+}
+
+.moduleCard_Content-item {
+    margin-top: 0;
+}
+
 .expandModuleButton {
     background-color: white;
     display: flex;

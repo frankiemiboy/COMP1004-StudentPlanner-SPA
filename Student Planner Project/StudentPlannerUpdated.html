@@ -134,10 +134,12 @@
                     <h2>Assignments</h2>
                 </div>
 
+<!-----------------------------Modules Page----------------------------------------------->
+
                 <div id="modulesPage" class="section">
                     <div id="modulesPage_Header">
                         <h2 class="modulesPage_Heading">Modules</h2>
-                        <button id="addModuleButton" onclick="displayOverlay('moduleAddOverlay')">
+                        <button id="addModuleButton" onclick="openModuleAddOverlay()">
                             Add Module
                         </button>
                     </div>
@@ -228,77 +230,79 @@
                         </div>
 
                     </div>
+
+                    <!--<div id="moduleInformationOverlay" class="overlay hidden">
+                        <div id="moduleInformationOverlay_Content" class="overlay_Content">
+                            <div id="moduleInformationOverlay_Content-Header-Container" class="moduleInformationOverlay-divContainers">
+                                <h2 id="moduleInformationOverlay-Header">COMP1000 - Software Engineering 1</h2>
+                                <button class="overlayActionButtons plainButtons" onclick="editModuleInformation()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
+                                </button>
+                                <button class="overlayActionButtons plainButtons" onclick="closeModuleInformationOverlay()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+                                </button>
+                            </div>
+                            <hr>
+                            <div class="moduleInformationOverlay-Container">
+                                <div id="moduleInformationOverlay-lectureInformation-Container" class="moduleInformationOverlay-divContainers">
+                                    <div id="moduleInformationOverlay-lecturerInformation-Container">
+                                        <h3>Lecturer Information:</h3>
+                                        <div id="moduleInformationOverlay-lecturerInformation">
+                                            <p><b>Name:</b> Dr. Jacqueline Who</p>
+                                            <p><b>Email:</b> <a href="mailto:jacquelinewho@example.com">jacquelinewho@example.com</a></p>
+                                            <p><b>Office:</b> Room 100, Mary Newman Building</p>
+                                            <p><b>Office Hours:</b> Mondays 14:00 - 16:00</p>
+                                        </div>
+                                    </div>
+                                    <div id="moduleInformationOverlay-lectureDays-Container">
+                                        <h3>Lecture Days:</h3>
+                                        <ul id="moduleInformationOverlay-lectureDaysList">
+                                            <li><b>Mondays</b>, 10:00 - 12:00</li>
+                                            <li><b>Thursdays</b>, 14:00 - 16:00</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <br>
+                                <h3>Assignments:</h3>
+                                <ul id="moduleInformationOverlay-assignmentsList">
+                                    <div class="moduleInformationOverlay-divContainers">
+                                        <div class="moduleInformationOverlay-assessmentItem">
+                                            <li>Microbiology Report</li>
+                                            <dd>Due date: 27/09/2020</dd>
+                                        </div>
+                                        <dd>Contribution: 30%</dd>
+                                    </div>
+                                    <hr>
+                                </ul>
+                                <br>
+                                <h3>Exams:</h3>
+                                <ul id="moduleInformationOverlay-examsList">
+                                    <div  class="moduleInformationOverlay-divContainers">
+                                        <div class="moduleInformationOverlay-assessmentItem">
+                                            <li>Microbiology Exam</li>
+                                            <dd>Due date: 27/09/2020</dd>
+                                        </div>
+                                        <dd>Contribution: 70%</dd>
+                                    </div>
+                                    <hr>
+                                </ul>
+                            </div>
+                            <br>
+                            <div id="moduleInformationOverlay-deleteButton-Container" >
+                                <button class="overlayActionButtons overlay-cancelButton" onclick=deleteModule()>Delete Module</button>
+                            </div>
+                        </div>
+                    </div>-->
                 </div>
 
                 <!--Overlay for Expanded Module Information-->
-                <!--
-                <div id="moduleInformationOverlay" class="overlay hidden">
-                    <div id="moduleInformationOverlay_Content" class="overlay_Content">
-                        <div id="moduleInformationOverlay_Content-Header-Container" class="moduleInformationOverlay-divContainers">
-                            <h2 id="moduleInformationOverlay-Header">COMP1000 - Software Engineering 1</h2>
-                            <button class="overlayActionButtons plainButtons" onclick="editModuleInformation()">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
-                            </button>
-                            <button class="overlayActionButtons plainButtons" onclick="closeModuleInformationOverlay()">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-                            </button>
-                        </div>
-                        <hr>
-                        <div class="moduleInformationOverlay-Container">
-                            <div id="moduleInformationOverlay-lectureInformation-Container" class="moduleInformationOverlay-divContainers">
-                                <div id="moduleInformationOverlay-lecturerInformation-Container">
-                                    <h3>Lecturer Information:</h3>
-                                    <div id="moduleInformationOverlay-lecturerInformation">
-                                        <p><b>Name:</b> Dr. Jacqueline Who</p>
-                                        <p><b>Email:</b> <a href="mailto:jacquelinewho@example.com">jacquelinewho@example.com</a></p>
-                                        <p><b>Office:</b> Room 100, Mary Newman Building</p>
-                                        <p><b>Office Hours:</b> Mondays 14:00 - 16:00</p>
-                                    </div>
-                                </div>
-                                <div id="moduleInformationOverlay-lectureDays-Container">
-                                    <h3>Lecture Days:</h3>
-                                    <ul id="moduleInformationOverlay-lectureDaysList">
-                                        <li><b>Mondays</b>, 10:00 - 12:00</li>
-                                        <li><b>Thursdays</b>, 14:00 - 16:00</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <br>
-                            <h3>Assignments:</h3>
-                            <ul style="">
-                                <div class="moduleInformationOverlay-divContainers">
-                                    <div class="moduleInformationOverlay-assessmentItem">
-                                        <li>Microbiology Report</li>
-                                        <dd>Due date: 27/09/2020</dd>
-                                    </div>
-                                    <dd>Contribution: 30%</dd>
-                                </div>
-                                <hr>
-                            </ul>
-                            <br>
-                            <h3>Exams:</h3>
-                            <ul>
-                                <div class="moduleInformationOverlay-divContainers">
-                                    <div class="moduleInformationOverlay-assessmentItem">
-                                        <li>Microbiology Exam</li>
-                                        <dd>Due date: 27/09/2020</dd>
-                                    </div>
-                                    <dd>Contribution: 70%</dd>
-                                </div>
-                                <hr>
-                            </ul>
-                        </div>
-                        <br>
-                        <div id="moduleInformationOverlay-deleteButton-Container" >
-                            <button class="overlayActionButtons overlay-cancelButton" onclick=deleteModule()>Delete Module</button>
-                        </div>
-                    </div>
-                </div>
-                -->
+                
+                
+                
 
 
                 <!--Overlay for adding a module-->
-                <div id="moduleAddOverlay" class="overlay hidden">
+                <!--<div id="moduleAddOverlay" class="overlay ">
                     <div class="overlay_Content">
                         <h2 id="moduleOverlayHeader">Add Module</h2>
                         <form id="moduleInputForm">
@@ -312,18 +316,18 @@
                                 <label for="moduleLectureDays_Input">Lecture Days:</label>
                                 <input type="text" id="moduleLectureDays_Input" class="overlay_Input" name="moduleLectureDays" placeholder="Enter Days on which Lectures are held">
                             </div>
-
+                        </form>
                             <div style="display: flex; gap: 10px;">
-                                <!--Buttons for submitting or cancelling the form-->
-                                <button type="submit" id="moduleOverlay-saveModuleButton" class="overlayActionButtons overlay-saveButton">Save</button> <!--Remember to add the function to save/submit the module-->
-                                <button type="button" id="moduleOverlay-cancelSaveModuleButton" class="overlayActionButtons overlay-cancelButton" onclick="closeModuleInputForm()">Cancel</button>
+                                <!--Buttons for submitting or cancelling the form--
+                                <button type="submit" id="moduleOverlay-saveModuleButton" class="overlayActionButtons overlay-saveButton" onclick="saveModule()">Save</button> <!--Remember to add the function to save/submit the module--
+                                <button type="button" id="moduleOverlay-cancelSaveModuleButton" class="overlayActionButtons overlay-cancelButton" onclick="closeOverlay('moduleAddOverlay')">Cancel</button>
                                 
-                                <!--Button to add more lecturer information-->
-                                <button type="button" id="moduleOverlay-addLecturerDetailsButton" class="overlayActionButtons">Addtional Lecturer Details</button>
+                                <!--Button to add more lecturer information--
+                                <button type="button" id="moduleOverlay-addLecturerDetailsButton" class="overlayActionButtons" onclick="openLecturerDetailsInputForm()">Addtional Lecturer Details</button>
 
-                                <!--Buttons for adding assignments and exams to the module-->
-                                <button type="button" id="moduleOverlay-addAssignmentButton" class="overlayActionButtons" onclick="openAssignmentInputForm()">Add Assignments</button>
-                                <button type="button" id="moduleOverlay-addExamButton" class="overlayActionButtons" onclick="openExamInputForm()">Add Exams</button>
+                                <!--Buttons for adding assignments and exams to the module--
+                                <button type="button" id="moduleOverlay-addAssignmentButton" class="overlayActionButtons" onclick="openAssessmentInputForm('Assignment')">Add Assignments</button>
+                                <button type="button" id="moduleOverlay-addExamButton" class="overlayActionButtons" onclick="openAssessmentInputForm('Exam')">Add Exams</button>
                             </div>
 
                             <p>Any assessments that you add will be listed below:</p>
@@ -358,13 +362,12 @@
                                     <br>
                                 </ul>
                             </div>
-
-                        </form>
+                        
                     </div>
-                </div>
+                </div>-->
 
                 <!--Overlay for additional lecture details-->
-                <div id="moduleLecturerDetailsOverlay" class="overlay hidden">
+                <!--<div id="moduleLecturerDetailsOverlay" class="overlay hidden">
                     <div id="moduleLecturerDetailsOverlay_Content" class="overlay_Content">
                         <h3>Addtional Lecturer Details</h3>
                         <form id="moduleLecturerDetailsForm">
@@ -378,14 +381,14 @@
                             </div>
                             <div style="display: flex; gap: 10px;">
                                 <button type="submit" id="moduleLecturerDetails-saveButton" class="overlayActionButtons overlay-saveButton">Save</button>
-                                <button type="button" id="moduleLecturerDetails-cancelButton" class="overlayActionButtons overlay-cancelButton" onclick="closeLecturerDetailsOverlay()">Cancel</button>
+                                <button type="button" id="moduleLecturerDetails-cancelButton" class="overlayActionButtons overlay-cancelButton" onclick="closeOverlay(moduleLecturerDetailsOverlay)">Cancel</button>
                             </div>
                         </form>
                     </div>
-                </div>
+                </div>-->
 
                 <!--Overlay for adding an assessment item-->
-                <div id="createAssessmentOverlay" class="overlay assessmentOverlay hidden">
+                <div id="assessmentOverlay" class="overlay hidden">
                     <div class="overlay_Content">
                         <h2 id="assessmentOverlayHeader">Add Exam (Module Code)</h2>
                         <form id="assessmentInputForm" >
@@ -400,10 +403,11 @@
                                     <label for="assessmentContribution_Input">%</label>
                                 </div>
                             </div>
-                            <button type="submit" id="assessmentOverlay-addAssessmentButton" class="overlayActionButtons">Add</button>
-                            <button type="button" id="assessmentOverlay-saveAssessmentsButton" class="overlayActionButtons overlay-saveButton">Save</button>
-                            <button type="button" id="assessmentOverlay-cancelAssessmentsButton" class="overlayActionButtons overlay-cancelButton" onclick="closeAssessmentInputForm()">Cancel</button>
                         </form>
+
+                        <button type="submit" id="assessmentOverlay-addAssessmentButton" class="overlayActionButtons" onclick="addTemporaryAssignments()">Add</button>
+                        <button type="button" id="assessmentOverlay-saveAssessmentsButton" class="overlayActionButtons overlay-saveButton">Save</button>
+                        <button type="button" id="assessmentOverlay-cancelAssessmentsButton" class="overlayActionButtons overlay-cancelButton" onclick="closeAssessmentInputForm()">Cancel</button>
                         
                         <p>Any assessments you add will appear below:</p>
                         <ul id="assessmentOverlay-addedAssessmentsList">
@@ -416,7 +420,6 @@
                                 <div class="assessmentOverlay-AssessmentItem-ActionButtons-Container">
                                     <button class="assessmentOverlay-AssessmentItem-ActionButtons" onclick="editTemporaryAssessmentDetails(this)">
                                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
-
                                     </button>
                                     <button class="assessmentOverlay-AssessmentItem-ActionButtons" onclick="deleteTemporaryAssessment(this)">
                                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
