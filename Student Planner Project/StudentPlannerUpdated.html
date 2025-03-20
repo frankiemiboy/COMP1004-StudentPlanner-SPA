@@ -302,7 +302,7 @@
 
 
                 <!--Overlay for adding a module-->
-                <!--<div id="moduleAddOverlay" class="overlay ">
+                <!--<div id="moduleAddOverlay" class="overlay hidden">
                     <div class="overlay_Content">
                         <h2 id="moduleOverlayHeader">Add Module</h2>
                         <form id="moduleInputForm">
@@ -318,14 +318,14 @@
                             </div>
                         </form>
                             <div style="display: flex; gap: 10px;">
-                                <!--Buttons for submitting or cancelling the form--
-                                <button type="submit" id="moduleOverlay-saveModuleButton" class="overlayActionButtons overlay-saveButton" onclick="saveModule()">Save</button> <!--Remember to add the function to save/submit the module--
+                                <!-Buttons for submitting or cancelling the form--
+                                <button type="submit" id="moduleOverlay-saveModuleButton" class="overlayActionButtons overlay-saveButton" onclick="saveModule()">Save</button> <!-Remember to add the function to save/submit the module--
                                 <button type="button" id="moduleOverlay-cancelSaveModuleButton" class="overlayActionButtons overlay-cancelButton" onclick="closeOverlay('moduleAddOverlay')">Cancel</button>
                                 
-                                <!--Button to add more lecturer information--
+                                <!-Button to add more lecturer information--
                                 <button type="button" id="moduleOverlay-addLecturerDetailsButton" class="overlayActionButtons" onclick="openLecturerDetailsInputForm()">Addtional Lecturer Details</button>
 
-                                <!--Buttons for adding assignments and exams to the module--
+                                <!-Buttons for adding assignments and exams to the module--
                                 <button type="button" id="moduleOverlay-addAssignmentButton" class="overlayActionButtons" onclick="openAssessmentInputForm('Assignment')">Add Assignments</button>
                                 <button type="button" id="moduleOverlay-addExamButton" class="overlayActionButtons" onclick="openAssessmentInputForm('Exam')">Add Exams</button>
                             </div>
@@ -334,17 +334,23 @@
                             <div id="moduleOverlay-assessmentListContainer">
                                 <ul id="moduleOverlay-addedAssignmentsList" class="moduleOverlay-addedAssessmentsLists">
                                     <u><b>Assignments:</b></u>
+                                    <div>
                                     <li>Microbiology Report</li>
                                     <dd>Due date: 27/09/2020</dd>
                                     <dd>Contribution: 30%</dd>
+                                    </div>
                                     <br>
+                                    <div>
                                     <li>Maths Assignment</li>
                                     <dd>Due date: 27/09/2020</dd>
                                     <dd>Contribution: 30%</dd>
+                                    </div>
                                     <br>
+                                    <div>
                                     <li>Physics Assignment</li>
                                     <dd>Due date: 27/09/2020</dd>
                                     <dd>Contribution: 40%</dd>
+                                    </div>
                                 </ul>
                                 <ul id="moduleOverlay-addedExamsList" class="moduleOverlay-addedAssessmentsLists">
                                     <u><b>Exams:</b></u>
@@ -388,13 +394,13 @@
                 </div>-->
 
                 <!--Overlay for adding an assessment item-->
-                <div id="assessmentOverlay" class="overlay hidden">
+                <!--<div id="assessmentOverlay" class="overlay hidden">
                     <div class="overlay_Content">
                         <h2 id="assessmentOverlayHeader">Add Exam (Module Code)</h2>
                         <form id="assessmentInputForm" >
                             <div class="assessmentDetailsInput-Container">                                
                                 <label for="assessmentName_Input">Exam Title:</label>
-                                <input type="text" id="assessmentName_Input" class="overlay_Input" name="assessmentName" placeholder="Enter Exam Title"> <!--Make this a variable-->
+                                <input type="text" id="assessmentName_Input" class="overlay_Input" name="assessmentName" placeholder="Enter Exam Title"> <!--Make this a variable
                                 <label for="assessmentDueDate_Input">Date:</label>
                                 <input type="date" id="assessmentDueDate_Input" class="overlay_Input" name="assessmentDueDate">
                                 <label for="assessmentContribution_Input">Contribution:</label>
@@ -418,9 +424,6 @@
                                     <dd><b>Contribution:</b> <span>30</span>%</dd>
                                 </div>
                                 <div class="assessmentOverlay-AssessmentItem-ActionButtons-Container">
-                                    <button class="assessmentOverlay-AssessmentItem-ActionButtons" onclick="editTemporaryAssessmentDetails(this)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
-                                    </button>
                                     <button class="assessmentOverlay-AssessmentItem-ActionButtons" onclick="deleteTemporaryAssessment(this)">
                                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
                                     </button>
@@ -463,7 +466,7 @@
                             
                         </ul>
                     </div>
-                </div>
+                </div>-->
 
 
             </div>

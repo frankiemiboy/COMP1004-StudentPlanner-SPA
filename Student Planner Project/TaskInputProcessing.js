@@ -151,7 +151,6 @@ class Module {
         this.lecturerName = "Not Specified";
         this.lecturerEmail = "Not Specified";
         this.lecturerOffice = "Not Specified";
-        this.lecturerOfficeHours = "Not Specified";
 
         //The number of exams and assignments that the module has
         this.numExams = 0;
@@ -166,6 +165,7 @@ class Assignment {
         this.moduleCode = moduleCode;
         this.dueDate = dueDate;
         this.contribution = contribution;
+        this.assignmentID = 0;
     }
 }
 
@@ -175,15 +175,15 @@ class Exam {
         this.moduleCode = moduleCode;
         this.dueDate = dueDate;
         this.contribution = contribution;
+        this.examID = 0;
     }
 }
 
 class Lecturer {
-    constructor(name, email, office, officeHours) {
+    constructor(name, email, office) {
         this.name = name;
         this.email = email;
         this.office = office;
-        this.officeHours = officeHours;
     }
 }
 
@@ -195,6 +195,9 @@ let exams = [];
 // Array to store temporary assessments before they are saved to the module
 let temporaryAssignments = [];
 let temporaryExams = [];
+
+// Temporary lecturer details
+let temporaryLecturer = new Lecturer("", "", "");
 
 // Static IDs for modules and assessments
 const modulesPage = document.getElementById('modulesPage');
@@ -273,22 +276,36 @@ function openModuleAddOverlay() {
 
                         <p>Any assessments that you add will be listed below:</p>
                         <div id="moduleOverlay-assessmentListContainer">
-                            <ul id="moduleOverlay-addedAssignmentsList" class="moduleOverlay-addedAssessmentsLists">
-                                <u><b>Assignments:</b></u>
-                            </ul>
-                            <ul id="moduleOverlay-addedExamsList" class="moduleOverlay-addedAssessmentsLists">
-                                <u><b>Exams:</b></u>
-                            </ul>
                         </div>
                     </div>`;
     modulesPage.insertAdjacentElement('beforeend', addModuleOverlay);
 }
 
 function closeModuleAddOverlay() {
+    unsavedAssignmentDataPresent = false;
+    unsavedExamDataPresent = false;
+    unsavedLecturerDataPresent = false;
     document.getElementById("moduleAddOverlay").remove();
+    
+    // Clear temporary details
+    if (temporaryAssignments.length > 0) {
+        temporaryAssignments = [];
+        console.log(temporaryAssignments);
+    }
+    if (temporaryExams.length > 0) {
+        temporaryExams = [];
+        console.log(temporaryExams);
+    }
+    if (temporaryLecturer.name !== "") {
+        console.log("Lecturer details were present. Clearing lecturer details");
+        temporaryLecturer = new Lecturer("", "", "");
+    }
+    else {console.log("Lecturer details were not present");}
+
 }
 
 // Function to open the lecturer details overlay
+let unsavedLecturerDataPresent = false;
 function openLecturerDetailsInputForm() {
     const lecturerDetailsOverlay = document.createElement('div');
     lecturerDetailsOverlay.id = "moduleLecturerDetailsOverlay";
@@ -299,13 +316,11 @@ function openLecturerDetailsInputForm() {
                         <form id="moduleLecturerDetailsForm">
                             <div class="moduleDetails_Input-Container">
                                 <label for="moduleLecturerName_Input">Lecturer Name:</label>
-                                <input type="text" id="moduleLecturerName_Input" class="overlay_Input" name="moduleLecturerName" placeholder="e.g. Dr. John Doe">
+                                <input type="text" id="moduleLecturerName_Input" class="overlay_Input" name="moduleLecturerName_Input" placeholder="e.g. Dr. John Doe">
                                 <label for="moduleLecturerEmail_Input">Lecturer Email:</label>
-                                <input type="text" id="moduleLecturerEmail_Input" class="overlay_Input" name="moduleLecturerEmail" placeholder="e.g. name@example.com">
+                                <input type="text" id="moduleLecturerEmail_Input" class="overlay_Input" name="moduleLecturerEmail_Input" placeholder="e.g. name@example.com">
                                 <label for="moduleLecturerOffice_Input">Lecturer Office:</label>
-                                <input type="text" id="moduleLecturerOffice_Input" class="overlay_Input" name="moduleLecturerOffice" placeholder="e.g. Room 100, Mary Newman Building">
-                                <label for="moduleLecturerOfficeHours_Input">Lecturer Office Hours:</label>
-                                <input type="text" id="moduleLecturerOfficeHours_Input" class="overlay_Input" name="moduleLecturerOfficeHours" placeholder="e.g. Mondays, 14:00 - 16:00">
+                                <input type="text" id="moduleLecturerOffice_Input" class="overlay_Input" name="moduleLecturerOffice_Input" placeholder="e.g. Room 100, Mary Newman Building">
                             </div>
                             <div style="display: flex; gap: 10px;">
                                 <button type="submit" id="moduleLecturerDetails-saveButton" class="overlayActionButtons overlay-saveButton">Save</button>
@@ -314,13 +329,44 @@ function openLecturerDetailsInputForm() {
                         </form>
                     </div>`;
     document.getElementById("moduleAddOverlay").insertAdjacentElement('afterend', lecturerDetailsOverlay);
+
+    //If the user has already entered lecturer details, display them in the input fields
+    if (unsavedLecturerDataPresent) {
+        document.getElementById("moduleLecturerName_Input").value = temporaryLecturer.name;
+        document.getElementById("moduleLecturerEmail_Input").value = temporaryLecturer.email;
+        document.getElementById("moduleLecturerOffice_Input").value = temporaryLecturer.office;
+    }
+
+    // Add event listener to the save button
+    const lecturerDetailsForm = document.getElementById("moduleLecturerDetailsForm");
+    lecturerDetailsForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        console.log("Button clicked, event prevented");
+        unsavedLecturerDataPresent = true;
+        saveTemporaryLecturerDetailsButton();
+        closeLecturerDetailsOverlay();
+    });
 }
 
 function closeLecturerDetailsOverlay() {
     document.getElementById("moduleLecturerDetailsOverlay").remove();
 }
 
+// Function to transfer lecturer details to the module input form
+function saveTemporaryLecturerDetailsButton() {
+    temporaryLecturer.name = document.getElementById("moduleLecturerName_Input").value.trim();
+    if (temporaryLecturer.name === '') {
+        alert("Lecturer name cannot be empty.");
+        return;
+    }
+    temporaryLecturer.email = document.getElementById("moduleLecturerEmail_Input").value;
+    temporaryLecturer.office = document.getElementById("moduleLecturerOffice_Input").value;
+    console.log(temporaryLecturer);
+}
+
 // Function to open the assessment overlay
+let unsavedAssignmentDataPresent = false;
+let unsavedExamDataPresent = false;
 function openAssessmentInputForm(assessmentType) {
     const assessmentOverlay = document.createElement('div');
     assessmentOverlay.id = "assessmentOverlay";
@@ -331,31 +377,106 @@ function openAssessmentInputForm(assessmentType) {
                         <form id="assessmentInputForm" >
                             <div class="assessmentDetailsInput-Container">                                
                                 <label for="assessmentName_Input">${assessmentType} Title:</label>
-                                <input type="text" id="assessmentName_Input" class="overlay_Input" name="assessmentName" placeholder="Enter ${assessmentType} Title"> <!--Make this a variable-->
+                                <input type="text" id="assessmentName_Input" class="overlay_Input" name="assessmentName_Input" placeholder="Enter ${assessmentType} Title">
                                 <label for="assessmentDueDate_Input">Date:</label>
-                                <input type="date" id="assessmentDueDate_Input" class="overlay_Input" name="assessmentDueDate">
+                                <input type="date" id="assessmentDueDate_Input" class="overlay_Input" name="assessmentDueDate_Input">
                                 <label for="assessmentContribution_Input">Contribution:</label>
                                 <div>
                                     <input type="number" id="assessmentContribution_Input" class="overlay_Input" name="assessmentContribution" placeholder="Contribution to Final Grade (e.g. 30)">
                                     <label for="assessmentContribution_Input">%</label>
                                 </div>
                             </div>
-                        </form>
 
-                        <button type="submit" id="assessmentOverlay-addAssessmentButton" class="overlayActionButtons" onclick="addTemporaryAssignments()">Add</button>
-                        <button type="button" id="assessmentOverlay-saveAssessmentsButton" class="overlayActionButtons overlay-saveButton">Save</button>
-                        <button type="button" id="assessmentOverlay-cancelAssessmentsButton" class="overlayActionButtons overlay-cancelButton" onclick="closeAssessmentInputForm()">Cancel</button>
+                            <button type="submit" id="assessmentOverlay-addAssessmentButton" class="overlayActionButtons">Add</button>
+                            <button type="button" id="assessmentOverlay-saveAssessmentsButton" class="overlayActionButtons overlay-saveButton">Save</button>
+                            <button type="button" id="assessmentOverlay-cancelAssessmentsButton" class="overlayActionButtons overlay-cancelButton" onclick="closeAssessmentInputForm()">Cancel</button>
+                        </form>
                         
                         <p>Any ${assessmentType}s You Add Will Appear Below:</p>
-                        <ul id="assessmentOverlay-addedAssessmentsList">
-                            <u><b>${assessmentType}s:</b></u>
-                        </ul>
+                        <u><b>${assessmentType}s:</b></u>
+                        <ul id="assessmentOverlay-addedAssessmentsList"></ul>
                     </div>`;
     modulesPage.insertAdjacentElement('beforeend', assessmentOverlay);
+
+    // Add event listener to the add button
+    const addAssessmentForm = document.getElementById("assessmentInputForm");
+    addAssessmentForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        console.log(assessmentType);
+        console.log("Button clicked, event prevented");
+        createTempAssessments(assessmentType);
+    });
+
+    // Add event listener to the save button
+    const saveAssessmentButton = document.getElementById("assessmentOverlay-saveAssessmentsButton");
+    saveAssessmentButton.addEventListener("click", () => {
+        transferTemporaryAssessments();
+        if (assessmentType === "Assignment") {
+            unsavedAssignmentDataPresent = true;
+        }
+        else if (assessmentType === "Exam") {
+            unsavedExamDataPresent = true;
+        }
+        closeAssessmentInputForm();
+    });
+
+    if (unsavedAssignmentDataPresent == true) {
+    displayTempAssessmentList(assessmentType);
+    }
+    else if (unsavedExamDataPresent == true) {
+    displayTempAssessmentList(assessmentType);
+    }
+    else {
+        console.log("No unsaved data present");
+    }
+    
+
+
 }
 
 function closeAssessmentInputForm() {
     document.getElementById("assessmentOverlay").remove();
+}
+
+// Function to transfer temporary assessments to the module input form
+function transferTemporaryAssessments() {
+    const assessmentListContainer = document.getElementById("moduleOverlay-assessmentListContainer");
+    assessmentListContainer.innerHTML = "";
+    
+    const assignmentList = document.createElement("ul");
+    assignmentList.classList.add("moduleOverlay-addedAssessmentsLists");
+    assignmentList.id = "moduleOverlay-addedAssignmentsList";
+    assignmentList.innerHTML = "<u><b>Assignments:</b></u>";
+    assessmentListContainer.appendChild(assignmentList);
+    temporaryAssignments.forEach(assignment => {
+        const assignmentItem = document.createElement("div");
+        assignmentItem.classList.add("moduleOverlay-addedAssignmentItem");
+        assignmentItem.innerHTML = `
+            <li>${assignment.assignmentTitle}</li>
+            <dd><b>Due date:</b> ${assignment.dueDate}</dd>
+            <dd><b>Contribution:</b> ${assignment.contribution}%</dd>
+            `;
+        assignmentList.appendChild(assignmentItem);
+        assignmentList.appendChild(document.createElement("hr"));
+    });
+
+    const examList = document.createElement("ul");
+    examList.classList.add("moduleOverlay-addedAssessmentsLists");
+    examList.id = "moduleOverlay-addedExamsList";
+    examList.innerHTML = "<u><b>Exams:</b></u>";
+    assessmentListContainer.appendChild(examList);
+    temporaryExams.forEach(exam => {
+        const examItem = document.createElement("div");
+        examItem.classList.add("moduleOverlay-addedAssignmentItem");
+        examItem.innerHTML = `
+            <li>${exam.examTitle}</li>
+            <dd><b>Due date:</b> ${exam.dueDate}</dd>
+            <dd><b>Contribution:</b> ${exam.contribution}%</dd>
+            `;
+        examList.appendChild(examItem);
+        examList.appendChild(document.createElement("hr"));
+    });
+
 }
 
 // Function to expand the module information
@@ -368,7 +489,7 @@ function displayModuleInformation(moduleID) {
     const lecturerName = module.lecturerName;
     const lecturerEmail = module.lecturerEmail;
     const lecturerOffice = module.lecturerOffice;
-    const lecturerOfficeHours = module.lecturerOfficeHours;
+
 
     // Fetch the assignments and exams for the module
     const moduleAssignments = assignments.filter(assignment => assignment.moduleCode === moduleCode);
@@ -397,7 +518,6 @@ function displayModuleInformation(moduleID) {
                                         <p><b>Name:</b> ${lecturerName}</p>
                                         <p><b>Email:</b> <a href="mailto:${lecturerEmail}">${lecturerEmail}</a></p>
                                         <p><b>Office:</b> ${lecturerOffice}</p>
-                                        <p><b>Office Hours:</b> ${lecturerOfficeHours}</p>
                                     </div>
                                 </div>
                                 <div id="moduleInformationOverlay-lectureDays-Container">
@@ -452,9 +572,9 @@ function displayModuleInformation(moduleID) {
                 <dd><b>Due date:</b> ${assignment.dueDate}</dd>`;
             assignmentContainer.appendChild(assignmentItemContainer);
             const assignmentContribution = document.createElement("dd");
-            assignmentContribution.innerHTML = `<dd>Contribution: ${assignment.contribution}%</dd>`;
+            assignmentContribution.innerHTML = `Contribution: ${assignment.contribution}%`;
             assignmentContainer.appendChild(assignmentContribution);
-            assignmentContainer.insertAdjacentElement('afterend', document.createElement("hr"));
+            assignmentsList.appendChild(document.createElement("hr"));
         });
     }
 
@@ -475,7 +595,7 @@ function displayModuleInformation(moduleID) {
                 <dd><b>Due date:</b> ${exam.dueDate}</dd>`;
             examContainer.appendChild(examItemContainer);
             const examContribution = document.createElement("dd");
-            examContribution.innerHTML = `<dd>Contribution: ${exam.contribution}%</dd>`;
+            examContribution.innerHTML = `Contribution: ${exam.contribution}%`;
             examContainer.appendChild(examContribution);
             examContainer.appendChild(document.createElement("hr"));
         });
@@ -491,23 +611,56 @@ function closeModuleInformationOverlay() {
 
 /* ------------Processing User Input for Mdules------------------ */
 // Function to save the module input to the modules array
+let assessmentID = 1; // Static IDs for assessments
 function saveModule() {
-    const moduleCode = document.getElementById("moduleCode_Input").value;
-    const moduleName = document.getElementById("moduleName_Input").value;
+    const moduleCode = document.getElementById("moduleCode_Input").value.trim();
+    const moduleName = document.getElementById("moduleName_Input").value.trim();
+    if (moduleCode === "" && moduleName === "") {
+        alert("Please fill in at least one of the following:\nModule Code or Module Name");
+        return;
+    }
     const lectureDays = document.getElementById("moduleLectureDays_Input").value.split(";");
-    const numExams = 0;
-    const numAssignments = 0;
+    
     const newModule = new Module();
     newModule.moduleCode = moduleCode;
     newModule.moduleName = moduleName;
     newModule.lectureDays = lectureDays;
-    newModule.numExams = numExams;
-    newModule.numAssignments = numAssignments;
+    
+    // Add lecturer details if they are present
+    if (temporaryLecturer.name !== "") {
+        newModule.lecturerName = temporaryLecturer.name;
+        newModule.lecturerEmail = temporaryLecturer.email;
+        newModule.lecturerOffice = temporaryLecturer.office;
+    }
+    
+    // Add assessments if they are present
+    if (temporaryAssignments.length > 0) {
+        temporaryAssignments.forEach(assignment => {
+            assignment.moduleCode = moduleCode;
+            assignment.assignmentID = assessmentID;
+            assessmentID++;
+            assignments.push(assignment);
+            newModule.numAssignments++;
+        });
+    }
+    console.log(assignments);
+    if (temporaryExams.length > 0) {
+        temporaryExams.forEach(exam => {
+            exam.moduleCode = moduleCode;
+            exam.examID = assessmentID;
+            assessmentID++;
+            exams.push(exam);
+            newModule.numExams++;
+        });
+    }
+    console.log(exams);
+
     modules.push(newModule);
     console.log(modules);
     displayModuleCards();
-    closeModuleAddOverlay()
+    closeModuleAddOverlay();
 }
+
 
 // Function to display modules on the page
 function displayModuleCards() {
@@ -563,76 +716,142 @@ function displayModuleCards() {
 
 
 // Function to add temporary assessments to assessment form for a module
-function addTemporaryAssignments() {
-
-    const assignmentForm = document.getElementById("assessmentInputForm");
+let tempAssessmentID = 1;
+function createTempAssessments(assessmentType) {
+    const assessmentForm = document.getElementById("assessmentInputForm");
 
     // Determine if the assessment is an exam or assignment    
-    const assignmentName = document.getElementById("assessmentName_Input").value;
-    const moduleCode = "COMP8000"; //document.getElementById("moduleCode_Input").value;
-    let dueDate = new Date(document.getElementById("assessmentDueDate_Input").value);
-    let format = { year: 'numeric', month: 'numeric', day: 'numeric' };
-    dueDate = dueDate.toLocaleDateString("en-GB", format);
+    const assessmentName = document.getElementById("assessmentName_Input").value;
+    console.log(assessmentName);
+    if (assessmentName.trim() === '') {
+        console.log(assessmentName.trim());
+        alert("You must enter the title or name of the assessment.");
+        return;
+    }
+
+    const dueDate = document.getElementById("assessmentDueDate_Input").value;
     const contribution = document.getElementById("assessmentContribution_Input").value;
-    const assignment = new Assignment(assignmentName, moduleCode, dueDate, contribution);
-    temporaryAssignments.push(assignment);
-    console.log(assignment);
-    console.log(temporaryAssignments);
-    
-    createTempAssignmentList();
+    if (assessmentType === "Assignment") {
+        const assignment = new Assignment(assessmentName, '0', dueDate, contribution);
+        assignment.assignmentID = tempAssessmentID;
+        tempAssessmentID++;
+        temporaryAssignments.push(assignment);
+        console.log(assignment);
+        console.log(temporaryAssignments);
+    }
+    else if (assessmentType === "Exam") {
+        const exam = new Exam(assessmentName, '0', dueDate, contribution);
+        exam.examID = tempAssessmentID;
+        tempAssessmentID++;
+        temporaryExams.push(exam);
+        console.log(exam);
+        console.log(temporaryExams);
+    }
+    else {console.log("Invalid assessment type");}
+    displayTempAssessmentList(assessmentType);
     
     // Clear the input fields
-    assignmentForm.reset();
+    assessmentForm.reset();
 }
 
 
 // Function to format the temporary assignments list and display them on the assignment form
-function createTempAssignmentList() {
+function displayTempAssessmentList(assessmentType) {
 
     const tempAssessmentList = document.getElementById("assessmentOverlay-addedAssessmentsList");
     tempAssessmentList.innerHTML = "";        
     
-    for (let i = 0; i < temporaryAssignments.length; i++) {
-        const tempAssignmentElement = document.createElement("div");
-        tempAssignmentElement.classList.add("assessmentOverlay-AssessmentsList-Container");
-        const tempAssignment = temporaryAssignments[i];
-        tempAssignmentElement.innerHTML = `
-            <div class="assessmentOverlay-AssessmentItemContainer">
-                <li>${tempAssignment.assignmentTitle}</li>
-                <dd><b>Date:</b> <span>${tempAssignment.dueDate}</span></dd>
-                <dd><b>Contribution:</b> <span>${tempAssignment.contribution}</span>%</dd>
-            </div>
-            <div class="assessmentOverlay-AssessmentItem-ActionButtons-Container">
-                <button class="assessmentOverlay-AssessmentItem-ActionButtons">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
-                </button>
-                <button class="assessmentOverlay-AssessmentItem-ActionButtons" onclick="deleteTemporaryAssessment(this)">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
-                </button>
-            </div>`;
-        tempAssessmentList.appendChild(tempAssignmentElement);
-        tempAssessmentList.appendChild(document.createElement("hr"));
+    if (assessmentType === "Assignment") {
+        temporaryAssignments.forEach(assignment => {
+            //Format the date DD/MM/YYYY
+            const dateObject = new Date(assignment.dueDate);
+            //const formattedDate = `${dateObject.getDate()}/${dateObject.getMonth() + 1}/${dateObject.getFullYear()}`;
+            const formattedDate = dateObject.toLocaleDateString();
+            const tempAssignmentElement = document.createElement("div");
+            tempAssignmentElement.classList.add("assessmentOverlay-AssessmentsList-Container");
+            tempAssignmentElement.innerHTML = `
+                <div class="assessmentOverlay-AssessmentItemContainer">
+                    <li>${assignment.assignmentTitle}</li>
+                    <dd><b>Date:</b> <span>${formattedDate}</span></dd>
+                    <dd><b>Contribution:</b> <span>${assignment.contribution}</span>%</dd>
+                </div>
+                <div class="assessmentOverlay-AssessmentItem-ActionButtons-Container">
+                    <button class="assessmentOverlay-AssessmentItem-ActionButtons deleteTemporaryAssessmentButton">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
+                    </button>
+                </div>`;
+            tempAssessmentList.appendChild(tempAssignmentElement);
+            const newHorizontalRule = document.createElement("hr");
+            tempAssessmentList.appendChild(newHorizontalRule);
+
+            // Add event listener to delete button
+            const deleteButton = tempAssignmentElement.querySelector('.deleteTemporaryAssessmentButton');
+            deleteButton.addEventListener('click', () => {
+                this.deleteTemporaryAssessment(assessmentType ,assignment.assignmentID);
+                tempAssignmentElement.remove();
+                newHorizontalRule.remove();
+            });
+
+        });
     }
-        
-    
+    else if (assessmentType === "Exam") {
+        temporaryExams.forEach(exam => {
+            //Format the date DD/MM/YYYY
+            const dateObject = new Date(exam.dueDate);
+            //const formattedDate = `${dateObject.getDate()}/${dateObject.getMonth() + 1}/${dateObject.getFullYear()}`;
+            const formattedDate = dateObject.toLocaleDateString();
+            const tempExamElement = document.createElement("div");
+            tempExamElement.classList.add("assessmentOverlay-AssessmentsList-Container");
+            tempExamElement.innerHTML = `
+                <div class="assessmentOverlay-AssessmentItemContainer">
+                    <li>${exam.examTitle}</li>
+                    <dd><b>Date:</b> <span>${formattedDate}</span></dd>
+                    <dd><b>Contribution:</b> <span>${exam.contribution}</span>%</dd>
+                </div>
+                <div class="assessmentOverlay-AssessmentItem-ActionButtons-Container">
+                    <button class="assessmentOverlay-AssessmentItem-ActionButtons deleteTemporaryAssessmentButton"> 
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
+                    </button>
+                </div>`;
+            tempAssessmentList.appendChild(tempExamElement);
+            const newHorizontalRule = document.createElement("hr");
+            tempAssessmentList.appendChild(newHorizontalRule);
+
+            // Add event listener to delete button
+            const deleteButton = tempExamElement.querySelector('.deleteTemporaryAssessmentButton');
+            deleteButton.addEventListener('click', () => {
+                this.deleteTemporaryAssessment(assessmentType, exam.examID);
+                tempExamElement.remove();
+                newHorizontalRule.remove();
+            });
+
+        });
+    }
+    else {console.log("Invalid assessment type");}    
+
 } 
-    
 
-
-// Function to add an assignment to the temporary list
-function addAssignmentToTemporaryList(assignmentName, dueDate, contribution) {
-    const assignment = new Assignment(assignmentName, "CSC1021", dueDate, contribution);
-    temporaryAssessments.push(assignment);
-    console.log(temporaryAssessments);
-    displayTempAssignments_AssignmentsForm();
+// Function to delete a temporary assessment
+function deleteTemporaryAssessment(assessmentType, assessmentID) {
+    if (assessmentType === "Assignment") {
+        const assignmentIndex = temporaryAssignments.findIndex(assignment => assignment.assignmentID === assessmentID);
+        if (assignmentIndex === -1) {
+            return;
+        }
+        temporaryAssignments.splice(assignmentIndex, 1);
+        console.log(temporaryAssignments);
+    }
+    else if (assessmentType === "Exam") {
+        const examIndex = temporaryExams.findIndex(exam => exam.examID === assessmentID);
+        if (examIndex === -1) {
+            return;
+        }
+        temporaryExams.splice(examIndex, 1);
+        console.log(temporaryExams);
+    }
+    else {console.log("Invalid assessment type");}
 }
 
-function addTemporaryAssessnments() {
-    const assignmentName = document.getElementById("assignmentName_Input").value;
-    const dueDate = document.getElementById("assignmentDueDate_Input").value;
-    const contribution = document.getElementById("assignmentContribution_Input").value;
-    addAssignmentToTemporaryList(assignmentName, dueDate, contribution);
-}
 
 
 
