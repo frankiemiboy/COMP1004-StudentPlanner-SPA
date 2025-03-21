@@ -247,7 +247,7 @@ input[type="checkbox"]:checked ~ .taskTitle {
 }
 
 #addModuleButton {
-    background-color: rgb(61, 60, 60);
+    background-color: rgb(20, 20, 20);
     color: white;
     display: flex;
     justify-content: center;
