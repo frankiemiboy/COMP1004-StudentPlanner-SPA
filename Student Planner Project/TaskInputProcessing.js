@@ -204,41 +204,7 @@ const modulesPage = document.getElementById('modulesPage');
 
 
 // Test data
-const assignment1 = new Assignment();
-assignment1.assignmentTitle = "Microbiology Report";
-assignment1.moduleCode = "COMP8000";
-assignment1.dueDate = "27/09/2020";
-assignment1.contribution = 30;
-assignments.push(assignment1);
 
-const assignment3 = new Assignment();
-assignment3.assignmentTitle = "Physics Assignment";
-assignment3.moduleCode = "COMP1004";
-assignment3.dueDate = "27/09/2020";
-assignment3.contribution = 40;
-assignments.push(assignment3);
-
-const assignment2 = new Assignment();
-assignment2.assignmentTitle = "Math Report";
-assignment2.moduleCode = "COMP5000";
-assignment2.dueDate = "27/09/2020";
-assignment2.contribution = 40;
-assignments.push(assignment2);
-console.log(assignments);
-
-const assignment4 = new Assignment();
-assignment4.assignmentTitle = "Math Report";
-assignment4.moduleCode = "COMP1004";
-assignment4.dueDate = "27/09/2020";
-assignment4.contribution = 40;
-assignments.push(assignment4);
-console.log(assignments);
-
-const moduleAssignments = assignments.filter(assignment => assignment.moduleCode === "COMP8000");
-console.log(moduleAssignments);
-moduleAssignments.forEach(assignment => {
-    console.log(`${assignment.assignmentTitle} - ${assignment.dueDate}`);
-});
 
 
 // ------------Navigating around the module page---------//
@@ -253,7 +219,7 @@ function openModuleAddOverlay() {
                         <form id="moduleInputForm">
                             <div class="moduleDetails_Input-Container">
                                 <label for="moduleCode_Input">Module Code:</label>
-                                <input type="text" id="moduleCode_Input" class="overlay_Input" name="moduleCode" placeholder="Enter Module Code">
+                                <input type="text" id="moduleCode_Input" class="overlay_Input" name="moduleCode" placeholder="Enter Module Code" required>
                                 <label for="moduleName_Input">Module Name:</label>
                                 <input type="text" id="moduleName_Input" class="overlay_Input" name="moduleName" placeholder="Enter Module Name">
                                 <label for="moduleLectureDays_Input">Lecture Days:</label>
@@ -269,14 +235,13 @@ function openModuleAddOverlay() {
                                 <button type="button" id="moduleOverlay-addLecturerDetailsButton" class="overlayActionButtons">Lecturer Information</button>
 
                                 <!--Buttons for adding assignments and exams to the module-->
-                                <button type="button" id="moduleOverlay-addAssignmentButton" class="overlayActionButtons" onclick="openAssessmentInputForm('Assignment')">Assignments</button>
-                                <button type="button" id="moduleOverlay-addExamButton" class="overlayActionButtons" onclick="openAssessmentInputForm('Exam')">Exams</button>
+                                <button type="button" id="moduleOverlay-addAssignmentButton" class="overlayActionButtons">Assignments</button>
+                                <button type="button" id="moduleOverlay-addExamButton" class="overlayActionButtons">Exams</button>
                             </div>
                         </form>
 
-                        <p>Any assessments that you add will be listed below:</p>
-                        <div id="moduleOverlay-assessmentListContainer">
-                        </div>
+                        <p id="defaultAssessmentListHeader" >Any assessments that you add will be listed below:</p>
+                        <div id="moduleOverlay-assessmentListContainer"></div>
                     </div>`;
 
     modulesPage.insertAdjacentElement('beforeend', addModuleOverlay);
@@ -298,6 +263,9 @@ function openModuleAddOverlay() {
 
     // Add event listener to the cancel button
     const cancelButton = document.getElementById("moduleOverlay-cancelSaveModuleButton");
+    if (edittingModule) {
+        cancelButton.innerText = "Close";
+    }
     cancelButton.addEventListener("click", () => {
         if (edittingModule) {
             edittingModule = false;
@@ -306,6 +274,7 @@ function openModuleAddOverlay() {
             currentModuleCode = -1;
         }
         closeModuleAddOverlay();
+        displayModuleCards();
         console.log(edittingModule);
         console.log(unsavedLecturerDataPresent);
     });
@@ -327,7 +296,7 @@ function openModuleAddOverlay() {
     const addAssignmentButton = document.getElementById("moduleOverlay-addAssignmentButton");
     addAssignmentButton.addEventListener("click", () => {
         if (edittingModule) {
-            editAssignmentDetails();
+            editAssessmentDetails('Assignment');
         }
         else {
             openAssessmentInputForm("Assignment");
@@ -337,7 +306,12 @@ function openModuleAddOverlay() {
     // Add event listener to the add exam button
     const addExamButton = document.getElementById("moduleOverlay-addExamButton");
     addExamButton.addEventListener("click", () => {
-        openAssessmentInputForm("Exam");
+        if (edittingModule) {
+            editAssessmentDetails('Exam');
+        }
+        else {
+            openAssessmentInputForm("Exam");
+        }
     });
 }
 
@@ -386,7 +360,7 @@ function openLecturerDetailsInputForm() {
                             </div>
                             <div style="display: flex; gap: 10px;">
                                 <button type="submit" id="moduleLecturerDetails-saveButton" class="overlayActionButtons overlay-saveButton">Save</button>
-                                <button type="button" id="moduleLecturerDetails-cancelButton" class="overlayActionButtons overlay-cancelButton" onclick="closeLecturerDetailsOverlay()">Cancel</button>
+                                <button type="button" id="moduleLecturerDetails-cancelButton" class="overlayActionButtons overlay-cancelButton">Cancel</button>
                             </div>
                         </form>
                     </div>`;
@@ -396,9 +370,15 @@ function openLecturerDetailsInputForm() {
     if (unsavedLecturerDataPresent) {
         if (edittingLecturer) {
             console.log("Editting lecturer details");
-            document.getElementById("moduleLecturerName_Input").value = modules[currentModuleIndex].lecturerName;
-            document.getElementById("moduleLecturerEmail_Input").value = modules[currentModuleIndex].lecturerEmail;
-            document.getElementById("moduleLecturerOffice_Input").value = modules[currentModuleIndex].lecturerOffice;
+            if (modules[currentModuleIndex].lecturerName !== "Not Specified") {
+                document.getElementById("moduleLecturerName_Input").value = modules[currentModuleIndex].lecturerName;
+            }
+            if (modules[currentModuleIndex].lecturerEmail !== "Not Specified") {
+                document.getElementById("moduleLecturerEmail_Input").value = modules[currentModuleIndex].lecturerEmail;
+            }
+            if (modules[currentModuleIndex].lecturerOffice !== "Not Specified") {
+                document.getElementById("moduleLecturerOffice_Input").value = modules[currentModuleIndex].lecturerOffice;
+            }
         }
         else {
             document.getElementById("moduleLecturerName_Input").value = temporaryLecturer.name;
@@ -424,6 +404,15 @@ function openLecturerDetailsInputForm() {
         closeLecturerDetailsOverlay();
         console.log(edittingLecturer);
         console.log(unsavedLecturerDataPresent);
+    });
+
+    // Add event listener to the cancel button
+    const lecturerDetailsCancelButton = document.getElementById("moduleLecturerDetails-cancelButton");
+    if (edittingLecturer) {
+        lecturerDetailsCancelButton.innerText = "Close";
+    }
+    lecturerDetailsCancelButton.addEventListener("click", () => {
+        closeLecturerDetailsOverlay();
     });
 }
 
@@ -452,7 +441,7 @@ function openAssessmentInputForm(assessmentType) {
     assessmentOverlay.classList.add("overlay");
     assessmentOverlay.innerHTML = `
                     <div class="overlay_Content">
-                        <h2 id="assessmentOverlayHeader">Add ${assessmentType} (Module Code)</h2>
+                        <h2 id="assessmentOverlayHeader">Add ${assessmentType}</h2>
                         <form id="assessmentInputForm" >
                             <div class="assessmentDetailsInput-Container">                                
                                 <label for="assessmentName_Input">${assessmentType} Title:</label>
@@ -468,7 +457,7 @@ function openAssessmentInputForm(assessmentType) {
 
                             <button type="submit" id="assessmentOverlay-addAssessmentButton" class="overlayActionButtons">Add</button>
                             <button type="button" id="assessmentOverlay-saveAssessmentsButton" class="overlayActionButtons overlay-saveButton">Save</button>
-                            <button type="button" id="assessmentOverlay-cancelAssessmentsButton" class="overlayActionButtons overlay-cancelButton" onclick="closeAssessmentInputForm()">Cancel</button>
+                            <button type="button" id="assessmentOverlay-cancelAssessmentsButton" class="overlayActionButtons overlay-cancelButton">Cancel</button>
                         </form>
                         
                         <p>Any ${assessmentType}s You Add Will Appear Below:</p>
@@ -477,44 +466,85 @@ function openAssessmentInputForm(assessmentType) {
                     </div>`;
     modulesPage.insertAdjacentElement('beforeend', assessmentOverlay);
 
+    console.log("unsavedAssignment: ", unsavedAssignmentDataPresent);
+    console.log("unsavedExam: ", unsavedExamDataPresent);
+    console.log("edittingModule: ", edittingModule);
+
+    if (edittingModule) {
+        // Make the save button the submit button
+        const saveButton = document.getElementById("assessmentOverlay-saveAssessmentsButton");
+        saveButton.type = "submit";
+        document.getElementById("assessmentOverlay-addAssessmentButton").remove();
+    }
     // Add event listener to the add button
     const addAssessmentForm = document.getElementById("assessmentInputForm");
     addAssessmentForm.addEventListener("submit", (event) => {
         event.preventDefault();
         console.log(assessmentType);
         console.log("Button clicked, event prevented");
-        createTempAssessments(assessmentType);
+        if (edittingModule) {
+            addAssessmentToModule(assessmentType);
+        }
+        else {
+            createTempAssessments(assessmentType);
+        }
     });
 
-    // Add event listener to the save button
-    const saveAssessmentButton = document.getElementById("assessmentOverlay-saveAssessmentsButton");
-    saveAssessmentButton.addEventListener("click", () => {
-        transferTemporaryAssessments();
-        if (assessmentType === "Assignment") {
-            unsavedAssignmentDataPresent = true;
-        }
-        else if (assessmentType === "Exam") {
-            unsavedExamDataPresent = true;
-        }
+    // Only enable this save button if the user is not editing an already existing module
+    if (!edittingModule) {
+        // Add event listener to the save button
+        const saveAssessmentButton = document.getElementById("assessmentOverlay-saveAssessmentsButton");
+        saveAssessmentButton.addEventListener("click", () => {
+            transferTemporaryAssessments();
+            if (assessmentType === "Assignment") {
+                unsavedAssignmentDataPresent = true;
+            }
+            else if (assessmentType === "Exam") {
+                unsavedExamDataPresent = true;
+            }
+            closeAssessmentInputForm();
+        });
+    }
+
+    // Add event listener to the cancel button
+    const cancelAssessmentButton = document.getElementById("assessmentOverlay-cancelAssessmentsButton");
+    if (edittingModule) {
+        cancelAssessmentButton.innerText = "Close";
+    }
+    cancelAssessmentButton.addEventListener("click", () => {
+        console.log("Cancel button clicked");
         closeAssessmentInputForm();
     });
 
-    if (unsavedAssignmentDataPresent == true) {
-    displayTempAssessmentList(assessmentType);
-    }
-    else if (unsavedExamDataPresent == true) {
-    displayTempAssessmentList(assessmentType);
+    // Display the temporary assessments if they are present or the saved module assessments if the user is editing a module
+    if (unsavedAssignmentDataPresent || unsavedExamDataPresent) {
+        if (edittingModule) { // When the user is editing a module
+            if (assessmentType === "Assignment") {
+                displayAssessmentList("Assignment", assignments.filter(assignment => assignment.moduleCode === currentModuleCode));
+            }
+            else if (assessmentType === "Exam") {
+                displayAssessmentList("Exam", exams.filter(exam => exam.moduleCode === currentModuleCode));
+            }
+        }
+        else { // When the user is creating a module
+            if (assessmentType === "Assignment") {
+                displayAssessmentList("Assignment", temporaryAssignments);
+            }
+            else if (assessmentType === "Exam") {
+                displayAssessmentList("Exam", temporaryExams);
+            }
+        }
     }
     else {
         console.log("No unsaved data present");
     }
-    
-
 
 }
 
 function closeAssessmentInputForm() {
     document.getElementById("assessmentOverlay").remove();
+    
+
 }
 
 // Function to transfer temporary assessments to the module input form
@@ -584,7 +614,7 @@ function displayModuleInformation(moduleID) {
                             <button id="moduleInformationOverlay-editButton" class="overlayActionButtons plainButtons">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
                             </button>
-                            <button id="moduleInformationOverlay-closeButton" class="overlayActionButtons plainButtons" onclick="closeModuleInformationOverlay()">
+                            <button id="moduleInformationOverlay-closeButton" class="overlayActionButtons plainButtons">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
                             </button>
                         </div>
@@ -606,13 +636,10 @@ function displayModuleInformation(moduleID) {
                             </div>
                             <br>
                             <h3>Assignments:</h3>
-                            <ul id="moduleInformationOverlay-assignmentsList">
-                                <div id="moduleInformationOverlay-assignmentsList-Container" class="moduleInformationOverlay-divContainers">
-                                </div>
-                            </ul>
+                            <ul id="moduleInformationOverlay-assignmentsList"></ul>
                             <br>
                             <h3>Exams:</h3>
-                            <ul id="moduleInformationOverlay-examsList" ></ul>
+                            <ul id="moduleInformationOverlay-examsList"></ul>
                         </div>
                         <br>
                         <div id="moduleInformationOverlay-deleteButton-Container" >
@@ -667,7 +694,7 @@ function displayModuleInformation(moduleID) {
             let formattedDate = "";
             if (assignment.dueDate.trim() !== "") {
                 const dateObject = new Date(assignment.dueDate);
-                dateObject.toLocaleDateString();
+                formattedDate = dateObject.toLocaleDateString();
             }
             const assignmentContainer = document.createElement("div");
             assignmentContainer.classList.add("moduleInformationOverlay-divContainers");
@@ -691,7 +718,13 @@ function displayModuleInformation(moduleID) {
         examsList.appendChild(noExams);
     }
     else {
-        moduleExams.forEach (exam => { 
+        moduleExams.forEach (exam => {
+            // Format the date DD/MM/YYYY
+            let formattedDate = "";
+            if (exam.dueDate.trim() !== "") {
+                const dateObject = new Date(exam.dueDate);
+                formattedDate = dateObject.toLocaleDateString();
+            } 
             const examContainer = document.createElement("div");
             examContainer.classList.add("moduleInformationOverlay-divContainers");
             examsList.appendChild(examContainer);
@@ -699,12 +732,12 @@ function displayModuleInformation(moduleID) {
             examItemContainer.classList.add("moduleInformationOverlay-assessmentItem")
             examItemContainer.innerHTML = `
                 <li> ${exam.examTitle}</li>
-                <dd><b>Due date:</b> ${exam.dueDate}</dd>`;
+                <dd><b>Due date:</b> ${formattedDate}</dd>`;
             examContainer.appendChild(examItemContainer);
             const examContribution = document.createElement("dd");
             examContribution.innerHTML = `Contribution: ${exam.contribution}%`;
             examContainer.appendChild(examContribution);
-            examContainer.appendChild(document.createElement("hr"));
+            examsList.appendChild(document.createElement("hr"));
         });
     }
 }
@@ -724,10 +757,6 @@ let assessmentID = 1; // Static IDs for assessments
 function saveModule() {
     const moduleCode = document.getElementById("moduleCode_Input").value.trim();
     const moduleName = document.getElementById("moduleName_Input").value.trim();
-    if (moduleCode === "" && moduleName === "") {
-        alert("Please fill in at least one of the following:\nModule Code or Module Name");
-        return;
-    }
 
     // Check if the module code already exists
     const existingModule = modules.find(module => module.moduleCode === moduleCode);
@@ -831,6 +860,7 @@ function editModuleInformation(moduleCode) {
     }
     currentModuleCode = modules[currentModuleIndex].moduleCode;
     openModuleAddOverlay();
+    document.getElementById("defaultAssessmentListHeader").remove();
 
     // Prepopulate the input fields with the module details
     document.getElementById("moduleCode_Input").value = modules[currentModuleIndex].moduleCode;
@@ -853,16 +883,9 @@ function updateModule() {
         }
     }
     const newModuleName = document.getElementById("moduleName_Input").value.trim();
-    if (newModuleCode === "" && newModuleName === "") {
-        alert("Please fill in at least one of the following:\nModule Code or Module Name");
-        return;
-    }
     const newLectureDays = document.getElementById("moduleLectureDays_Input").value.split(";");
 
-    if (currentModuleIndex === -1) {
-        console.log("Module not found");
-        return;
-    }
+    // Update the module details
     const module = modules[currentModuleIndex];
     module.moduleCode = newModuleCode; 
     module.moduleName = newModuleName;
@@ -887,11 +910,35 @@ function editLecturerDetails() {
     openLecturerDetailsInputForm();
 }
 
+// Function to edit assessment details
+function editAssessmentDetails(assignmentType) {
+    if (assignmentType === "Assignment") {
+        unsavedAssignmentDataPresent = true;
+    }
+    else if (assignmentType === "Exam") {
+        unsavedExamDataPresent = true;
+    }
+    else {
+        console.log("Invalid assessment type");
+        return;
+    }
+    openAssessmentInputForm(assignmentType);
+    console.log(unsavedAssignmentDataPresent);
+    console.log(unsavedExamDataPresent);
+    console.log(edittingModule);
+}
+
 
 // Function to display modules on the page
 function displayModuleCards() {
     const moduleList = document.getElementById("moduleList");
     moduleList.innerHTML = "";
+    if (modules.length === 0) {
+        const noModules = document.createElement("p");
+        noModules.innerText = "No modules have been added yet.";
+        moduleList.appendChild(noModules);
+        return;
+    }
     for (let i = 0; i < modules.length; i++) {
         const module = modules[i];
         const moduleElement = document.createElement("div");
@@ -957,6 +1004,7 @@ function createTempAssessments(assessmentType) {
 
     const dueDate = document.getElementById("assessmentDueDate_Input").value;
     const contribution = document.getElementById("assessmentContribution_Input").value;
+
     if (assessmentType === "Assignment") {
         const assignment = new Assignment(assessmentName, '0', dueDate, contribution);
         assignment.assignmentID = tempAssessmentID;
@@ -964,6 +1012,7 @@ function createTempAssessments(assessmentType) {
         temporaryAssignments.push(assignment);
         console.log(assignment);
         console.log(temporaryAssignments);
+        displayAssessmentList(assessmentType, temporaryAssignments);
     }
     else if (assessmentType === "Exam") {
         const exam = new Exam(assessmentName, '0', dueDate, contribution);
@@ -972,23 +1021,61 @@ function createTempAssessments(assessmentType) {
         temporaryExams.push(exam);
         console.log(exam);
         console.log(temporaryExams);
+        displayAssessmentList(assessmentType, temporaryExams);
     }
     else {console.log("Invalid assessment type");}
-    displayTempAssessmentList(assessmentType);
+    
     
     // Clear the input fields
     assessmentForm.reset();
 }
 
+// When editting assignments for module, this function will be used to add new assignments to the module
+function addAssessmentToModule(assessmentType) {
+    const assessmentForm = document.getElementById("assessmentInputForm");
+    const assessmentName = document.getElementById("assessmentName_Input").value;
+    if (assessmentName.trim() === '') {
+        alert("You must enter the title or name of the assessment.");
+        return;
+    }
+    const dueDate = document.getElementById("assessmentDueDate_Input").value;
+    const contribution = document.getElementById("assessmentContribution_Input").value;
+
+    if (assessmentType === "Assignment") {
+        const assignment = new Assignment(assessmentName, currentModuleCode, dueDate, contribution);
+        assignment.assignmentID = assessmentID;
+        assessmentID++;
+        assignments.push(assignment);
+        modules[currentModuleIndex].numAssignments++;
+        console.log(assignments);
+        displayAssessmentList(assessmentType, assignments.filter(assignment => assignment.moduleCode === currentModuleCode));
+    }
+    else if (assessmentType === "Exam") {
+        const exam = new Exam(assessmentName, currentModuleCode, dueDate, contribution);
+        exam.examID = assessmentID;
+        assessmentID++;
+        exams.push(exam);
+        modules[currentModuleIndex].numExams++;
+        console.log(exams);
+        displayAssessmentList(assessmentType, exams.filter(exam => exam.moduleCode === currentModuleCode));
+    }
+    else {console.log("Invalid assessment type");}
+    
+    // Clear the input fields
+    assessmentForm.reset();
+}
 
 // Function to format the temporary assignments list and display them on the assignment form
-function displayTempAssessmentList(assessmentType) {
+function displayAssessmentList(assessmentType, assessmentList) {
 
     const tempAssessmentList = document.getElementById("assessmentOverlay-addedAssessmentsList");
-    tempAssessmentList.innerHTML = "";        
+    tempAssessmentList.innerHTML = "";
     
     if (assessmentType === "Assignment") {
-        temporaryAssignments.forEach(assignment => {
+        if (assessmentList.length === 0) {
+            return;
+        }
+        assessmentList.forEach(assignment => {
             //Format the date DD/MM/YYYY
             let formattedDate = "";
             if (assignment.dueDate.trim() !== "") {
@@ -1011,11 +1098,15 @@ function displayTempAssessmentList(assessmentType) {
             tempAssessmentList.appendChild(tempAssignmentElement);
             const newHorizontalRule = document.createElement("hr");
             tempAssessmentList.appendChild(newHorizontalRule);
-
             // Add event listener to delete button
             const deleteButton = tempAssignmentElement.querySelector('.deleteTemporaryAssessmentButton');
             deleteButton.addEventListener('click', () => {
-                this.deleteTemporaryAssessment(assessmentType ,assignment.assignmentID);
+                if (edittingModule) {
+                    this.deleteAssessmentItem(assessmentType, assignments, assignment.assignmentID);
+                }
+                else {
+                    this.deleteAssessmentItem(assessmentType, temporaryAssignments, assignment.assignmentID);
+                }
                 tempAssignmentElement.remove();
                 newHorizontalRule.remove();
             });
@@ -1023,7 +1114,10 @@ function displayTempAssessmentList(assessmentType) {
         });
     }
     else if (assessmentType === "Exam") {
-        temporaryExams.forEach(exam => {
+        if (assessmentList.length === 0) {
+                return;
+            }
+        assessmentList.forEach(exam => {
             //Format the date DD/MM/YYYY
             let formattedDate = "";
             if (exam.dueDate.trim() !== "") {
@@ -1051,7 +1145,12 @@ function displayTempAssessmentList(assessmentType) {
             // Add event listener to delete button
             const deleteButton = tempExamElement.querySelector('.deleteTemporaryAssessmentButton');
             deleteButton.addEventListener('click', () => {
-                this.deleteTemporaryAssessment(assessmentType, exam.examID);
+                if (edittingModule) {
+                    this.deleteAssessmentItem(assessmentType, exams, exam.examID);
+                }
+                else {
+                    this.deleteTemporaryAssessment(assessmentType, temporaryExams, exam.examID);
+                }
                 tempExamElement.remove();
                 newHorizontalRule.remove();
             });
@@ -1063,22 +1162,30 @@ function displayTempAssessmentList(assessmentType) {
 } 
 
 // Function to delete a temporary assessment
-function deleteTemporaryAssessment(assessmentType, assessmentID) {
+function deleteAssessmentItem(assessmentType, assessmentList, assessmentID) {
     if (assessmentType === "Assignment") {
-        const assignmentIndex = temporaryAssignments.findIndex(assignment => assignment.assignmentID === assessmentID);
+        const assignmentIndex = assessmentList.findIndex(assignment => assignment.assignmentID === assessmentID);
         if (assignmentIndex === -1) {
             return;
         }
-        temporaryAssignments.splice(assignmentIndex, 1);
-        console.log(temporaryAssignments);
+        assessmentList.splice(assignmentIndex, 1);
+        if (edittingModule) {
+            modules[currentModuleIndex].numAssignments--;
+        }
+        console.log(assessmentList);
+        console.log(assessmentList.length);
+        console.log(assignments);
     }
     else if (assessmentType === "Exam") {
-        const examIndex = temporaryExams.findIndex(exam => exam.examID === assessmentID);
+        const examIndex = assessmentList.findIndex(exam => exam.examID === assessmentID);
         if (examIndex === -1) {
             return;
         }
-        temporaryExams.splice(examIndex, 1);
-        console.log(temporaryExams);
+        assessmentList.splice(examIndex, 1);
+        if (edittingModule) {
+            modules[currentModuleIndex].numExams--;
+        }
+        console.log(assessmentList);
     }
     else {console.log("Invalid assessment type");}
 }
@@ -1167,210 +1274,4 @@ function saveAssessmentDetailsChanges(assessmentItem, newAssessmentName, newDueD
 
 
 
-/*-------------Overlay Functionality---------------*/ 
-
-/*function displayOverlay(overlay) {
-    document.querySelectorAll('.overlay').forEach(o => {
-        o.classList.add('hidden');
-    });
-    overlay.classList.remove('hidden');
-}
-*/
-
-// Control the display of the overlays
-/*function displayOverlay(overlayID) {
-    document.querySelectorAll('.overlay').forEach(overlay => {
-        overlay.classList.toggle('hidden', overlay.id !== overlayID);
-    });
-}
-function addModule() {
-    createAddModuleOverlay();
-    displayOverlay('moduleAddOverlay');
-}
-
-function createAddModuleOverlay() {
-    const modulesPage = document.getElementById('modulesPage');
-    const addModuleOverlay = document.createElement('div');
-    addModuleOverlay.id = "moduleAddOverlay";
-    addModuleOverlay.classList.add("overlay", "hidden");
-    addModuleOverlay.innerHTML =`
-                <div class="overlay_Content">
-                        <h2 id="moduleOverlayHeader">Add Module</h2>
-                        <form id="moduleInputForm">
-                            <div class="moduleDetails_Input-Container">
-                                <label for="moduleCode_Input">Module Code:</label>
-                                <input type="text" id="moduleCode_Input" class="overlay_Input" name="moduleCode" placeholder="Enter Module Code">
-                                <label for="moduleName_Input">Module Name:</label>
-                                <input type="text" id="moduleName_Input" class="overlay_Input" name="moduleName" placeholder="Enter Module Name">
-                                <label for="moduleLecturer_Input">Lecturer / Module Leader:</label>
-                                <input type="text" id="moduleLecturer_Input" class="overlay_Input" name="moduleLecturer" placeholder="Enter Lecturer's Name">
-                                <label for="moduleLectureDays_Input">Lecture Days:</label>
-                                <input type="text" id="moduleLectureDays_Input" class="overlay_Input" name="moduleLectureDays" placeholder="Enter Days on which Lectures are held">
-                            </div>
-
-                            <div style="display: flex; gap: 10px;">
-                                <!--Buttons for submitting or cancelling the form-->
-                                <button type="submit" id="moduleOverlay-saveModuleButton" class="overlayActionButtons overlay-saveButton">Save</button> <!--Remember to add the function to save/submit the module-->
-                                <button type="button" id="moduleOverlay-cancelSaveModuleButton" class="overlayActionButtons overlay-cancelButton" onclick="closeOverlay('moduleAddOverlay')">Cancel</button>
-                                
-                                <!--Button to add more lecturer information-->
-                                <button type="button" id="moduleOverlay-addLecturerDetailsButton" class="overlayActionButtons" onclick="openLecturerDetailsInputForm()" >Addtional Lecturer Details</button>
-
-                                <!--Buttons for adding assignments and exams to the module-->
-                                <button type="button" id="moduleOverlay-addAssignmentButton" class="overlayActionButtons" onclick="openAssignmentInputForm()">Add Assignments</button>
-                                <button type="button" id="moduleOverlay-addExamButton" class="overlayActionButtons" onclick="openExamInputForm()">Add Exams</button>
-                            </div>
-
-                            <p>Any assessments that you add will be listed below:</p>
-                            <div id="moduleOverlay-assessmentListContainer">
-                                <ul id="moduleOverlay-addedAssignmentsList" class="moduleOverlay-addedAssessmentsLists">
-                                    <u><b>Assignments:</b></u>
-                                    <li>Microbiology Report</li>
-                                    <dd>Due date: 27/09/2020</dd>
-                                    <dd>Contribution: 30%</dd>
-                                    <br>
-                                    <li>Maths Assignment</li>
-                                    <dd>Due date: 27/09/2020</dd>
-                                    <dd>Contribution: 30%</dd>
-                                    <br>
-                                    <li>Physics Assignment</li>
-                                    <dd>Due date: 27/09/2020</dd>
-                                    <dd>Contribution: 40%</dd>
-                                </ul>
-                                <ul id="moduleOverlay-addedExamsList" class="moduleOverlay-addedAssessmentsLists">
-                                    <u><b>Exams:</b></u>
-                                    <li>Microbiology Exam</li>
-                                    <dd>Due Date: 22/08/2025</dd>
-                                    <dd>Contribution: 30%</dd>
-                                    <br>
-                                    <li>Maths Exam</li>
-                                    <dd>Due Date: 22/08/2025</dd>
-                                    <dd>Contribution: 30%</dd>
-                                    <br>
-                                    <li>Physics Exam</li>
-                                    <dd>Due Date: 22/08/2025</dd>
-                                    <dd>Contribution: 40%</dd>
-                                    <br>
-                                </ul>
-                            </div>
-
-                        </form>
-                    </div>`;
-    modulesPage.insertAdjacentElement('afterend', addModuleOverlay);
-}
-
-// Overlay for Lecturer Details/Information
-function openLecturerDetailsInputForm() {
-    const lecturerDetailsOverlay = document.createElement('div');
-    lecturerDetailsOverlay.id = "moduleLecturerDetailsOverlay";
-    lecturerDetailsOverlay.classList.add("overlay");
-    lecturerDetailsOverlay.innerHTML = `
-                    <div id="moduleLecturerDetailsOverlay_Content" class="overlay_Content">
-                        <h3>Addtional Lecturer Details</h3>
-                        <form id="moduleLecturerDetailsForm">
-                            <div class="moduleDetails_Input-Container">
-                                <label for="moduleLecturerEmail_Input">Lecturer Email:</label>
-                                <input type="email" id="moduleLecturerEmail_Input" class="overlay_Input" name="moduleLecturerEmail" placeholder="e.g. name@example.com">
-                                <label for="moduleLecturerOffice_Input">Lecturer Office:</label>
-                                <input type="text" id="moduleLecturerOffice_Input" class="overlay_Input" name="moduleLecturerOffice" placeholder="e.g. Room 100, Mary Newman Building">
-                                <label for="moduleLecturerOfficeHours_Input">Lecturer Office Hours:</label>
-                                <input type="text" id="moduleLecturerOfficeHours_Input" class="overlay_Input" name="moduleLecturerOfficeHours" placeholder="e.g. Mondays, 14:00 - 16:00">
-                            </div>
-                            <div style="display: flex; gap: 10px;">
-                                <button type="submit" id="moduleLecturerDetails-saveButton" class="overlayActionButtons overlay-saveButton">Save</button>
-                                <button type="button" id="moduleLecturerDetails-cancelButton" class="overlayActionButtons overlay-cancelButton" onclick="closeOverlay('moduleLecturerDetailsOverlay')">Cancel</button>
-                            </div>
-                        </form>
-                    </div>`;
-    document.getElementById("moduleAddOverlay").insertAdjacentElement('afterend', lecturerDetailsOverlay);
-    //displayOverlay('moduleLecturerDetailsOverlay');
-}
-
-// Expand the module 
-function expandModule(moduleID) {
-    let moduleCard = document.getElementById(moduleID);
-    const moduleInformationOverlay = document.createElement('div');
-    moduleInformationOverlay.id = "moduleInformationOverlay";
-    moduleInformationOverlay.classList.add("overlay", "hidden");
-    moduleInformationOverlay.innerHTML = `
-                    <div id="moduleInformationOverlay_Content" class="overlay_Content">
-                        <div id="moduleInformationOverlay_Content-Header-Container" class="moduleInformationOverlay-divContainers">
-                            <h2 id="moduleInformationOverlay-Header">${moduleID} - Software Engineering 1</h2>
-                            <button class="overlayActionButtons plainButtons" onclick="editModuleInformation()">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
-                            </button>
-                            <button class="overlayActionButtons plainButtons" onclick="closeModuleInformationOverlay()">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-                            </button>
-                        </div>
-                        <hr>
-                        <div class="moduleInformationOverlay-Container">
-                            <div id="moduleInformationOverlay-lectureInformation-Container" class="moduleInformationOverlay-divContainers">
-                                <div id="moduleInformationOverlay-lecturerInformation-Container">
-                                    <h3>Lecturer Information:</h3>
-                                    <div id="moduleInformationOverlay-lecturerInformation">
-                                        <p><b>Name:</b> Dr. Jacqueline Who</p>
-                                        <p><b>Email:</b> <a href="mailto:jacquelinewho@example.com">jacquelinewho@example.com</a></p>
-                                        <p><b>Office:</b> Room 100, Mary Newman Building</p>
-                                        <p><b>Office Hours:</b> Mondays 14:00 - 16:00</p>
-                                    </div>
-                                </div>
-                                <div id="moduleInformationOverlay-lectureDays-Container">
-                                    <h3>Lecture Days:</h3>
-                                    <ul id="moduleInformationOverlay-lectureDaysList">
-                                        <li><b>Mondays</b>, 10:00 - 12:00</li>
-                                        <li><b>Thursdays</b>, 14:00 - 16:00</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <br>
-                            <h3>Assignments:</h3>
-                            <ul style="">
-                                <div class="moduleInformationOverlay-divContainers">
-                                    <div class="moduleInformationOverlay-assessmentItem">
-                                        <li>Microbiology Report</li>
-                                        <dd>Due date: 27/09/2020</dd>
-                                    </div>
-                                    <dd>Contribution: 30%</dd>
-                                </div>
-                                <hr>
-                            </ul>
-                            <br>
-                            <h3>Exams:</h3>
-                            <ul>
-                                <div class="moduleInformationOverlay-divContainers">
-                                    <div class="moduleInformationOverlay-assessmentItem">
-                                        <li>Microbiology Exam</li>
-                                        <dd>Due date: 27/09/2020</dd>
-                                    </div>
-                                    <dd>Contribution: 70%</dd>
-                                </div>
-                                <hr>
-                            </ul>
-                        </div>
-                        <br>
-                        <div id="moduleInformationOverlay-deleteButton-Container" >
-                            <button class="overlayActionButtons overlay-cancelButton" onclick=deleteModule()>Delete Module</button>
-                        </div>
-                    </div>`;
-
-    moduleCard.insertAdjacentElement('afterend', moduleInformationOverlay);
-    displayOverlay('moduleInformationOverlay');
-}
-
-// Close the module information overlay
-function closeModuleInformationOverlay() {
-    document.getElementById("moduleInformationOverlay").remove();
-}
-
-function closeOverlay(overlayID) {
-    document.getElementById(overlayID).classList.add('hidden');
-    document.getElementById(overlayID).remove();
-}
-*/
-
-/*------------------------------------End of Module Management------------------------------------*/
-
-
-/*------------------------------------Assessment Management------------------------------------*/
 
