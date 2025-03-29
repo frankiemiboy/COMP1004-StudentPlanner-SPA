@@ -1,23 +1,22 @@
-/* 
-Show page based on button click.
-The function will remove the desired page from the hidden class, meaning that it is displayed
-But the other pages that were previously displayed are added to the hidden class, therefore no longer displayed.
-*/
+/*--------------------------------------Navigation------------------------------------*/
+// Function to show the selected page and hide others
 function showPage(pageId) {
     document.querySelectorAll('.section').forEach(section => {
         section.classList.toggle('hidden', section.id !== pageId);
     });
+    localStorage.setItem('currentPage', pageId);
 }
 
-          
-/* 
-Attach event listeners to navigation buttons
-The clicked button is used as a parameter for the the showPage() function  
-*/
 document.querySelectorAll('.navigationButtons').forEach(button => {
     button.addEventListener('click', () => {
         showPage(button.dataset.page);
     });
+});
+
+// Ensure that the user is taken to the last page they were on when they refresh the page
+document.addEventListener('DOMContentLoaded', () => {
+    const currentPage = localStorage.getItem('currentPage') || 'dashboardPage';
+    showPage(currentPage); // Show the page saved in local storage
 });
 /*------------------------------------Navigation------------------------------------*/
 
@@ -42,98 +41,117 @@ class Task {
     */
 }
 
-class TaskManager {
-    constructor() {
-        this.tasks = [];
-        this.taskID = 1;
+let tasks = [];
+let taskID = 1; // Static ID for tasks
+loadTasksFromLocalStorage(); // Load tasks from local storage on page load
+loadTaskIDFromLocalStorage(); // Load task ID from local storage on page load
+initialiseFormHandler(); // Initialise the form handler
 
-        //Form Submission Handler
-        this.initialiseFormHandler();
-    }
-
-    initialiseFormHandler() {
-        const taskForm = document.getElementById('taskInputForm');
-        taskForm.addEventListener('submit', (event) => {
-            event.preventDefault(); // Prevent page refresh
-            const taskTitle = document.getElementById('taskInputTitle').value;
-
-            if (taskTitle.trim() === '') {
-                //alert("Task title cannot be empty.");
-                return;
-            }
-
-            this.createTask(taskTitle, this.taskID);
-            taskForm.reset(); // Clear the form after submission
-            console.log(this.tasks);
-            console.log(this.tasks.length);
-        });
-    }
-
-    createTask(title, ID) {
-        const newTask = new Task(title, ID);
-        
-        this.addTaskToList(newTask);
-        this.tasks.push(newTask);
-        this.taskID++;
-    }
-
-    addTaskToList(task) {
-        const newtaskTitle = document.createElement('li');
-        const taskId = "Task_" + task.taskID;
-        newtaskTitle.classList.add("taskTitleContainer");
-        newtaskTitle.innerHTML = `
-            <input type="checkbox" id="${taskId}">
-            <label class="customCheckbox" for="${taskId}">
-                <svg fill="transparent" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-            </label>
-            <label for="${taskId}" class="taskTitle">${task.title}</label>
-            <button class="deleteButton" style="display: inline-flex">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
-            </button>
-            
-        `;
-        const newHorizontalRule = document.createElement('hr');
-        const taskList = document.getElementById('tasksList');
-        if (taskList.children.length > 0) {
-            taskList.insertBefore(newHorizontalRule, taskList.children[0]);
-            taskList.insertBefore(newtaskTitle, taskList.children[0]);
-        }
-        else{
-            document.getElementById('tasksList').appendChild(newtaskTitle);
-            document.getElementById('tasksList').appendChild(newHorizontalRule);
-        }
-
-        // Add event listener to delete button
-        const deleteButton = newtaskTitle.querySelector('.deleteButton');
-        deleteButton.addEventListener('click', () => {
-            this.deleteTask(task.taskID);
-            newtaskTitle.remove();
-            newHorizontalRule.remove();
-        });
-    }
-
-    deleteTask(taskID) {
-        const taskIndex = this.tasks.findIndex(task => task.taskID === taskID);
-        if (taskIndex === -1) {
+function initialiseFormHandler() {
+    const taskForm = document.getElementById('taskInputForm');
+    taskForm.addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent page refresh
+        const taskTitle = document.getElementById('taskInputTitle').value;
+        if (taskTitle.trim() === '') {
+            //alert("Task title cannot be empty.");
             return;
         }
-        const removed = this.tasks.splice(taskIndex, 1);
-        console.log(this.tasks);
-        console.log(removed);
+        createTask(taskTitle, taskID);
+        taskForm.reset(); // Clear the form after submission
+        console.log(tasks);
+        console.log(tasks.length);
+    });
+}
+
+function createTask(title, ID) {
+    const newTask = new Task(title, ID);
+    tasks.push(newTask);
+    refreshTaskList(); // Refresh the task list to show the new task
+    taskID++;
+    localStorage.setItem('taskID', taskID);
+    pushTasksToLocalStorage(); // Push the updated task list to local storage
+}
+
+function refreshTaskList() {
+    const taskList = document.getElementById('tasksList');
+    taskList.innerHTML = "";
+    if (tasks.length === 0) {
+        taskList.innerHTML = `<p>No tasks have been added yet.</p>`;
+        return;
+    }
+    // Re-add each task to the list in reverse order; newly added tasks are placed at the top of the list
+    for (let i = (tasks.length - 1); i >= 0; i--) {
+        const task = tasks[i];
+        addTaskToList(task);
     }
 }
 
+function addTaskToList(task) {
+    const newtaskTitle = document.createElement('li');
+    const taskId = "Task_" + task.taskID;
+    newtaskTitle.classList.add("taskTitleContainer");
+    newtaskTitle.innerHTML = `
+        <input type="checkbox" id="${taskId}">
+        <label class="customCheckbox" for="${taskId}">
+            <svg fill="transparent" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
+        </label>
+        <label for="${taskId}" class="taskTitle">${task.title}</label>
+        <button class="deleteButton" style="display: inline-flex">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
+        </button>
+        
+    `;
+    const newHorizontalRule = document.createElement('hr');
+    const taskList = document.getElementById('tasksList');
+    taskList.appendChild(newtaskTitle);
+    taskList.appendChild(newHorizontalRule);
 
-const TaskManager_ = new TaskManager();
+    // Add event listener to delete button
+    const deleteButton = newtaskTitle.querySelector('.deleteButton');
+    deleteButton.addEventListener('click', () => {
+        deleteTask(task.taskID);
+        newtaskTitle.remove();
+        newHorizontalRule.remove();
+    });
+}
 
+function deleteTask(taskID) {
+    const taskIndex = tasks.findIndex(task => task.taskID === taskID);
+    if (taskIndex === -1) {
+        return;
+    }
+    const removed = tasks.splice(taskIndex, 1);
+    pushTasksToLocalStorage(); // Push the updated task list to local storage
+    console.log(tasks);
+    console.log(removed);
+}
 
+// Function to push the task list to local storage
+function pushTasksToLocalStorage() {
+    const tasksJSON = JSON.stringify(tasks);
+    localStorage.setItem('tasks', tasksJSON);
+    console.log("Tasks pushed to local storage:", tasksJSON);
+}
 
+// Function to load tasks from local storage
+function loadTasksFromLocalStorage() {
+    const storedTasks = localStorage.getItem("tasks");
+    if (storedTasks) {
+        tasks = JSON.parse(storedTasks);
+        console.log("Tasks loaded from local storage:", tasks);
+    }
+    refreshTaskList();
+}
 
-/*function createTask() {
-    const taskTitle = document.getElementById("taskInputForm").value;
-    TaskManager_.createTask(taskTitle, TaskManager_.taskID);
-    console.log(TaskManager_.tasks);
-}*/
+function loadTaskIDFromLocalStorage() {
+    const storedTaskID = localStorage.getItem("taskID");
+    if (storedTaskID) {
+        taskID = parseInt(storedTaskID, 10);
+    } else {
+        taskID = 1; // Default value if not found
+    }
+    console.log("Task ID loaded from local storage:", taskID);
+}
 
 /*------------------------------------End of Task Management------------------------------------*/
 
@@ -199,8 +217,23 @@ let temporaryExams = [];
 // Temporary lecturer details
 let temporaryLecturer = new Lecturer("", "", "");
 
-// Static IDs for modules and assessments
+// Global variables for modules and assessments
 const modulesPage = document.getElementById('modulesPage');
+let tempAssessmentID = 1;
+let assessmentID = 1;
+let unsavedAssignmentDataPresent = false;
+let unsavedExamDataPresent = false;
+let unsavedLecturerDataPresent = false;
+let edittingLecturer = false;
+let edittingModule = false;
+let currentModuleCode = "";
+let currentModuleIndex = -1;
+
+loadModulesFromLocalStorage();
+loadAssignmentsFromLocalStorage();
+loadExamsFromLocalStorage();
+loadAssessmentIDFromLocalStorage();
+displayModuleCards(); // Display the module cards on page load
 
 
 // Test data
@@ -339,7 +372,6 @@ function closeModuleAddOverlay() {
 }
 
 // Function to open the lecturer details overlay
-let unsavedLecturerDataPresent = false;
 function openLecturerDetailsInputForm() {
     console.log(unsavedLecturerDataPresent);
     console.log(edittingLecturer);
@@ -433,8 +465,7 @@ function saveTemporaryLecturerDetailsButton() {
 }
 
 // Function to open the assessment overlay
-let unsavedAssignmentDataPresent = false;
-let unsavedExamDataPresent = false;
+
 function openAssessmentInputForm(assessmentType) {
     const assessmentOverlay = document.createElement('div');
     assessmentOverlay.id = "assessmentOverlay";
@@ -666,7 +697,6 @@ function displayModuleInformation(moduleID) {
     const deleteButton = document.getElementById("moduleDeleteButton");
     deleteButton.addEventListener("click", () => {
         deleteModule(moduleCode);
-        deleteAllModuleAssessments(moduleCode);
         displayModuleCards();
         closeModuleInformationOverlay();
     });
@@ -753,7 +783,6 @@ function closeModuleInformationOverlay() {
 
 /* ------------Processing User Input for Mdules------------------ */
 // Function to save the module input to the modules array
-let assessmentID = 1; // Static IDs for assessments
 function saveModule() {
     const moduleCode = document.getElementById("moduleCode_Input").value.trim();
     const moduleName = document.getElementById("moduleName_Input").value.trim();
@@ -785,6 +814,7 @@ function saveModule() {
             assignment.assignmentID = assessmentID;
             assessmentID++;
             assignments.push(assignment);
+            pushAssignmentsToLocalStorage();
             newModule.numAssignments++;
         });
     }
@@ -795,15 +825,21 @@ function saveModule() {
             exam.examID = assessmentID;
             assessmentID++;
             exams.push(exam);
+            pushExamsToLocalStorage();
             newModule.numExams++;
         });
     }
     console.log(exams);
 
     modules.push(newModule);
+    pushModulesToLocalStorage();
+    pushAssessmentIDToLocalStorage();
     console.log(modules);
     displayModuleCards();
     closeModuleAddOverlay();
+    console.log(modules[0].numAssignments);
+    console.log(assignments[0].contribution);
+    console.log(typeof assignments[0].contribution);
 }
 
 // Function to delete a module
@@ -814,7 +850,9 @@ function deleteModule(moduleCode) {
         console.log("Module not found");
         return;
     }
+    deleteAllModuleAssessments(moduleCode);
     const removedModule = modules.splice(moduleIndex, 1);
+    pushModulesToLocalStorage();
     console.log(removedModule);
     console.log(modules);
 }
@@ -828,6 +866,7 @@ function deleteAllModuleAssessments(moduleCode) {
             console.log("Removed assignment:", removedAssignment);
         }
     }
+    pushAssignmentsToLocalStorage();
     console.log("Remaining assignments:", assignments);
 
     for (let i = exams.length - 1; i >= 0; i--) {
@@ -836,15 +875,14 @@ function deleteAllModuleAssessments(moduleCode) {
             console.log("Removed exam:", removedExam);
         }
     }
+    pushExamsToLocalStorage();
     console.log("Remaining exams:", exams);
 }
 
 
 
 // Function to edit module information
-let edittingModule = false;
-let currentModuleCode = "";
-let currentModuleIndex = -1;
+
 function editModuleInformation(moduleCode) {
     console.log("Edit button clicked");
     console.log("editingModuleInformation() function called");
@@ -891,6 +929,7 @@ function updateModule() {
     module.moduleName = newModuleName;
     module.lectureDays = newLectureDays;
     console.log(modules);
+    pushModulesToLocalStorage();
     currentModuleCode = "";
     currentModuleIndex = -1;
     unsavedLecturerDataPresent = false;
@@ -902,7 +941,7 @@ function updateModule() {
 }
 
 // Function to edit lecturer details
-let edittingLecturer = false;
+
 function editLecturerDetails() {
     console.log("Edit button clicked");
     unsavedLecturerDataPresent = true;
@@ -939,7 +978,7 @@ function displayModuleCards() {
         moduleList.appendChild(noModules);
         return;
     }
-    for (let i = 0; i < modules.length; i++) {
+    for (let i = (modules.length - 1); i >= 0; i--) {
         const module = modules[i];
         const moduleElement = document.createElement("div");
         moduleElement.classList.add("moduleCard");
@@ -985,11 +1024,10 @@ function displayModuleCards() {
 
 
 /*--- THIS ONLY APPLIES WHEN ADDING ASSESSMENTS DIRECTLY FROM THE MODULES PAGE!!!---*/
-// Function to temporarily save an assignment to the module form
 
 
 // Function to add temporary assessments to assessment form for a module
-let tempAssessmentID = 1;
+
 function createTempAssessments(assessmentType) {
     const assessmentForm = document.getElementById("assessmentInputForm");
 
@@ -1004,6 +1042,7 @@ function createTempAssessments(assessmentType) {
 
     const dueDate = document.getElementById("assessmentDueDate_Input").value;
     const contribution = document.getElementById("assessmentContribution_Input").value;
+    console.log(typeof contribution);
 
     if (assessmentType === "Assignment") {
         const assignment = new Assignment(assessmentName, '0', dueDate, contribution);
@@ -1012,6 +1051,7 @@ function createTempAssessments(assessmentType) {
         temporaryAssignments.push(assignment);
         console.log(assignment);
         console.log(temporaryAssignments);
+        console.log(typeof temporaryAssignments[0].contribution)
         displayAssessmentList(assessmentType, temporaryAssignments);
     }
     else if (assessmentType === "Exam") {
@@ -1046,6 +1086,7 @@ function addAssessmentToModule(assessmentType) {
         assignment.assignmentID = assessmentID;
         assessmentID++;
         assignments.push(assignment);
+        pushAssignmentsToLocalStorage();
         modules[currentModuleIndex].numAssignments++;
         console.log(assignments);
         displayAssessmentList(assessmentType, assignments.filter(assignment => assignment.moduleCode === currentModuleCode));
@@ -1055,6 +1096,7 @@ function addAssessmentToModule(assessmentType) {
         exam.examID = assessmentID;
         assessmentID++;
         exams.push(exam);
+        pushExamsToLocalStorage();
         modules[currentModuleIndex].numExams++;
         console.log(exams);
         displayAssessmentList(assessmentType, exams.filter(exam => exam.moduleCode === currentModuleCode));
@@ -1169,6 +1211,7 @@ function deleteAssessmentItem(assessmentType, assessmentList, assessmentID) {
             return;
         }
         assessmentList.splice(assignmentIndex, 1);
+        pushAssignmentsToLocalStorage();
         if (edittingModule) {
             modules[currentModuleIndex].numAssignments--;
         }
@@ -1182,6 +1225,7 @@ function deleteAssessmentItem(assessmentType, assessmentList, assessmentID) {
             return;
         }
         assessmentList.splice(examIndex, 1);
+        pushExamsToLocalStorage();
         if (edittingModule) {
             modules[currentModuleIndex].numExams--;
         }
@@ -1190,88 +1234,70 @@ function deleteAssessmentItem(assessmentType, assessmentList, assessmentID) {
     else {console.log("Invalid assessment type");}
 }
 
+function pushAssessmentIDToLocalStorage() {
+    localStorage.setItem("assessmentID", assessmentID);
+}
 
-
-
-
-
-// Function to add an exam to a module
-
-
-
-
-
-// Temporary Assessment Items Editor
-function editTemporaryAssessmentDetails(assessmentItem) {
-    if (assessmentItem.classList.contains("editing")) return; // Prevent multiple edits
-    assessmentItem.classList.add("editing");
-
-    const currentAssessmentName = assessmentItem.innerText;
-    const currentDueDateElement = assessmentItem.nextElementSibling.querySelector("span");
-    const currentDueDate = currentDueDateElement.innerText;
-
-    // Create input fields
-    let nameInput = document.createElement("input");
-    nameInput.type = "text";
-    nameInput.value = currentAssessmentName;
-
-    let dateInput = document.createElement("input");
-    dateInput.type = "date";
-    dateInput.value = currentDueDate;
-
-    // Create buttons to accept or cancel changes
-    const buttonContainer = document.createElement("div");
-    let saveButton = document.createElement("button");
-    let cancelButton = document.createElement("button");
-    saveButton.classList.add("detailsEditButton");
-    saveButton.type = "submit";
-    cancelButton.classList.add("detailsEditButton");
-    cancelButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="18px" fill="#000000"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>`;
-    saveButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="18px" fill="#000000"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>`;
-    cancelButton.onclick = function() {
-        saveAssessmentDetailsChanges(assessmentItem, currentAssessmentName, currentDueDate);
+function loadAssessmentIDFromLocalStorage() {
+    const storedAssessmentID = localStorage.getItem("assessmentID");
+    if (storedAssessmentID) {
+        assessmentID = parseInt(storedAssessmentID, 10);
+    } else {
+        assessmentID = 0; // Default value if not found in local storage
     }
-    
-    saveButton.onclick = function () {
-        saveAssessmentDetailsChanges(assessmentItem, nameInput.value, dateInput.value);
-    };
-    buttonContainer.appendChild(saveButton);
-    buttonContainer.appendChild(cancelButton);
-
-    // Or click enter to save
-    nameInput.addEventListener("keypress", function(event) {
-        if (event.key === "Enter") {
-            saveAssessmentDetailsChanges(assessmentItem, nameInput.value, dateInput.value);
-        }
-    });
-    dateInput.addEventListener("keypress", function(event) {
-        if (event.key === "Enter") {
-            saveAssessmentDetailsChanges(assessmentItem, nameInput.value, dateInput.value);
-        }
-    });
-
-    // Clear and add inputs
-    assessmentItem.innerHTML = "";
-    assessmentItem.nextElementSibling.innerHTML = "";
-    const editContainer = document.createElement("div");
-    editContainer.classList.add("edit-container");
-    const inputContainer = document.createElement("div");
-    inputContainer.classList.add("edit-input-continaer");
-    inputContainer.appendChild(nameInput);
-    inputContainer.appendChild(dateInput);
-    editContainer.appendChild(inputContainer);
-    editContainer.appendChild(buttonContainer);
-    assessmentItem.appendChild(editContainer);
+    console.log("Loaded assessment ID from local storage:", assessmentID);
 }
 
-function saveAssessmentDetailsChanges(assessmentItem, newAssessmentName, newDueDate) {
-    assessmentItem.parentElement.innerHTML = `
-        <li onclick="editTemporaryAssessmentDetails(this)">${newAssessmentName}</li>
-        <dd><b>Due date:</b> <span>${newDueDate}</span></dd>
-        `;
-    assessmentItem.classList.remove("editing");
+function pushModulesToLocalStorage() {
+    localStorage.setItem("modules", JSON.stringify(modules));
 }
 
+function loadModulesFromLocalStorage() {
+    const storedModules = localStorage.getItem("modules");
+    if (storedModules) {
+        modules = JSON.parse(storedModules).map(module => ({
+            ...module, 
+            numAssignments: parseInt(module.numAssignments, 10),
+            numExams: parseInt(module.numExams, 10)
+        }));
+        console.log("Loaded modules from local storage:", modules);
+    } else {
+        modules = []; // Default value if not found in local storage
+    }
+}
 
+function pushAssignmentsToLocalStorage() {
+    localStorage.setItem("assignments", JSON.stringify(assignments));
+}
+
+function loadAssignmentsFromLocalStorage() {
+    const storedAssignments = localStorage.getItem("assignments");
+    if (storedAssignments) {
+        assignments = JSON.parse(storedAssignments).map(assignment => ({
+            ...assignment, 
+            assignmentID: parseInt(assignment.assessmentID)
+        }));
+        console.log("Loaded assignments from local storage:", assignments);
+    } else {
+        assignments = []; // Default value if not found in local storage
+    }
+}
+
+function pushExamsToLocalStorage() {
+    localStorage.setItem("exams", JSON.stringify(exams));
+}
+
+function loadExamsFromLocalStorage() {
+    const storedExams = localStorage.getItem("exams");
+    if (storedExams) {
+        exams = JSON.parse(storedExams).map(exam => ({
+            ...exam, 
+            examID: parseInt(exam.assessmentID)
+        }));
+        console.log("Loaded exams from local storage:", exams);
+    } else {
+        exams = []; // Default value if not found in local storage
+    }
+}
 
 
