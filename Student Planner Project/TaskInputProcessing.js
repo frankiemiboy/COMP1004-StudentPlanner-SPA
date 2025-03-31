@@ -26,11 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Task and Subtask classes
 class Task {
-    constructor(title, taskID) {
+    constructor(title, taskID, status) {
         this.title = title;
         //this.description = description;
         //this.date = date;
         this.taskID = taskID;
+        this.status = status; // Status can be "incomplete" or "complete"
         //this.subtasks = []; // Composition: Task contains subtasks
     }
 
@@ -64,7 +65,7 @@ function initialiseFormHandler() {
 }
 
 function createTask(title, ID) {
-    const newTask = new Task(title, ID);
+    const newTask = new Task(title, ID, false);
     tasks.push(newTask);
     refreshTaskList(); // Refresh the task list to show the new task
     taskID++;
@@ -76,7 +77,7 @@ function refreshTaskList() {
     const taskList = document.getElementById('tasksList');
     taskList.innerHTML = "";
     if (tasks.length === 0) {
-        taskList.innerHTML = `<p>No tasks have been added yet.</p>`;
+        taskList.innerHTML = `<div style="display: flex; justify-content:center;"><p>Currently no tasks to display. Please enter a task.</p></div?`;
         return;
     }
     // Re-add each task to the list in reverse order; newly added tasks are placed at the top of the list
@@ -113,6 +114,20 @@ function addTaskToList(task) {
         newtaskTitle.remove();
         newHorizontalRule.remove();
     });
+
+    // Add event listener to checkbox
+    const checkbox = newtaskTitle.querySelector('input[type="checkbox"]');
+    checkbox.addEventListener('change', () => {
+        if (checkbox.checked) {
+            task.status = true; // Mark task as complete
+        } else {
+            task.status = false; // Mark task as incomplete
+        }
+        pushTasksToLocalStorage(); // Push the updated task list to local storage
+    });
+
+    // Set the checkbox state based on the task status
+    checkbox.checked = task.status;
 }
 
 function deleteTask(taskID) {
@@ -124,6 +139,10 @@ function deleteTask(taskID) {
     pushTasksToLocalStorage(); // Push the updated task list to local storage
     console.log(tasks);
     console.log(removed);
+    if (tasks.length === 0) {
+        const taskList = document.getElementById('tasksList');
+        taskList.innerHTML = `<div style="display: flex; justify-content:center;"><p>Currently no tasks to display. Please enter a task.</p></div>`;
+    }
 }
 
 // Function to push the task list to local storage
