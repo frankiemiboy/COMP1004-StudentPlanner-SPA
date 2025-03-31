@@ -12,18 +12,15 @@
                 <header>
                     <h1>Student Planner</h1>
                     <!--Buttons for navigation-->
-                    <button class="navigationButtons" data-page="dashboardPage">Dashboard</button>
                     <button class="navigationButtons" data-page="tasksPage">Tasks</button> 
-                    <button class="navigationButtons" data-page="assignmentsPage">Assignments</button>
                     <button class="navigationButtons" data-page="modulesPage">Modules</button>
                     <hr>
                 </header>
                 <br>
 
                 <!-- Sections for each page -->
-                <div id="dashboardPage" class="section hidden"> 
-                    <h2>Dashboard</h2> 
-                </div>
+
+<!-----------------------------Tasks Page----------------------------------------------->
 
                 <div id="tasksPage" class="section hidden">
                     <h2 id="tasksPageID">Tasks</h2>
@@ -31,93 +28,7 @@
                     
                     <div class="taskListWrapper">
                         <ul id="tasksList">
-                            <!--<p style="opacity: 0.5; text-align: center;" >You currently have no tasks</p>-->
-                            <!--
-                                <li class="taskTitleContainer">
-                                    <input type="checkbox" id="Task_1">
-                                    <label class="customCheckbox" for="Task_1">
-                                        <svg fill="transparent" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-                                    </label>
-                                    <label for="Task_1" class="taskTitle">Task 1</label>
-                                    <button class="deleteButton" style="display: inline-flex">
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
-                                    </button>
-
-                                    <--<dd class="taskDescription" >Task 1 Description</dd>-->
-                                    
-                                    <!-- ***** I WILL NEED THIS LATER WHEN CREATING THE OVERLAY WHEN THE TASKS ARE EXPANDED *****
-                                        <ul id="Task_1_subTasksList" class="individualTaskProperties">
-                                            <li class="subTaskTitle">
-                                                <input type="checkbox" id="Task_1_Subtask_1">
-                                                <label class="customCheckbox" for="Task_1_Subtask_1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#000000"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-                                                </label>
-                                                <label for="Task_1_Subtask_1">Subtask 1</label>
-                                            </li>
-                                            <li class="subTaskTitle">
-                                                <input type="checkbox" id="Task_1_Subtask_2">
-                                                <label class="customCheckbox" for="Task_1_Subtask_2">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#000000"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-                                                </label>
-                                                <label for="Task_1_Subtask_2">Subtask 2</label>
-                                            </li>
-                                            <li class="subTaskTitle">
-                                                <input type="checkbox" id="Task_1_Subtask_3">
-                                                <label class="customCheckbox" for="Task_1_Subtask_3">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#000000"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-                                                </label>
-                                                <label for="Task_1_Subtask_3">Subtask 3</label>
-                                            </li>
-                                        </ul>
-                                    
-
-                                </li>
-                                
-                                <hr>
-
-                                <li class="taskTitleContainer">
-                                    <input type="checkbox" id="Task_2">
-                                    <label class="customCheckbox" for="Task_2">
-                                        <svg fill="transparent" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-                                    </label>
-                                    <label for="Task_2" class="taskTitle">Task 2</label>
-                                    <button class="deleteButton" style="display: inline-flex"> 
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
-                                    </button>
-                                    <!--<dd class="taskDescription" >Task 1 Description</dd>-->
-
-                                    <!--
-                                        <ul id="Task_2_subTasksList" class="individualTaskProperties">
-                                            <li class="subTaskTitle">
-                                                <input type="checkbox" id="Task_2_Subtask_1">
-                                                <label class="customCheckbox" for="Task_2_Subtask_1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#000000"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-                                                </label>
-                                                <label for="Task_2_Subtask_1">Subtask 1</label>
-                                            </li>
-                                            <li class="subTaskTitle">
-                                                <input type="checkbox" id="Task_2_Subtask_2">
-                                                <label class="customCheckbox" for="Task_2_Subtask_2">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#000000"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-                                                </label>
-                                                <label for="Task_2_Subtask_2">Subtask 2</label>
-                                            </li>
-                                            <li class="subTaskTitle">
-                                                <input type="checkbox" id="Task_2_Subtask_3">
-                                                <label class="customCheckbox" for="Task_2_Subtask_3">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#000000"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-                                                </label>
-                                                <label for="Task_2_Subtask_3">Subtask 3</label>
-                                            </li>
-                                        </ul>
-                                    
-
-                                </li>
-                                <hr>
-                            -->
                             
-
-                            <!-- <button onclick="taskManager1.createTask()">Add Task</button> -->
                         </ul>
                         
                         <form id="taskInputForm">
@@ -130,9 +41,9 @@
 
                 </div>
 
-                <div id="assignmentsPage" class="section hidden">
-                    <h2>Assignments</h2>
-                </div>
+<!-----------------------------End of Tasks Page----------------------------------------------->
+
+
 
 <!-----------------------------Modules Page----------------------------------------------->
 
@@ -143,348 +54,15 @@
                             Add Module
                         </button>
                     </div>
-                    <div id="moduleList">
-
-                        <div class="moduleCard" id="COMP1000">
-                            <header class="moduleCard_Header">
-                                <h3>COMP1000 - Software Engineering</h3>
-                            </header>
-                            <hr>
-                            <div class="moduleCard_Content">
-                                <h4 style="margin: 0;">Lecturer/Module Leader: </h4>
-                                <p style="margin-top: 0">Dr. John Doe</p>
-                                <h4 style="margin: 0;">Lecture Days:</h4>
-                                <p style="margin-top: 0">Mondays 10:00 - 12:00</p>
-                                <h4 style="margin: 0;">Assignments:</h4>
-                                <p style="margin-top: 0">5 assignment(s); 2 complete; 3 left</p>
-                                <h4 style="margin: 0;">Exams:</h4>
-                                <p style="margin-top: 0">2 exam(s); 1 left</p>
-                            </div>
-                            <hr>
-                            <div>
-                                <button id="expandModuleButton-COMP1000" class="expandModuleButton" onclick="expandModule('COMP1000')">View More</button>
-                            </div>
-                        </div>
-
-                        <div class="moduleCard" id="COMP1001">
-                            <header class="moduleCard_Header">
-                                <h3>COMP1001 - Computer Systems</h3>
-                            </header>
-                            <hr>
-                            <div class="moduleCard_Content">
-                                <h4 style="margin: 0;">Lecturer/Module Leader: </h4>
-                                <p style="margin-top: 0">Dr. John Doe</p>
-                                <h4 style="margin: 0;">Lecture Days:</h4>
-                                <p style="margin-top: 0">Mondays 10:00 - 12:00</p>
-                                <h4 style="margin: 0;">Assignments:</h4>
-                                <p style="margin-top: 0">5 assignment(s); 2 complete; 3 left</p>
-                                <h4 style="margin: 0;">Exams:</h4>
-                                <p style="margin-top: 0">2 exam(s); 1 left</p>
-                            </div>
-                            <hr>
-                            <div>
-                                <button id="expandModuleButton-COMP1001" class="expandModuleButton" onclick="expandModule('COMP1001')">View More</button>
-                            </div>
-                        </div>
-
-                        <div class="moduleCard" id="COMP1002">
-                            <header class="moduleCard_Header">
-                                <h3>COMP1002 - Cyber Security</h3>
-                            </header>
-                            <hr>
-                            <div class="moduleCard_Content">
-                                <h4 style="margin: 0;">Lecturer/Module Leader: </h4>
-                                <p style="margin-top: 0">Dr. John Doe</p>
-                                <h4 style="margin: 0;">Lecture Days:</h4>
-                                <p style="margin-top: 0">Mondays 10:00 - 12:00</p>
-                                <h4 style="margin: 0;">Assignments:</h4>
-                                <p style="margin-top: 0">5 assignment(s); 2 complete; 3 left</p>
-                                <h4 style="margin: 0;">Exams:</h4>
-                                <p style="margin-top: 0">2 exam(s); 1 left</p>
-                            </div>
-                            <hr>
-                            <div>
-                                <button id="expandModuleButton-COMP1002" class="expandModuleButton" onclick="expandModule('COMP1002')">View More</button>
-                            </div>
-                        </div>
-
-                        <div class="moduleCard" id="COMP1003">
-                            <header class="moduleCard_Header">
-                                <h3>COMP1003 - Data Structures and Algorithms</h3>
-                            </header>
-                            <hr>
-                            <div class="moduleCard_Content">
-                                <h4 style="margin: 0;">Lecturer/Module Leader: </h4>
-                                <p style="margin-top: 0">Dr. John Doe</p>
-                                <h4 style="margin: 0;">Lecture Days:</h4>
-                                <p style="margin-top: 0">Mondays 10:00 - 12:00</p>
-                                <h4 style="margin: 0;">Assignments:</h4>
-                                <p style="margin-top: 0">5 assignment(s); 2 complete; 3 left</p>
-                                <h4 style="margin: 0;">Exams:</h4>
-                                <p style="margin-top: 0">2 exam(s); 1 left</p>
-                            </div>
-                            <hr>
-                            <div>
-                                <button id="expandModuleButton-COMP1003" class="expandModuleButton" onclick="expandModule('COMP1003')">View More</button>
-                            </div>
-                        </div>
+                    <div id="moduleList"> 
 
                     </div>
 
-                    <!--<div id="moduleInformationOverlay" class="overlay ">
-                        <div id="moduleInformationOverlay_Content" class="overlay_Content">
-                            <div id="moduleInformationOverlay_Content-Header-Container" class="moduleInformationOverlay-divContainers">
-                                <h2 id="moduleInformationOverlay-Header">COMP1000 - Software Engineering 1</h2>
-                                <button class="overlayActionButtons plainButtons" onclick="editModuleInformation()">
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
-                                </button>
-                                <button class="overlayActionButtons plainButtons" onclick="closeModuleInformationOverlay()">
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
-                                </button>
-                            </div>
-                            <hr>
-                            <div class="moduleInformationOverlay-Container">
-                                <div id="moduleInformationOverlay-lectureInformation-Container" class="moduleInformationOverlay-divContainers">
-                                    <div id="moduleInformationOverlay-lecturerInformation-Container">
-                                        <h3>Lecturer Information:</h3>
-                                        <div id="moduleInformationOverlay-lecturerInformation">
-                                            <p><b>Name:</b> Dr. Jacqueline Who</p>
-                                            <p><b>Email:</b> <a href="mailto:jacquelinewho@example.com">jacquelinewho@example.com</a></p>
-                                            <p><b>Office:</b> Room 100, Mary Newman Building</p>
-                                            <p><b>Office Hours:</b> Mondays 14:00 - 16:00</p>
-                                        </div>
-                                    </div>
-                                    <div id="moduleInformationOverlay-lectureDays-Container">
-                                        <h3>Lecture Days:</h3>
-                                        <ul id="moduleInformationOverlay-lectureDaysList">
-                                            <li><b>Mondays</b>, 10:00 - 12:00</li>
-                                            <li><b>Thursdays</b>, 14:00 - 16:00</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <br>
-                                <h3>Assignments:</h3>
-                                <ul id="moduleInformationOverlay-assignmentsList">
-                                    <div class="moduleInformationOverlay-divContainers">
-                                        <div class="moduleInformationOverlay-assessmentItem">
-                                            <li>Microbiology Report</li>
-                                            <dd>Due date: 27/09/2020</dd>
-                                        </div>
-                                        <dd>Contribution: 30%</dd>
-                                    </div>
-                                    <hr>
-                                </ul>
-                                <br>
-                                <h3>Exams:</h3>
-                                <ul id="moduleInformationOverlay-examsList">
-                                    <div  class="moduleInformationOverlay-divContainers">
-                                        <div class="moduleInformationOverlay-assessmentItem">
-                                            <li>Microbiology Exam</li>
-                                            <dd>Due date: 27/09/2020</dd>
-                                        </div>
-                                        <dd>Contribution: 70%</dd>
-                                    </div>
-                                    <hr>
-                                </ul>
-                            </div>
-                            <br>
-                            <div id="moduleInformationOverlay-deleteButton-Container" >
-                                <button class="overlayActionButtons overlay-cancelButton" onclick=deleteModule()>Delete Module</button>
-                            </div>
-                        </div>
-                    </div>-->
                 </div>
 
-                <!--Overlay for Expanded Module Information-->
-                
-                
-                
-
-
-                <!--Overlay for adding a module-->
-                <!--<div id="moduleAddOverlay" class="overlay hidden">
-                    <div class="overlay_Content">
-                        <h2 id="moduleOverlayHeader">Add Module</h2>
-                        <form id="moduleInputForm">
-                            <div class="moduleDetails_Input-Container">
-                                <label for="moduleCode_Input">Module Code:</label>
-                                <input type="text" id="moduleCode_Input" class="overlay_Input" name="moduleCode" placeholder="Enter Module Code">
-                                <label for="moduleName_Input">Module Name:</label>
-                                <input type="text" id="moduleName_Input" class="overlay_Input" name="moduleName" placeholder="Enter Module Name">
-                                <label for="moduleLecturer_Input">Lecturer / Module Leader:</label>
-                                <input type="text" id="moduleLecturer_Input" class="overlay_Input" name="moduleLecturer" placeholder="Enter Lecturer's Name">
-                                <label for="moduleLectureDays_Input">Lecture Days:</label>
-                                <input type="text" id="moduleLectureDays_Input" class="overlay_Input" name="moduleLectureDays" placeholder="Enter Days on which Lectures are held">
-                            </div>
-                        </form>
-                            <div style="display: flex; gap: 10px;">
-                                <!-Buttons for submitting or cancelling the form--
-                                <button type="submit" id="moduleOverlay-saveModuleButton" class="overlayActionButtons overlay-saveButton" onclick="saveModule()">Save</button> <!-Remember to add the function to save/submit the module--
-                                <button type="button" id="moduleOverlay-cancelSaveModuleButton" class="overlayActionButtons overlay-cancelButton" onclick="closeOverlay('moduleAddOverlay')">Cancel</button>
-                                
-                                <!-Button to add more lecturer information--
-                                <button type="button" id="moduleOverlay-addLecturerDetailsButton" class="overlayActionButtons" onclick="openLecturerDetailsInputForm()">Addtional Lecturer Details</button>
-
-                                <!-Buttons for adding assignments and exams to the module--
-                                <button type="button" id="moduleOverlay-addAssignmentButton" class="overlayActionButtons" onclick="openAssessmentInputForm('Assignment')">Add Assignments</button>
-                                <button type="button" id="moduleOverlay-addExamButton" class="overlayActionButtons" onclick="openAssessmentInputForm('Exam')">Add Exams</button>
-                            </div>
-
-                            <p>Any assessments that you add will be listed below:</p>
-                            <div id="moduleOverlay-assessmentListContainer">
-                                <ul id="moduleOverlay-addedAssignmentsList" class="moduleOverlay-addedAssessmentsLists">
-                                    <u><b>Assignments:</b></u>
-                                    <div>
-                                    <li>Microbiology Report</li>
-                                    <dd>Due date: 27/09/2020</dd>
-                                    <dd>Contribution: 30%</dd>
-                                    </div>
-                                    <br>
-                                    <div>
-                                    <li>Maths Assignment</li>
-                                    <dd>Due date: 27/09/2020</dd>
-                                    <dd>Contribution: 30%</dd>
-                                    </div>
-                                    <br>
-                                    <div>
-                                    <li>Physics Assignment</li>
-                                    <dd>Due date: 27/09/2020</dd>
-                                    <dd>Contribution: 40%</dd>
-                                    </div>
-                                </ul>
-                                <ul id="moduleOverlay-addedExamsList" class="moduleOverlay-addedAssessmentsLists">
-                                    <u><b>Exams:</b></u>
-                                    <li>Microbiology Exam</li>
-                                    <dd>Due Date: 22/08/2025</dd>
-                                    <dd>Contribution: 30%</dd>
-                                    <br>
-                                    <li>Maths Exam</li>
-                                    <dd>Due Date: 22/08/2025</dd>
-                                    <dd>Contribution: 30%</dd>
-                                    <br>
-                                    <li>Physics Exam</li>
-                                    <dd>Due Date: 22/08/2025</dd>
-                                    <dd>Contribution: 40%</dd>
-                                    <br>
-                                </ul>
-                            </div>
-                        
-                    </div>
-                </div>-->
-
-                <!--Overlay for additional lecture details-->
-                <!--<div id="moduleLecturerDetailsOverlay" class="overlay hidden">
-                    <div id="moduleLecturerDetailsOverlay_Content" class="overlay_Content">
-                        <h3>Addtional Lecturer Details</h3>
-                        <form id="moduleLecturerDetailsForm">
-                            <div class="moduleDetails_Input-Container">
-                                <label for="moduleLecturerEmail_Input">Lecturer Email:</label>
-                                <input type="email" id="moduleLecturerEmail_Input" class="overlay_Input" name="moduleLecturerEmail" placeholder="e.g. name@example.com">
-                                <label for="moduleLecturerOffice_Input">Lecturer Office:</label>
-                                <input type="text" id="moduleLecturerOffice_Input" class="overlay_Input" name="moduleLecturerOffice" placeholder="e.g. Room 100, Mary Newman Building">
-                                <label for="moduleLecturerOfficeHours_Input">Lecturer Office Hours:</label>
-                                <input type="text" id="moduleLecturerOfficeHours_Input" class="overlay_Input" name="moduleLecturerOfficeHours" placeholder="e.g. Mondays, 14:00 - 16:00">
-                            </div>
-                            <div style="display: flex; gap: 10px;">
-                                <button type="submit" id="moduleLecturerDetails-saveButton" class="overlayActionButtons overlay-saveButton">Save</button>
-                                <button type="button" id="moduleLecturerDetails-cancelButton" class="overlayActionButtons overlay-cancelButton" onclick="closeOverlay(moduleLecturerDetailsOverlay)">Cancel</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>-->
-
-                <!--Overlay for adding an assessment item-->
-                <!--<div id="assessmentOverlay" class="overlay hidden">
-                    <div class="overlay_Content">
-                        <h2 id="assessmentOverlayHeader">Add Exam (Module Code)</h2>
-                        <form id="assessmentInputForm" >
-                            <div class="assessmentDetailsInput-Container">                                
-                                <label for="assessmentName_Input">Exam Title:</label>
-                                <input type="text" id="assessmentName_Input" class="overlay_Input" name="assessmentName" placeholder="Enter Exam Title"> <!--Make this a variable
-                                <label for="assessmentDueDate_Input">Date:</label>
-                                <input type="date" id="assessmentDueDate_Input" class="overlay_Input" name="assessmentDueDate">
-                                <label for="assessmentContribution_Input">Contribution:</label>
-                                <div>
-                                    <input type="number" id="assessmentContribution_Input" class="overlay_Input" name="assessmentContribution" placeholder="Contribution to Final Grade (e.g. 30)">
-                                    <label for="assessmentContribution_Input">%</label>
-                                </div>
-                            </div>
-                        </form>
-
-                        <button type="submit" id="assessmentOverlay-addAssessmentButton" class="overlayActionButtons" onclick="addTemporaryAssignments()">Add</button>
-                        <button type="button" id="assessmentOverlay-saveAssessmentsButton" class="overlayActionButtons overlay-saveButton">Save</button>
-                        <button type="button" id="assessmentOverlay-cancelAssessmentsButton" class="overlayActionButtons overlay-cancelButton" onclick="closeAssessmentInputForm()">Cancel</button>
-                        
-                        <p>Any assessments you add will appear below:</p>
-                        <ul id="assessmentOverlay-addedAssessmentsList">
-                            <div class="assessmentOverlay-AssessmentsList-Container">
-                                <div class="assessmentOverlay-AssessmentItemContainer">
-                                    <li onclick="editTemporaryAssessmentDetails(this)">Microbiology Exam</li>
-                                    <dd><b>Date:</b> <span>03/03/2025</span></dd>
-                                    <dd><b>Contribution:</b> <span>30</span>%</dd>
-                                </div>
-                                <div class="assessmentOverlay-AssessmentItem-ActionButtons-Container">
-                                    <button class="assessmentOverlay-AssessmentItem-ActionButtons" onclick="deleteTemporaryAssessment(this)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="assessmentOverlay-AssessmentsList-Container">
-                                <div class="assessmentOverlay-AssessmentItemContainer">
-                                    <li onclick="editTemporaryAssessmentDetails(this)">Math Exam</li>
-                                    <dd><b>Date:</b> <span>03/03/2025</span></dd>
-                                    <dd><b>Contribution:</b> <span>30</span>%</dd>
-                                </div>
-                                <div class="assessmentOverlay-AssessmentItem-ActionButtons-Container">
-                                    <button class="assessmentOverlay-AssessmentItem-ActionButtons" onclick="editTemporaryAssessmentDetails(this)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
-
-                                    </button>
-                                    <button class="assessmentOverlay-AssessmentItem-ActionButtons" onclick="deleteTemporaryAssessment(this)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
-                                    </button>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="assessmentOverlay-AssessmentsList-Container">
-                                <div class="assessmentOverlay-AssessmentItemContainer">
-                                    <li onclick="editTemporaryAssessmentDetails(this)">Physics Exam</li>
-                                    <dd><b>Date:</b> <span>03/03/2025</span></dd>
-                                    <dd><b>Contribution:</b> <span>40</span>%</dd>
-                                </div>
-                                <div class="assessmentOverlay-AssessmentItem-ActionButtons-Container">
-                                    <button class="assessmentOverlay-AssessmentItem-ActionButtons" onclick="editTemporaryAssessmentDetails(this)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z"/></svg>
-
-                                    </button>
-                                    <button class="assessmentOverlay-AssessmentItem-ActionButtons" onclick="deleteTemporaryAssessment(this)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
-                                    </button>
-                                </div>
-                            </div>
-                            
-                        </ul>
-                    </div>
-                </div>-->
-
+<!-----------------------------End of Modules Page----------------------------------------------->
 
             </div>
-
-                
-        
-
-            
-            <!--<footer id="footer">
-            </div>
-                <hr>
-                If you would like to give some feedback, please use the email below:
-                <br>
-                <a href="mailto: example@plymouth.ac.uk">Creator Email</a>
-            </footer>
-            
-            </div>
-            -->
 
         </div>
         <script src="TaskInputProcessing.js"></script>
