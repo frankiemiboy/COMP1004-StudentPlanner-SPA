@@ -1,0 +1,549 @@
+* {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin-left: 0.5%; margin-right: 0.5%;
+    /*padding-left: 5px; padding-right: 5px;*/
+}
+
+
+
+.navigationButtons {
+    background-color: white; 
+    border: none; 
+    border-radius: 4px; 
+    padding: 5px; 
+    text-align: center; 
+    cursor: pointer;
+    font-size: 1.1em;
+}
+
+
+.hidden {
+    display: none !important;
+}
+
+/*-------Common Button Styling--------*/
+.overlay-saveButton {
+    background: black;
+    color: white;
+    text-align: center;
+}
+
+.overlay-cancelButton {
+    background: #f44336;
+    color: white;
+    text-align: center;
+}
+
+.plainButtons {
+    background-color: white;
+    text-align: center;
+}
+
+
+/*--------------------------------------TASKS PAGE SPECIFIC--------------------------------------------*/
+#tasksPage{
+    min-height: 100vh;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.individualTaskProperties {
+    list-style-type: circle; 
+    padding-left: 0; 
+    margin-left: 0;
+}
+
+#taskInputTitle {
+    box-sizing: border-box;
+    padding: 12px 20px;
+    width: 100%;
+    background: none;
+    border: 2px solid;
+    border-radius: 15px;
+    font: inherit;
+    margin-left: 10px; margin-right: 10px;
+}
+
+#tasksPageID {
+    font-size: 2em;
+}
+
+.taskListWrapper {
+    width: 700px;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+}
+
+#tasksList {
+    border: solid 2px;
+    border-radius: 15px;
+    margin-left: 25px;
+    padding: 40px;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+#tasksList::-webkit-scrollbar {
+  width: 8px;
+  display: none;  /* Hide scrollbar */
+}
+#tasksList::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+#tasksList::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+
+#taskInputForm {
+    position: relative;
+}
+
+#addTaskButton {
+    position: absolute;
+    top: 0.8em;
+    right:0;
+    background-color: white;
+    border:none;
+    cursor: pointer;
+    
+}
+
+.taskTitleContainer {
+    margin-bottom: 10px;
+    padding: 0px 16px;
+    display: flex;
+    align-items: center;
+}
+
+.taskTitleContainer .taskTitle{
+    padding: 15px;
+    padding-right: 0px;
+    flex-grow: 1;
+}
+
+.deleteButton {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.deleteButton:hover {
+    background-color: rgb(236, 234, 234);
+}
+
+.editButton {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.editButton:hover {
+    background-color: rgb(236, 234, 234);
+}
+
+.customCheckbox {
+    border: 2px solid black;
+    border-radius: 50%;
+    height: 15px;
+    width: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+input[type="checkbox"]:checked ~ .customCheckbox svg{
+    fill: black;
+
+}
+
+input[type="checkbox"]:checked ~ .taskTitle {
+    text-decoration: line-through;
+    font-style: italic;
+}
+/*--------------------------------------END OF TASKS PAGE SPECIFIC--------------------------------------------*/
+
+
+/*----------------------------------------MODULE PAGE SPECIFIC----------------------------------------*/
+
+#moduleList {
+    /*border: 2px solid;*/
+    display: grid;
+    grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 2em));
+    gap: 30px;
+    padding: 0px;
+    justify-content: space-evenly;
+    
+}
+
+/*--------------Module Card Designs---------------------------*/
+.moduleCard {
+    border: 2px solid;
+    border-radius: 10px;
+    padding: 10px;     
+}
+
+.moduleCard_Header {
+    min-height: 80px;
+    max-height: 100px;
+    align-content: center;
+}
+
+.moduleCard_Content-itemHeader {
+    margin: 0;
+}
+
+.moduleCard_Content-item {
+    margin-top: 0;
+}
+
+.expandModuleButton {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.expandModuleButton:hover {
+    background-color: rgb(236, 234, 234);
+}
+
+/*-----------------End of Module Card Designs------------------*/
+
+#modulesPage_Header {
+    margin-bottom: 20px;
+    display: flex;
+    flex-grow: 1;
+    justify-content: space-between;
+    padding-right: 50px;
+}
+
+#addModuleButton {
+    background-color: rgb(20, 20, 20);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    padding: 8px;
+}
+
+#addModuleButton:hover {
+    background-color: rgb(236, 234, 234);
+    color: black;
+}
+
+
+/*----------------------Expanded Module Information Overlay Styling-------------------*/
+.moduleInformationOverlay-divContainers {
+    display: flex;
+}
+
+#moduleInformationOverlay-Header {
+    flex-grow: 1;
+}
+
+#moduleInformationOverlay-lecturerInformation-Container {
+    width: 50%;
+    border-right: 1px solid grey;
+}
+
+#moduleInformationOverlay-lectureDays-Container { 
+    width: 50%; 
+    padding-left: 15px;
+}
+
+#moduleInformationOverlay-lectureDaysList {
+    list-style-type: none;
+    padding: 0;
+}
+
+.moduleInformationOverlay-assessmentItem {
+    display:flex; 
+    flex-direction: column; 
+    flex-grow: 1;
+}
+
+#moduleInformationOverlay-deleteButton-Container {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+/*----------------------Expanded Module Information Overlay Styling-------------------*/
+
+
+
+
+/*----------------------Module Add Overlay Styling-------------------*/
+.overlay {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    align-items: center;
+    justify-content: center;
+}
+
+
+.overlay_Content {
+    background: white;
+    border-radius: 10px;
+    padding: 50px;
+    text-align: left;
+    width: 60%;
+    max-height: 70%;
+    overflow-y: scroll;
+}
+
+.overlay_Content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.overlay_Content::-webkit-scrollbar-thumb {
+  background: rgb(75, 75, 75);
+  border-radius: 4px;
+}
+
+.overlay_Input {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#moduleLectureDaysInput {
+    display:flex;
+    flex-wrap: wrap;
+    height: 100px
+}
+
+
+#moduleOverlay-assessmentListContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.moduleOverlay-addedAssessmentsLists {
+    padding-left: 0; padding-right: 0;
+    max-width: 50%;
+    min-width: 50%;
+}
+
+.overlayActionButtons {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+#moduleOverlay-addLecturerDetailsButton {
+    background: rgb(223, 221, 221);
+    color: black;
+    text-align: center;
+}
+
+#moduleOverlay-addAssignmentButton {
+    background: rgb(223, 221, 221);
+    color: black;
+    text-align: center;
+}
+
+#moduleOverlay-addExamButton {
+    background: rgb(223, 221, 221);
+    color: black;
+    text-align: center;
+}
+
+/*----------------------End of Module Overlay Add Design Style---------------*/
+
+
+
+/*----------------------Lecturer Details Overlay Styling-----------------------*/
+
+#moduleLecturerDetailsOverlay_Content {
+    background: white;
+    border-radius: 10px;
+    padding: 50px;
+    text-align: left;
+    width: 35%;
+    max-height: 70%;
+    overflow-y: scroll;
+}
+
+/*----------------------Lecturer Details Overlay Styling-----------------------*/
+
+
+
+/*----------------------Assessment Overlay Styling-----------------------------*/
+.assessmentDetailsInput-Container {
+    display: flex;
+    flex-direction: column;
+}
+
+#assessmentDueDate_Input {
+    width: 40%;
+}
+
+#assessmentContribution_Input {
+    width: 40%;
+}
+
+#assessmentOverlay-addedAssessmentsList {
+    padding: 0;
+}
+
+.assessmentOverlay-AssessmentsList-Container {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    /*justify-content: stretch;*/
+}
+
+.assessmentOverlay-AssessmentItemContainer {
+    flex-grow: 1;
+}
+
+.assessmentOverlay-AssessmentItem-ActionButtons-Container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+
+}
+
+.assessmentOverlay-AssessmentItem-ActionButtons {
+    background: white;
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0px;
+}
+
+.assessmentOverlay-AssessmentItem-ActionButtons:hover {
+    background: rgb(236, 234, 234);
+}
+
+.edit-input-continaer{
+    display: flex;
+    flex-direction: column;
+}
+
+.detailsEditButton {
+    background: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 5px;
+}
+
+/*--------------End of Assessment Overlay Design Style----------*/
+
+
+
+/*----------------------------------------END OF MODULE PAGE SPECIFIC----------------------------------------*/
+
+/* Media Queries for Responsiveness */
+
+/*
+@media (max-width: 768px) {
+    .navigationButtons {
+        font-size: 1em;
+        padding: 10px;
+    }
+
+    #tasksPage {
+        padding: 5px;
+    }
+
+    .taskListWrapper {
+        width: 100%;
+    }
+
+    #tasksList {
+        padding: 20px;
+    }
+
+    #taskInputTitle {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .taskTitleContainer {
+        padding: 0px 8px;
+    }
+
+    .moduleCard {
+        padding: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navigationButtons {
+        font-size: 0.9em;
+        padding: 8px;
+    }
+
+    #tasksPage {
+        padding: 2px;
+    }
+
+    .taskListWrapper {
+        width: 100%;
+    }
+
+    #tasksList {
+        padding: 10px;
+    }
+
+    #taskInputTitle {
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+
+    .taskTitleContainer {
+        padding: 0px 4px;
+    }
+
+    .moduleCard {
+        padding: 2px;
+    }
+}
+    */
