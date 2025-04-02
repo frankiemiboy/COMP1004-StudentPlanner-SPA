@@ -260,11 +260,11 @@ function openModuleAddOverlay() {
                         <form id="moduleInputForm">
                             <div class="moduleDetails_Input-Container">
                                 <label for="moduleCode_Input">Module Code:</label>
-                                <input type="text" id="moduleCode_Input" class="overlay_Input" name="moduleCode" placeholder="Enter Module Code" required>
+                                <input type="text" id="moduleCode_Input" class="overlay_Input" name="moduleCode" placeholder="Enter Module Code" required autocomplete="off">
                                 <label for="moduleName_Input">Module Name:</label>
-                                <input type="text" id="moduleName_Input" class="overlay_Input" name="moduleName" placeholder="Enter Module Name">
+                                <input type="text" id="moduleName_Input" class="overlay_Input" name="moduleName" placeholder="Enter Module Name" autocomplete="off">
                                 <label for="moduleLectureDays_Input">Lecture Days:</label>
-                                <input type="text" id="moduleLectureDays_Input" class="overlay_Input" name="moduleLectureDays" placeholder="Enter Days on which Lectures are held">
+                                <input type="text" id="moduleLectureDays_Input" class="overlay_Input" name="moduleLectureDays" placeholder="Enter Days on which Lectures are held" autocomplete="off">
                             </div>
 
                             <div style="display: flex; gap: 10px;">
@@ -378,11 +378,11 @@ function openLecturerDetailsInputForm() {
                         <form id="moduleLecturerDetailsForm">
                             <div class="moduleDetails_Input-Container">
                                 <label for="moduleLecturerName_Input">Lecturer Name:</label>
-                                <input type="text" id="moduleLecturerName_Input" class="overlay_Input" name="moduleLecturerName_Input" placeholder="e.g. Dr. John Doe">
+                                <input type="text" id="moduleLecturerName_Input" class="overlay_Input" name="moduleLecturerName_Input" placeholder="e.g. Dr. John Doe" autocomplete="off">
                                 <label for="moduleLecturerEmail_Input">Lecturer Email:</label>
-                                <input type="text" id="moduleLecturerEmail_Input" class="overlay_Input" name="moduleLecturerEmail_Input" placeholder="e.g. name@example.com">
+                                <input type="text" id="moduleLecturerEmail_Input" class="overlay_Input" name="moduleLecturerEmail_Input" placeholder="e.g. name@example.com" autocomplete="off">
                                 <label for="moduleLecturerOffice_Input">Lecturer Office:</label>
-                                <input type="text" id="moduleLecturerOffice_Input" class="overlay_Input" name="moduleLecturerOffice_Input" placeholder="e.g. Room 100, Mary Newman Building">
+                                <input type="text" id="moduleLecturerOffice_Input" class="overlay_Input" name="moduleLecturerOffice_Input" placeholder="e.g. Room 100, Mary Newman Building" autocomplete="off">
                             </div>
                             <div style="display: flex; gap: 10px;">
                                 <button type="submit" id="moduleLecturerDetails-saveButton" class="overlayActionButtons overlay-saveButton">Save</button>
@@ -465,7 +465,7 @@ function openAssessmentInputForm(assessmentType) {
                         <form id="assessmentInputForm" >
                             <div class="assessmentDetailsInput-Container">                                
                                 <label for="assessmentName_Input">${assessmentType} Title:</label>
-                                <input type="text" id="assessmentName_Input" class="overlay_Input" name="assessmentName_Input" placeholder="Enter ${assessmentType} Title">
+                                <input type="text" id="assessmentName_Input" class="overlay_Input" name="assessmentName_Input" placeholder="Enter ${assessmentType} Title" autocomplete="off">
                                 <label for="assessmentDueDate_Input">Date:</label>
                                 <input type="date" id="assessmentDueDate_Input" class="overlay_Input" name="assessmentDueDate_Input">
                                 <label for="assessmentContribution_Input">Contribution:</label>
@@ -489,9 +489,9 @@ function openAssessmentInputForm(assessmentType) {
 
     if (edittingModule) {
         // Make the save button the submit button
-        const saveButton = document.getElementById("assessmentOverlay-saveAssessmentsButton");
-        saveButton.type = "submit";
-        document.getElementById("assessmentOverlay-addAssessmentButton").remove();
+        document.getElementById("assessmentOverlay-saveAssessmentsButton").remove();
+        const addButton = document.getElementById("assessmentOverlay-addAssessmentButton");
+        addButton.classList.add("overlay-saveButton");
     }
     // Add event listener to the add button
     const addAssessmentForm = document.getElementById("assessmentInputForm");
@@ -790,7 +790,6 @@ function saveModule() {
             assignment.assignmentID = assessmentID;
             assessmentID++;
             assignments.push(assignment);
-            pushAssignmentsToLocalStorage();
             newModule.numAssignments++;
         });
     }
@@ -800,13 +799,14 @@ function saveModule() {
             exam.examID = assessmentID;
             assessmentID++;
             exams.push(exam);
-            pushExamsToLocalStorage();
             newModule.numExams++;
         });
     }
 
     modules.push(newModule);
     pushModulesToLocalStorage();
+    pushAssignmentsToLocalStorage();
+    pushExamsToLocalStorage();
     pushAssessmentIDToLocalStorage();
     console.log(modules);
     displayModuleCards();
@@ -1030,7 +1030,7 @@ function addAssessmentToModule(assessmentType) {
         assignment.assignmentID = assessmentID;
         assessmentID++;
         assignments.push(assignment);
-        pushAssignmentsToLocalStorage();
+        pushAssessmentIDToLocalStorage();
         modules[currentModuleIndex].numAssignments++;
         displayAssessmentList(assessmentType, assignments.filter(assignment => assignment.moduleCode === currentModuleCode));
     }
@@ -1039,11 +1039,12 @@ function addAssessmentToModule(assessmentType) {
         exam.examID = assessmentID;
         assessmentID++;
         exams.push(exam);
-        pushExamsToLocalStorage();
+        pushAssessmentIDToLocalStorage();
         modules[currentModuleIndex].numExams++;
         displayAssessmentList(assessmentType, exams.filter(exam => exam.moduleCode === currentModuleCode));
     }
-    
+    pushAssignmentsToLocalStorage();
+    pushExamsToLocalStorage();
     // Clear the input fields
     assessmentForm.reset();
 }
