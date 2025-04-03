@@ -9,13 +9,19 @@
     <body>
         <div id="page-container"> <!--This is the container for the whole page-->
             <div>
-                <header>
-                    <h1>Student Planner</h1>
-                    <!--Buttons for navigation-->
-                    <button class="navigationButtons" data-page="tasksPage">Tasks</button> 
-                    <button class="navigationButtons" data-page="modulesPage">Modules</button>
-                    <hr>
+                <header style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="flex-grow: 1;">
+                        <h1>Student Planner</h1>
+                        <!--Buttons for navigation-->
+                        <button class="navigationButtons" data-page="tasksPage">Tasks</button> 
+                        <button class="navigationButtons" data-page="modulesPage">Modules</button>
+                        <button id="dataOptions-Button" type="button">Your Data</button>
+                    </div>
+                    <div>
+                        <img src="Images/StudentFavicon_Original.png" alt="Logo" id="logo" style="width: 100px; height: 100px; border-radius: 100%;">
+                    </div>
                 </header>
+                <hr>
                 <br>
 
                 <!-- Sections for each page -->
@@ -23,7 +29,7 @@
 <!-----------------------------Tasks Page----------------------------------------------->
 
                 <div id="tasksPage" class="section hidden">
-                    <h2 id="tasksPageID">Tasks</h2>
+                    <h2 id="tasksPageHeader">Your Tasks</h2>
                     <br>
                     
                     <div class="taskListWrapper">
@@ -62,6 +68,71 @@
 
 <!-----------------------------End of Modules Page----------------------------------------------->
 
+                <div id="dataOptionsOverlay-Container" class="overlay hidden">
+                    <div class="overlay_Content" id="dataOptions-Overlay_Content">
+                        <div id="dataOpetionsOverlay_Content-Header-Container">
+                            <h2 id="dataOptionsOverlay_Content-Header">Your Data</h2>
+                            <div id="dataOptionsPage">
+                                <button id="dataOptions-closeOverlayButton" class="overlayActionButtons plainButtons" type="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <hr>
+                        <div id="dataInformationSection">
+                            <h3>This section provides information regarding how your data is stored and processed:</h3>
+                            <p>
+                                The UK GDPR requires us to inform our users what data is collected, and how and why it is processed. 
+                                Users also have the right to request deletion of their data at any time. 
+                                If you wish to delete your data from the application, scroll down to the bottom of this tab and click the button "Clear Local Storage".
+                            </p>
+                            <b>
+                                Please note that there is no reversal to this process. 
+                                Once you have deleted your data, you would have to re-enter all your tasks and modules.
+                            </b>
+                            <br><br>
+
+                            <h4>What data is collected?</h4>
+                            <ul id="dataOptions-DataCollectedList">
+                                <li>Task names and details</li>
+                                <li>Module names and details</li>
+                                <li>Assignments and exams schedules</li>
+                            </ul>
+
+                            <h4>How and where is the data stored?</h4>
+                            <p>
+                                The data is stored in the local storage of your browser. 
+                                This means that the data is only accessible from the device and browser you used to enter it.
+                                The data is not sent to any server or third-party service, ensuring your privacy and security.
+                            </p>
+                            <b>
+                                Because the data is stored locally, we recommend that you avoid using this application on public or shared devices.
+                                If you do, please remember to clear your local storage after use. 
+                                We also recommend that you do not use this application on a private browsing session or in incognito mode, as the data may not be saved.
+                            </b>
+                            <br><br>
+
+                            <h4>How is the data process?</h4>
+                            <p>
+                                The data is processed locally in your browser using JavaScript. 
+                                This means that the data is not sent to any server or third-party service, ensuring your privacy and security.
+                                The data is used to display your tasks and modules, and to allow you to add, edit, and delete them.
+                                The data is also used to display your assignments and exams schedules, and to allow you to add, edit, and delete them.
+                            </p>
+                            <b>
+                                The data is not used for any other purpose, and is not shared with any third-party service.
+                                We do not collect any personal information from you, and we do not track your usage of the application.
+                                The data is only used to provide you with the functionality of the application, and to improve your experience.
+                            </b>
+                            <br><br>
+
+                            <div id="dataOptions-DeleteDataButton-Container">
+                                <button id="deleteDataButton" class="overlay-cancelButton" type="button">Clear Local Storage</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
 
         </div>

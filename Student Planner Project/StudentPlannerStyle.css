@@ -6,7 +6,7 @@
 
 
 
-.navigationButtons {
+.navigationButtons, #dataOptions-Button {
     background-color: white; 
     border: none; 
     border-radius: 4px; 
@@ -66,13 +66,14 @@
     margin-left: 10px; margin-right: 10px;
 }
 
-#tasksPageID {
-    font-size: 2em;
+#tasksPageHeader {
+    font-size: 1.5em;
+    align-self: flex-start;
 }
 
 .taskListWrapper {
-    width: 700px;
-    max-width: 100%;
+    min-width: 70%;
+    max-width: 90%;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -112,7 +113,6 @@
     background-color: white;
     border:none;
     cursor: pointer;
-    
 }
 
 .taskTitleContainer {
@@ -477,73 +477,40 @@ input[type="checkbox"]:checked ~ .taskTitle {
 /*--------------End of Assessment Overlay Design Style----------*/
 
 
-
 /*----------------------------------------END OF MODULE PAGE SPECIFIC----------------------------------------*/
 
-/* Media Queries for Responsiveness */
 
-/*
-@media (max-width: 768px) {
-    .navigationButtons {
-        font-size: 1em;
-        padding: 10px;
-    }
 
-    #tasksPage {
-        padding: 5px;
-    }
-
-    .taskListWrapper {
-        width: 100%;
-    }
-
-    #tasksList {
-        padding: 20px;
-    }
-
-    #taskInputTitle {
-        margin-left: 5px;
-        margin-right: 5px;
-    }
-
-    .taskTitleContainer {
-        padding: 0px 8px;
-    }
-
-    .moduleCard {
-        padding: 5px;
-    }
+/*----------------------------------------USER DATA DECLARATION PAGE----------------------------------------*/
+#dataOptions-Overlay_Content {
+    padding-top: 20px; 
+    min-height: 50%; 
 }
 
-@media (max-width: 480px) {
-    .navigationButtons {
-        font-size: 0.9em;
-        padding: 8px;
-    }
-
-    #tasksPage {
-        padding: 2px;
-    }
-
-    .taskListWrapper {
-        width: 100%;
-    }
-
-    #tasksList {
-        padding: 10px;
-    }
-
-    #taskInputTitle {
-        margin-left: 2px;
-        margin-right: 2px;
-    }
-
-    .taskTitleContainer {
-        padding: 0px 4px;
-    }
-
-    .moduleCard {
-        padding: 2px;
-    }
+#dataOpetionsOverlay_Content-Header-Container {
+    display: flex; 
+    align-items: center;
 }
-    */
+
+#dataOptionsOverlay_Content-Header {
+    flex-grow: 1;
+}
+
+#dataOptions-DeleteDataButton-Container {
+    display: flex; 
+    justify-content: right; 
+    align-items: center;
+}
+
+#deleteDataButton {
+    padding: 10px; 
+    border: none; 
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+#dataOptions-DataCollectedList {
+    padding-left: 20px;
+}
+
+/*----------------------------------------END OF USER DATA DECLARATION PAGE----------------------------------------*/

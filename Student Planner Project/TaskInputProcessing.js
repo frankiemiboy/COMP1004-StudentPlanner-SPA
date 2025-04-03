@@ -29,7 +29,7 @@ class Task {
     constructor(title, taskID, status) {
         this.title = title;
         this.taskID = taskID;
-        this.status = status; // Status can be "incomplete" or "complete"
+        this.status = status;
     }
 
 }
@@ -43,14 +43,13 @@ initialiseFormHandler(); // Initialise the form handler
 function initialiseFormHandler() {
     const taskForm = document.getElementById('taskInputForm');
     taskForm.addEventListener('submit', (event) => {
-        event.preventDefault(); // Prevent page refresh
+        event.preventDefault();
         const taskTitle = document.getElementById('taskInputTitle').value;
         if (taskTitle.trim() === '') {
-            //alert("Task title cannot be empty.");
             return;
         }
         createTask(taskTitle, taskID);
-        taskForm.reset(); // Clear the form after submission
+        taskForm.reset();
         console.log(tasks);
         console.log(tasks.length);
     });
@@ -59,10 +58,10 @@ function initialiseFormHandler() {
 function createTask(title, ID) {
     const newTask = new Task(title, ID, false);
     tasks.push(newTask);
-    refreshTaskList(); // Refresh the task list to show the new task
+    refreshTaskList();
     taskID++;
     localStorage.setItem('taskID', taskID);
-    pushTasksToLocalStorage(); // Push the updated task list to local storage
+    pushTasksToLocalStorage();
 }
 
 function refreshTaskList() {
@@ -244,10 +243,6 @@ loadAssessmentIDFromLocalStorage();
 displayModuleCards(); // Display the module cards on page load
 
 
-// Test data
-
-
-
 // ------------Navigating around the module page---------//
 // Function to open the module add overlay
 function openModuleAddOverlay() {
@@ -306,6 +301,7 @@ function openModuleAddOverlay() {
     }
     cancelButton.addEventListener("click", () => {
         if (edittingModule) {
+            // Exit editing mode
             edittingModule = false;
             edittingLecturer = false;
             currentModuleCode = "";
@@ -553,8 +549,6 @@ function openAssessmentInputForm(assessmentType) {
 
 function closeAssessmentInputForm() {
     document.getElementById("assessmentOverlay").remove();
-    
-
 }
 
 // Function to transfer temporary assessments to the module input form
@@ -607,7 +601,6 @@ function displayModuleInformation(moduleID) {
     const lecturerName = module.lecturerName;
     const lecturerEmail = module.lecturerEmail;
     const lecturerOffice = module.lecturerOffice;
-
 
     // Fetch the assignments and exams for the module
     const moduleAssignments = assignments.filter(assignment => assignment.moduleCode === moduleCode);
@@ -820,7 +813,7 @@ function deleteModule(moduleCode) {
         return;
     }
     deleteAllModuleAssessments(moduleCode);
-    const removedModule = modules.splice(moduleIndex, 1);
+    modules.splice(moduleIndex, 1);
     pushModulesToLocalStorage();
 }
 
@@ -828,14 +821,14 @@ function deleteModule(moduleCode) {
 function deleteAllModuleAssessments(moduleCode) {
     for (let i = assignments.length - 1; i >= 0; i--) {
         if (assignments[i].moduleCode === moduleCode) {
-            const removedAssignment = assignments.splice(i, 1);
+            assignments.splice(i, 1);
         }
     }
     pushAssignmentsToLocalStorage();
 
     for (let i = exams.length - 1; i >= 0; i--) {
         if (exams[i].moduleCode === moduleCode) {
-            const removedExam = exams.splice(i, 1);
+            exams.splice(i, 1);
         }
     }
     pushExamsToLocalStorage();
@@ -846,8 +839,6 @@ function deleteAllModuleAssessments(moduleCode) {
 // Function to edit module information
 
 function editModuleInformation(moduleCode) {
-
-    // Update the module details 
     // Show the module add overlay
     edittingModule = true;
     unsavedLecturerDataPresent = true;
@@ -896,7 +887,6 @@ function updateModule() {
 }
 
 // Function to edit lecturer details
-
 function editLecturerDetails() {
     console.log("Edit button clicked");
     unsavedLecturerDataPresent = true;
@@ -1045,8 +1035,8 @@ function addAssessmentToModule(assessmentType) {
     }
     pushAssignmentsToLocalStorage();
     pushExamsToLocalStorage();
-    // Clear the input fields
-    assessmentForm.reset();
+    
+    assessmentForm.reset(); // Clear the input fields
 }
 
 // Function to format the temporary assignments list and display them on the assignment form
@@ -1060,7 +1050,6 @@ function displayAssessmentList(assessmentType, assessmentList) {
             return;
         }
         assessmentList.forEach(assignment => {
-            //Format the date DD/MM/YYYY
             let formattedDate = "";
             if (assignment.dueDate.trim() !== "") {
                 const dateObject = new Date(assignment.dueDate);
@@ -1102,11 +1091,9 @@ function displayAssessmentList(assessmentType, assessmentList) {
                 return;
             }
         assessmentList.forEach(exam => {
-            //Format the date DD/MM/YYYY
             let formattedDate = "";
             if (exam.dueDate.trim() !== "") {
                 const dateObject = new Date(exam.dueDate);
-                //const formattedDate = `${dateObject.getDate()}/${dateObject.getMonth() + 1}/${dateObject.getFullYear()}`;
                 formattedDate = dateObject.toLocaleDateString();
             }
             const tempExamElement = document.createElement("div");
@@ -1196,7 +1183,7 @@ function loadModulesFromLocalStorage() {
             numExams: parseInt(module.numExams, 10)
         }));
     } else {
-        modules = []; // Default value if not found in local storage
+        modules = []; // Reset if not found in local storage
     }
 }
 
@@ -1212,7 +1199,7 @@ function loadAssignmentsFromLocalStorage() {
             assignmentID: parseInt(assignment.assessmentID)
         }));
     } else {
-        assignments = []; // Default value if not found in local storage
+        assignments = [];
     }
 }
 
@@ -1228,8 +1215,45 @@ function loadExamsFromLocalStorage() {
             examID: parseInt(exam.assessmentID)
         }));
     } else {
-        exams = []; // Default value if not found in local storage
+        exams = [];
     }
 }
 
+// Event listener to show Data Information Overlay
+const dataInfoButton = document.getElementById("dataOptions-Button");
+dataInfoButton.addEventListener("click", () => {
+    const dataInfoOverlay = document.getElementById("dataOptionsOverlay-Container");
+    dataInfoOverlay.classList.toggle("hidden");
+});
 
+// Event listener to close Data Information Overlay
+const closeDataInfoButton = document.getElementById("dataOptions-closeOverlayButton");
+closeDataInfoButton.addEventListener("click", () => {
+    const dataInfoOverlay = document.getElementById("dataOptionsOverlay-Container");
+    dataInfoOverlay.classList.toggle("hidden");
+});
+
+// Event listener to clear all data from local storage
+const clearDataButton = document.getElementById("deleteDataButton");
+clearDataButton.addEventListener("click", () => {
+    const confirmation = confirm("Are you sure you want to clear all data? This action cannot be undone.");
+    if (confirmation) {
+        clearLocalStorage();
+    }
+});
+
+    
+// Function to clear all data from local storage
+function clearLocalStorage() {
+    localStorage.clear();
+
+    // Reset all variables to their initial state
+    modules = [];
+    assignments = [];
+    exams = [];
+    taskID = 0;
+    assessmentID = 0;
+
+    location.reload(); // Reload the page
+    alert("All data has been cleared from local storage."); // Inform user that data has been cleared
+}
