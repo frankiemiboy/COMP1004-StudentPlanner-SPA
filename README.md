@@ -6,6 +6,7 @@ Before using this application, I encourage you to take the time to read the 'Per
 
 If you do not agree with the terms outlined on the statement, you can decline and immediately discontinue use. The application also includes some implementations that clear the localStorage of any data you would've have entered, should you revoke consent for the application to process and store your data locally. If you would like to delete your data, click "Your Tab" in the navigation bar of the application. After reading the document presented to you, you will find the delete button at the bottom. The deletes all your data from the localStorage, effectively resetting the application. Almost like you are new to the new application.
 
+<br>
 <h2>Project Vision: What is it?</h2>
 
 The student planner can simply be described as a To-Do list with additional features. These additional features include a Module page where you can list down your module information. As the name and features suggest, the target audience for this app is students.
@@ -18,13 +19,13 @@ The modules page has a very simple design, inspired by the UCAS platform. Each m
 
 But you do not have to expand the modules cards just to see which assignment is due next. For this, you can click on the assessments page in the navigation bar. The assessments page displays all your assessments, exams and assignments in ranking by due date. The closest deadline, first, going down to the one with the furthest deadline.. You can also add some assessments from here too, you just have to supply the module code to go through with the action. This improves the user experience, because it means less navigation and more organising.
 
-
+<br>
 <h3><ins>Why I chose this as my project?</ins></h3>
 Learning how to do something requires challenging obstacles. With no prior experience using web development tools, the student planner was a great opportunity to expand my skillset. It provided both a challenge, as well as a chance to make something that can be used in the real world. The idea was born from the casual conversations I had with some friends across different universities. They pointed out that one of the challenges they face is having an application that helps them keep their student life organised. They had to use multiple apps to get it organised. So why not create one app, with the aim of reducing the number of apps needed to stay organised into just one. 
 
 While my application is not meant to fully replace the other fully established apps (e.g. Notiong, and even Google Calendar - never underestimate the power of a calendar) used across the world in the productivity cactegory, it is starting point. So I can say I am proud of what I came up with.
 
-
+<br>
 <h3><ins>How did I do it?</ins></h3>
 For this project, we were only permitted to use the following tools:
 
@@ -38,7 +39,7 @@ For any successful project, the planning and improvisation must be well off. To 
 
 Every 2 weeks, I would work on a achieving a goal for this project, then I would discuss my work with staff members from my module. And if they had any feedback, I would take it and that is how I learnt most of the stuff. For more information on the Agile Methodology, particularly Scrum, the one I used, check out [Srcum.org](https://www.scrum.org/resources/scrum-guide). 
 
-
+<br>
 <h3><ins>What were the requirements of the project?</ins></h3>
 I will keep it short...
 
@@ -49,7 +50,7 @@ I will keep it short...
 5. You should be able to edit the contents of that module or delete the module and its associated contents. :x: (You can edit most of the module contents, but you cannot edit the assessments <sup>[1]</sup>)
 6. This information should be stored somewhere, and be loaded everytime the user starts or opens the web application. :white_check_mark: (Information is stored in the localStorage of your web browser. But this can always be improved in future repository updates).
 
-
+<br>
 <h4><ins>References</ins></h4>
 <ul>
   <li>Coding2Go - YouTube Channel (https://www.youtube.com/@coding2go)</li>
