@@ -38,7 +38,7 @@
                         </ul>
                         
                         <form id="taskInputForm">
-                            <input type="text" id="taskInputTitle" placeholder="Enter task">
+                            <input type="text" id="taskInputTitle" placeholder="Enter task" autocomplete="off">
                             <button type="submit" id="addTaskButton">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg>
                             </button>
@@ -70,8 +70,8 @@
 
                 <div id="dataOptionsOverlay-Container" class="overlay hidden">
                     <div class="overlay_Content" id="dataOptions-Overlay_Content">
-                        <div id="dataOpetionsOverlay_Content-Header-Container">
-                            <h2 id="dataOptionsOverlay_Content-Header">Your Data</h2>
+                        <div id="dataOptionsOverlay_Content-Header-Container" class="dataDeclarationOverlay_Content-Header-Container">
+                            <h2 id="dataOptionsOverlay_Content-Header" class="dataDeclarationOverlay_Content-Header">Your Data</h2>
                             <div id="dataOptionsPage">
                                 <button id="dataOptions-closeOverlayButton" class="overlayActionButtons plainButtons" type="button">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
@@ -93,7 +93,7 @@
                             <br><br>
 
                             <h4>What data is collected?</h4>
-                            <ul id="dataOptions-DataCollectedList">
+                            <ul class="dataDeclaration-Lists">
                                 <li>Task names and details</li>
                                 <li>Module names and details</li>
                                 <li>Assignments and exams schedules</li>
@@ -112,7 +112,7 @@
                             </b>
                             <br><br>
 
-                            <h4>How is the data process?</h4>
+                            <h4>How is the data processed?</h4>
                             <p>
                                 The data is processed locally in your browser using JavaScript. 
                                 This means that the data is not sent to any server or third-party service, ensuring your privacy and security.
@@ -124,17 +124,142 @@
                                 We do not collect any personal information from you, and we do not track your usage of the application.
                                 The data is only used to provide you with the functionality of the application, and to improve your experience.
                             </b>
+                            <p>If you would like to review the Privacy Policy and Terms and Conditions, click <u id="dataOptions-privacyPolicyButton" style="cursor: pointer;">here</u></p>
                             <br><br>
 
                             <div id="dataOptions-DeleteDataButton-Container">
                                 <button id="deleteDataButton" class="overlay-cancelButton" type="button">Clear Local Storage</button>
                             </div>
                         </div>
+                    </div>                    
+                </div>
+<!-------------------------------- End of Data Options Overlay ---------------------------------->
+
+
+<!-------------------------------- Privacy Policy Overlay----------------------------------------->
+
+                <div id="privacyPolicyOverlay-Container" class="overlay hidden">
+                    <div id="privacyPolicyOverlay_Content" class="overlay_Content">
+                        <div class="dataDeclarationOverlay_Content-Header-Container">
+                            <h2 id="privacyPolicyOverlay_Content-Header" class="dataDeclarationOverlay_Content-Header">Privacy Policy and Terms & Conditions</h2>
+                        </div>
+                        <hr>
+                        <p><b>Last Updated: 03 April, 2025</b></p>
+                        <div id="privacyPolicyOverlay_Content-Text-Container">
+                            <h3>
+                                Privacy Policy for Student Planner Application
+                            </h3>
+                            <h4>1. Introduction</h4>
+                            <p>
+                                This Student Planner application is designed to help users manage their academic tasks and schedule. 
+                                We value your privacy and are committed to protecting your data. 
+                                This policy explains what data is collected, how it is stored, and how you can manage your information.
+                            </p>
+
+                            <h4>2. What Data is Collected</h4>
+                            <p>
+                                This application only stores data locally on your device using the browser's local storage. 
+                                The data includes:
+                            </p>
+                            <ul class="dataDeclaration-Lists">
+                                <li>Task names and details</li>
+                                <li>Module names and details</li>
+                                <li>Assignments and exams schedules</li>
+                            </ul>
+                            <p>No data is sent to external servers, and we do not collect or share any personal information</p>
+
+                            <h4>3. How your Data is Stored</h4>
+                            <p>
+                                Your data is stored in your web browser's local storage. This means:
+                            </p>
+                            <ul class="dataDeclaration-Lists">
+                                <li>Data is only accessible on the same device and browser.</li>
+                                <li>If you clear your browser data, your saved information will be lost.</li>
+                                <li>Data is not encrypted, so it is recommended to use this application on personal devices only.</li>
+                            </ul>
+
+                            <h4>4. How You Can Manage Your Data</h4>
+                            <ul class="dataDeclaration-Lists">
+                                <li>You can edit or delete your stored information within the app.</li>
+                                <li>You may clear all data by using the provided reset option in the settings.</li>
+                                <li>If you need to back up your data, consider exporting and storing it separately.</li>
+                            </ul>
+
+                            <h4>5. Security Precautions</h4>
+                            <ul class="dataDeclaration-Lists">
+                                <li>Since local storage is accessible by the browser, other users on the same device may be able to view your data.</li>
+                                <li>We recommend using this application on personal devices and not on public or shared computers.</li>
+                                <li>If future updates introduce online storage, additional security measures (such as encryption and user authentication) will be implemented.</li>
+                            </ul>
+
+                            <h4>6. Changes to this Privacy Policy</h4>
+                            <p>
+                                The policy may be updated if new features are added or if there are changes in data handling practices. 
+                                Any changes will be posted on this github page with an updated effective date. 
+                                It is encouraged to review this policy periodically to stay informed about how your data is protected.
+                            </p>
+                            <br>
+
+                            <h3>Terms & Conditions for Using the Student Planner</h3>
+                            <h4>1. Acceptance of Terms</h4>
+                            <p>
+                                By clicking "Accept" or using this Student Planner, you agree to the following terms and conditions. 
+                                If you do not agree, please click "Decline" and discontinue use of the application. 
+                                If you are viewing these terms but have already used the application, you can still decline these terms. 
+                                <b>Please note that clicking "Decline" will delete any previously stored data, if had saved any.</b>
+                                If you are under the age of 18, you must have parental or guardian consent to use this application.
+                            </p>
+
+                            <h4>2. Intended Use</h4>
+                            <p>
+                                This application is intended for personal use to help users manage their academic tasks and schedules. 
+                                It is not intended for:
+                            </p>
+                            <ul class="dataDeclaration-Lists">
+                                <li>Commercial use.</li>
+                                <li>Falsifying academic records.</li>
+                                <li>Malicious purposes, such as attempting to hack or modify the application's functionality beyond intended use.</li>
+                                <li>Use in a manner that violates any applicable laws or regulations.</li>
+                            </ul>
+
+                            <h4>3. No Warranties & Liability Disclaimer</h4>
+                            <p>
+                                This Student Planner is provided "as is," without any guarantees of accuracy, reliability, or availability. 
+                                The developer is not responsible for:
+                            </p>
+                            <ul class="dataDeclaration-Lists">
+                                <li>Any loss of data or functionality due to browser settings, accidental deletions, or system failures.</li>
+                                <li>Any damages arising from the use or inability to use the application.</li>
+                                <li>Any third-party claims related to your use of the application.</li>
+                                <li>Any issues arising from the use of the application on public or shared devices.</li>
+                                <li>Any impact on academic performance due to reliance on this planner</li>
+                            </ul>
+
+                            <h4>4. Changes to Terms of Use</h4>
+                            <p>
+                                The developer reserves the right to modify these terms at any time. 
+                                Any changes will be posted on the github page, provided below, with an updated effective date. 
+                                Continued use of the application after changes are made constitutes acceptance of the new terms.
+                            </p>
+
+                            <p>To visit the Developer's GitHub Page, click <a href="https://github.com/frankiemiboy/COMP1004-StudentPlanner-SPA" target="_blank">here</a></p>
+                            <br>
+                            <hr>
+                            <p>
+                                If you agree with the Privacy Policy and the Term & Conditions, click "Accept". 
+                                Otherwise, please immediately discontinue the use of this application, or if you were already using it, follow the instructions outlined in
+                                Section 1 (Acceptance of Terms) to decline the terms.
+                            </p>
+                        </div>
+                        <div>
+                            <button id="privacyPolicy-acceptButton" class="overlayActionButtons overlay-saveButton" type="button">Accept</button>
+                            <button id="privacyPolicy-declineButton" class="overlayActionButtons overlay-cancelButton" type="button">Decline</button>
+                        </div>
                     </div>
-                    
                 </div>
             </div>
 
+            
         </div>
         <script src="TaskInputProcessing.js"></script>
     </body>

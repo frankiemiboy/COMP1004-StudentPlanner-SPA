@@ -487,12 +487,12 @@ input[type="checkbox"]:checked ~ .taskTitle {
     min-height: 50%; 
 }
 
-#dataOpetionsOverlay_Content-Header-Container {
+.dataDeclarationOverlay_Content-Header-Container {
     display: flex; 
     align-items: center;
 }
 
-#dataOptionsOverlay_Content-Header {
+.dataDeclarationOverlay_Content-Header {
     flex-grow: 1;
 }
 
@@ -509,7 +509,8 @@ input[type="checkbox"]:checked ~ .taskTitle {
     cursor: pointer;
 }
 
-#dataOptions-DataCollectedList {
+.dataDeclaration-Lists {
+    list-style-type: disc;
     padding-left: 20px;
 }
 

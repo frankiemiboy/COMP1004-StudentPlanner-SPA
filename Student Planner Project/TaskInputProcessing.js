@@ -1219,20 +1219,6 @@ function loadExamsFromLocalStorage() {
     }
 }
 
-// Event listener to show Data Information Overlay
-const dataInfoButton = document.getElementById("dataOptions-Button");
-dataInfoButton.addEventListener("click", () => {
-    const dataInfoOverlay = document.getElementById("dataOptionsOverlay-Container");
-    dataInfoOverlay.classList.toggle("hidden");
-});
-
-// Event listener to close Data Information Overlay
-const closeDataInfoButton = document.getElementById("dataOptions-closeOverlayButton");
-closeDataInfoButton.addEventListener("click", () => {
-    const dataInfoOverlay = document.getElementById("dataOptionsOverlay-Container");
-    dataInfoOverlay.classList.toggle("hidden");
-});
-
 // Event listener to clear all data from local storage
 const clearDataButton = document.getElementById("deleteDataButton");
 clearDataButton.addEventListener("click", () => {
@@ -1257,3 +1243,70 @@ function clearLocalStorage() {
     location.reload(); // Reload the page
     alert("All data has been cleared from local storage."); // Inform user that data has been cleared
 }
+
+/*----------------------------- User Privacy Policy and Terms & Conditions ----------------------*/
+// Check whether the user has accepted the privacy policy before
+window.addEventListener('DOMContentLoaded', () => {
+    console.log("Checking privacy policy acceptance status...");
+    if (localStorage.getItem('privacyPolicyAccepted') !== "true") {
+        console.log("Privacy policy not accepted. Showing privacy policy overlay.");
+        showPrivacyPolicy();
+    }
+});
+
+// Function to show privacy policy
+function showPrivacyPolicy() {
+    const privacyPolicyOverlay = document.getElementById("privacyPolicyOverlay-Container");
+    privacyPolicyOverlay.classList.toggle("hidden");
+}
+
+// Event listener to close privacy policy overlay
+/*
+const closePrivacyPolicyButton = document.getElementById("privacyPolicy-closeOverlayButton");
+closePrivacyPolicyButton.addEventListener("click", () => {
+    const privacyPolicyOverlay = document.getElementById("privacyPolicyOverlay-Container");
+    localStorage.setItem("privacyPolicyAccepted", "true");
+    privacyPolicyOverlay.classList.toggle("hidden");
+});
+*/
+
+// Event listener to Accept privacy policy
+const acceptPrivacyPolicyButton = document.getElementById("privacyPolicy-acceptButton");
+acceptPrivacyPolicyButton.addEventListener("click", () => {
+    const privacyPolicyOverlay = document.getElementById("privacyPolicyOverlay-Container");
+    localStorage.setItem("privacyPolicyAccepted", "true");
+    privacyPolicyOverlay.classList.toggle("hidden");
+});
+
+// Event listen for Declining privacy policy
+const declinePrivacyPolicyButton = document.getElementById("privacyPolicy-declineButton");
+declinePrivacyPolicyButton.addEventListener("click", () => {
+    localStorage.clear();
+    alert("You have declined the privacy policy. Any existing data has been cleared from local storage.");
+    const applicationContainer = document.getElementById("page-container");
+    applicationContainer.innerHTML = "";
+    applicationContainer.innerHTML = `<h2 id="privacyPolicy-declineMessage">If you change your mind, Refresh/Reload the page, or simply close and reopen the application, then "Agree" to the Terms & Conditions</h2>`;
+});
+
+// Event listener to show Data Information Overlay
+const dataInfoButton = document.getElementById("dataOptions-Button");
+dataInfoButton.addEventListener("click", () => {
+    const dataInfoOverlay = document.getElementById("dataOptionsOverlay-Container");
+    dataInfoOverlay.classList.toggle("hidden");
+});
+
+// Event listener to move from Data Information Overlay to Privacy Policy
+const privacyPolicyButton = document.getElementById("dataOptions-privacyPolicyButton");
+privacyPolicyButton.addEventListener("click", () => {
+    const dataInfoOverlay = document.getElementById("dataOptionsOverlay-Container");
+    dataInfoOverlay.classList.toggle("hidden");
+    showPrivacyPolicy();
+});
+
+// Event listener to close Data Information Overlay
+const closeDataInfoButton = document.getElementById("dataOptions-closeOverlayButton");
+closeDataInfoButton.addEventListener("click", () => {
+    const dataInfoOverlay = document.getElementById("dataOptionsOverlay-Container");
+    dataInfoOverlay.classList.toggle("hidden");
+});
+
